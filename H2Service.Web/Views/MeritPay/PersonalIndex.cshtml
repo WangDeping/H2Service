@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "PersonalIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section subheader_title{
+    工资与绩效
+}
+
+<div class=" row">
+    <div class="col-lg-6">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            绩效工资上传历史
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        
+                <div class="m-portlet__body">
+                    <div class="m-form__section m-form__section--first">
+                        <table class="bootstrap-table" id="periods_grid" data-url='@Url.Action("GetMeritPayPeriodsGrid")'
+                               data-side-pagination="server" data-page-list="[10]" data-pagination="true"
+                               data-id-field="Id" data-unique-id="Id"  data-single-select="true" data-striped="true">
+                            <thead>
+                                <tr> 
+                                    <th data-checkbox="true"></th>
+                                    <th data-field="Id" data-align="center">序号</th>
+                                    <th data-field="Period" data-align="center">绩效区间</th>
+                                    <th data-field="CreationTime" data-align="center">上传时间</th>
+                                    <th data-field="CreatorName" data-align="center">上传人</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+           
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            绩效工资明细查看
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <!--<form class="m-form m-form--fit">-->
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first" id="DetailContainer">
+
+                    @{Html.RenderAction("PersonalDetail");}
+
+                </div>
+            </div>
+
+            <!--</form>-->
+            <!--end::Form-->
+        </div>
+    </div>
+</div>  
+<script>
+    $('#periods_grid').bootstrapTable({
+
+        queryParams: function (params) {
+            return {
+                MaxResultCount: params.limit,
+                PageNumber: params.offset
+            }
+        }, onCheck: function (row, arg) {
+            $('#DetailContainer').load("/MeritPay/PersonalDetail/" + row.Id)
+        }
+
+    })
+
+    abp.services.merit.personalDetails({
+        periodId: 3
+    }).done(function (data) {
+        console.error(data)
+    });
+</script>      

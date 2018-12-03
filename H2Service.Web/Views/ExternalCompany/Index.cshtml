@@ -1,0 +1,464 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+    外部单位/人员管理
+}
+<div class=" row">
+    <div class="col-lg-4">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            外来单位
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__body">
+                <div class="form-group m-form__group">
+                    <input type="button" value="创建单位" class="btn btn-primary" onclick="createCompany()" />
+                </div>
+                <table class="bootstrap-table" id="companies_grid" data-url='@Url.Action("CompaniesGrid")'
+                       data-side-pagination="server" data-page-list="[10]" data-pagination="true"
+                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true" data-row-style="rowStyle">
+                    <thead>
+                        <tr>
+                            <th data-field="CompanyName" data-align="center">名称</th>
+                            <th data-field="Aspect" data-align="center">合作领域</th>
+                            <th data-field="Id" data-formatter="actionFormatter" data-align="center">操作</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            外部人员
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+
+                <table class="bootstrap-table" id="users_grid"
+                       data-side-pagination="server" data-page-list="[10]" data-pagination="true" data-url='@Url.Action("UsersGrid")'
+                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true" data-row-style="rowStyle">
+                    <thead>
+                        <tr>
+                            <th data-field="Id" data-align="center">Id</th>
+                            <th data-field="UserName" data-align="center">姓名</th>
+                            <th data-field="Gender" data-align="center">性别</th>
+                            <th data-field="TelPhone" data-align="center">手机号</th>
+                            <th data-field="ExternalCompanyName" data-align="center">单位</th>
+                            <th data-field="Id" data-formatter="actionFormatter2" data-align="center">操作</th>
+                        </tr>
+                    </thead>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--CompanyModal-->
+    <div class="modal fade" id="companyModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        外部单位信息维护
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <form class="m-form m-form--fit m-form--label-align-right" id="companyForm">
+                    <div class="m-portlet__body">
+                        <div class="modal-body align-content-center">
+
+                            <div class="form-group">
+                                <label for="RoleName" class="form-control-label">
+                                    单位名称:
+                                </label>
+                                <input type="text" class="form-control" id="CompanyName" required>
+                                <input type="hidden" id="CompanyId" />
+                            </div>
+                            <div class="form-group">
+                                <label for="RoleName" class="form-control-label">
+                                    合作领域:
+                                </label>
+                                @Html.Action("ExternalCompanyAspects")
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                保存
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--CompanyModal-->
+    <!--UserModal-->
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        外部人员信息维护
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <form class="m-form m-form--fit m-form--label-align-right" id="userForm">
+                    <div class="m-portlet__body">
+                        <div class="modal-body align-content-center">
+                            <div class="form-group">
+                                <label for="RoleName" class="form-control-label">
+                                    姓名:
+                                </label>
+                                <input type="text" class="form-control" id="UserName" required>
+                                <input type="hidden" id="UserId" />
+                            </div>
+                            <div class="form-group">
+                                <label for="IDNumber" class="form-control-label">
+                                    身份证号码:
+                                </label>
+                                <input type="text" class="form-control" id="IDNumber" required>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="TelPhone" class="form-control-label">
+                                    联系方式:
+                                </label>
+                                <input type="text" class="form-control" id="TelPhone" required>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="Gender" class="form-control-label">
+                                    性别:
+                                </label>
+                                <div class="m-radio-inline ">
+                                    <label class="m-radio m-radio--solid m-radio--state-brand">
+                                        <input type="radio" name="Gender" value="UnKnown" checked>
+                                        未知
+                                        <span></span>
+                                    </label>
+                                    <label class="m-radio m-radio--solid m-radio--state-brand">
+                                        <input type="radio" name="Gender" value="Male">
+                                        男
+                                        <span></span>
+                                    </label>
+                                    <label class="m-radio m-radio--solid m-radio--state-brand">
+                                        <input type="radio" name="Gender" value="Female">
+                                        女
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                保存
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--UserModal-->
+    <!--Barcode-->
+    <div class="modal fade" id="barcodeModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document" style="width:350px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        人员唯一识别Code
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body align-content-center">
+                    <img id="barcodeImg" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Barcode-->
+    <!--Avatar-->
+    <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document" style="width:350px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        电子照片
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body align-content-center">
+                    <img  id="AvatarImg" src="" />
+                    <div class="m-dropzone dropzone  m-dropzone--success" id="m-dropzone">
+                        <div class="m-dropzone__msg dz-message needsclick">
+                            <h3 class="m-dropzone__msg-title">
+                                点击或者拖拽图片
+                            </h3>
+                            <span class="m-dropzone__msg-desc">
+                                仅支持JPG,JPEG,PNG格式
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Avatar-->
+</div>
+
+<script>
+    Dropzone.autoDiscover = false;
+    $('#companies_grid,#users_grid').bootstrapTable({
+        queryParams: function (params) {
+            return {
+                MaxResultCount: params.limit,
+                PageNumber: (params.offset / params.limit)
+            }
+        }
+    })
+    $('#companies_grid').on('click-row.bs.table', function (e, row, element) {
+        $('#CompanyId').val(row.Id)
+        $('#users_grid').bootstrapTable('refresh', {
+            url: '/ExternalCompany/UsersGrid',
+            query: {
+                ExternalCompanyId: row.Id
+            }
+        })
+
+    });
+    function actionFormatter(value, row, index) {
+        return '\
+						<a href="#" onclick=\'editCompany("' + value + '")\'  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="修改信息">\
+							<i class="la la-edit"></i>\
+						</a>\
+                        <a href="#" onclick=\'addUser("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="添加人员">\
+							            <i class="la la-user-plus"></i>\
+						</a>\
+        ';
+    }
+    function actionFormatter2(value, row, index) {
+        return '\
+						<a href="#" onclick=\'editUser("' + value + '")\'  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="修改用户">\
+							<i class="la la-edit"></i>\
+						</a>\
+                        <a href="#" onclick=\'showBarcode("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="查看条码">\
+							            <i class="la la-barcode"></i>\
+						</a>\
+                        <a href="#" onclick=\'showAvatar("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="上传头像">\
+							            <i class="la la-photo"></i>\
+						</a>\
+						<a href="#"  onclick=\'removeUser("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="删除">\
+							<i class="la la-trash"></i>\
+						</a>\
+        ';
+    }
+    function createCompany() {
+        $('#companyForm').resetForm();
+        $('#CompanyId').val(0)
+        $('#companyModal').modal('show');
+
+    }
+    function editCompany(Id) {
+        $('#companyForm').resetForm();
+        $('#CompanyId').val(Id)
+        $.post('/ExternalCompany/GetCompany', { Id: Id }, function (data) {
+            $('#CompanyName').val(data.CompanyName)
+            $("[name='Aspects']").selectpicker('val', data.Aspect)
+        })
+        $('#companyModal').modal('show');
+    }
+    $('#companyForm').submit(function (e) {
+        e.preventDefault();
+        abp.ajax({
+            url: '/ExternalCompany/AddOrUpdateCompany',
+            data: JSON.stringify({
+                'Id': $('#CompanyId').val(),
+                'CompanyName': $('#CompanyName').val(),
+                "Aspect": $("[name='Aspects']").val()
+            })
+        }).done(function (data) {
+            abp.notify.success(data.message);
+            $('#companyModal').modal('hide');
+            $('#companies_grid').bootstrapTable('refresh')
+        })
+
+    });
+    function addUser(companyId) {
+        $('#userForm').resetForm();
+        $('#CompanyId').val(companyId)
+        $('#UserId').val(0)
+        $('#userModal').modal('show');
+
+    }
+    function editUser(Id) {
+        $('#userForm').resetForm();
+        $.post('/ExternalCompany/GetUser', { Id: Id }, function (data) {
+            $('#CompanyId').val(data.ExternalCompanyId)
+            $('#UserId').val(data.Id)
+            $('#UserName').val(data.UserName)
+            $("#IDNumber").val(data.IDNumber)
+            $("#TelPhone").val(data.TelPhone)
+            $("input:radio[name=Gender][value='" + data.Gender + "']").prop("checked", "checked");
+            $('#userModal').modal('show');
+        })
+
+
+    }
+
+    function removeUser(Id) {
+        bootbox.confirm({
+            size: "small",
+            message: "确定要删除此用户吗",
+            callback: function (result) {
+                if (result) {
+                    abp.ajax({
+                        url: '/ExternalCompany/RemoveUser',
+                        data: JSON.stringify({
+                            'Id': Id
+                        })
+                    }).done(function (data) {
+                        abp.notify.success(data.message);
+                        $('#users_grid').bootstrapTable('refresh', {
+                            query: {
+                                ExternalCompanyId: $('#CompanyId').val()
+                            }
+                        })
+                    })
+                }
+            }
+        })
+
+        
+    }
+    $('#userForm').submit(function (e) {
+        e.preventDefault();
+        abp.ajax({
+            url: '/ExternalCompany/AddOrUpdateUser',
+            data: JSON.stringify({
+                'Id': $('#UserId').val(),
+                'ExternalCompanyId': $('#CompanyId').val(),
+                'UserName': $('#UserName').val(),
+                "IDNumber": $("#IDNumber").val(),
+                "TelPhone": $("#TelPhone").val(),
+                'Gender': $("input[name='Gender']:checked").val()
+            })
+        }).done(function (data) {
+            abp.notify.success(data.message);
+            $('#userModal').modal('hide');
+            $('#users_grid').bootstrapTable('refresh', {
+                query: {
+                    ExternalCompanyId: $('#CompanyId').val()
+                }
+            })
+        })
+
+    });
+
+    function showBarcode(Id) {
+        var codeUrl = "/ExternalCompany/UserQrcode/" + Id
+        $('#barcodeImg').attr('src', codeUrl)
+        $('#barcodeModal').modal('show');
+    }
+  
+    function showAvatar(Id) {
+        $('#UserId').val(Id)
+        $.post('/ExternalCompany/GetAvatar', { 'Id': Id }, function (data) {
+            if (data != "")
+                $('#AvatarImg').attr('src', "../Content/avatars/external/" + data+"?r="+ Math.random());
+            else
+                $('#AvatarImg').attr('src', "../Content/avatars/external/avatar.png");
+
+        })
+        $('#avatarModal').modal('show');
+    }   
+
+
+    $(document).ready(function () {
+        myDropzone = new Dropzone('#m-dropzone', {
+            url: '@Url.Action("SetAvatar/")' ,
+        paramName: "file",
+        maxFiles: 1,
+        maxFilesize: 10,
+        method: "post",
+        acceptedFiles: ".jpg,.jpeg,.png",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "你不能上传该类型文件,文件类型只能是图片",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大上传文件最大支持.",
+        dictRemoveLinks: "删除",
+        addRemoveLinks: true,
+            init: function () {
+                this.on("processing", function (file) {
+                    this.options.url = '@Url.Action("SetAvatar/")' + $('#UserId').val();
+                });
+            this.on("success", function (file, data) {
+                $('#AvatarImg').attr('src', "../Content/avatars/external/" + data.result.message + "?r="+Math.random());
+                myDropzone.removeFile(file);
+            }),
+                this.on("error", function (file, data) {
+                    abp.notify.error(data.Message);
+                })
+
+        }
+    })
+
+    })
+</script>

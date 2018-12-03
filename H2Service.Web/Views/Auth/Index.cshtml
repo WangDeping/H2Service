@@ -1,0 +1,201 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>H2Service登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"></script>
+    <link href="~/content/style.css" rel='stylesheet' type='text/css' />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/flags/famfamfam-flags.css" rel="stylesheet" />
+    <link href="~/Scripts/sweetalert/sweet-alert.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    
+      
+    <script src="~/Scripts/json2.min.js"></script>  
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.blockUI.js"></script>
+    <script src="~/Scripts/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+   
+    <script src="~/Scripts/toastr.min.js"></script>
+    <script src="~/Scripts/others/spinjs/spin.js"></script>
+    <script src="~/Scripts/others/spinjs/jquery.spin.js"></script>
+    <script src="~/Scripts/sweetalert/sweet-alert.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Abp/Framework/scripts/abp.js"></script>
+    <script src="~/Abp/Framework/scripts/libs/abp.jquery.js"></script>
+    <script src="~/Abp/Framework/scripts/libs/abp.toastr.js"></script>
+    <script src="~/Abp/Framework/scripts/libs/abp.blockUI.js"></script>
+    <script src="~/Abp/Framework/scripts/libs/abp.spin.js"></script>
+    <script src="~/Abp/Framework/scripts/libs/abp.sweet-alert.js"></script>
+    <script type="text/javascript">
+        var interval=30
+        function login() {
+            if ($.trim($('#UserNumber').val()) == "" || $.trim($('#Password').val()) == "")
+            {
+                abp.notify.error("工号密码不能为空")
+                return;
+            }
+             abp.ui.setBusy('.login-form');
+            $.post('/Auth/Login', {
+                UserNumber: $('#UserNumber').val(),
+                Password: $('#Password').val()
+            }, function (data) {
+                if (data.ErrCode == 0) {
+                    window.location.href = data.RetUrl
+                }
+                else {
+                    abp.notify.error(data.ErrMsg)
+                    abp.ui.clearBusy('.login-form');   
+                }
+                })            
+
+        }
+        function VlidateCode() {
+            if ($.trim($('#ic_userNumber').val()) == "") {
+                abp.notify.error("工号不能为空")
+                return;
+            }
+            $('#validateCodeBtn').attr('disabled', 'disabled');
+            $('#validateCodeBtn').blur();
+            var timer = setInterval(function () {
+                if (interval == 0) {
+                    $('#validateCodeBtn').html("获取密码")
+                    $('#validateCodeBtn').removeAttr('disabled');
+                    interval = 30
+                    clearInterval(timer)
+
+                }
+                else {
+                    interval = interval - 1;
+                    $('#validateCodeBtn').html(interval + "秒");
+                }
+            }, 1000);
+
+            $.post('/Auth/SendValidateCode', {
+                UserNumber: $('#ic_userNumber').val()
+            }, function (data, textStatus, jqXHR) {               
+                if (data.Code == 0) {
+                    abp.notify.success(data.Message);
+                }
+                else {
+                    abp.notify.error(data.Message)
+                    abp.ui.clearBusy('.login-form');
+                    }
+                })
+
+        }
+        function LoginValidate() {
+            if ($.trim($('#ic_userNumber').val()) == "" || $.trim($('#ic_code').val()) == "") {
+                abp.notify.error("工号不能为空")
+                return;
+            }
+            abp.ui.setBusy('#ic_modal');
+            $.post('/Auth/LoginValidate', {
+                UserNumber: $('#ic_userNumber').val(),
+                ValidateCode: $('#ic_code').val()
+            }, function (data, textStatus, jqXHR) {
+                if (data.Code == 0) {
+                    abp.notify.success(data.Message);
+                    window.location.href = data.Details
+                }
+                else {
+                    abp.notify.error(data.Message)
+                    abp.ui.clearBusy('#ic_modal');   
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+
+    <!--SIGN UP-->
+
+    <div class="login-form">
+
+        <div class="head-info">
+            <!--
+             <label class="lbl-1"> </label>
+             <label class="lbl-2"> </label>
+             -->
+            <label class="lbl-1" data-toggle="modal" data-target="#qr_modal"> </label>
+        </div>
+        <div class="clear"> </div>
+        <div class="avtar">
+            <img src="../Content/images/avtar.png" />
+        </div>
+        <form  autocomplete="off">
+            <input type="text" class="text" id="UserNumber" name="UserNumber" autocomplete="off" required>
+            <div class="key">
+                <input type="password" id="Password" name="Password" required autocomplete="off">
+                <div data-toggle="modal" data-target="#ic_modal">动态密码</div>
+            </div>
+           
+            <div class="signin">
+                <input type="button" id="loginBtn"  onclick="login()" value="Login">
+            </div>           
+        </form>
+    </div>
+    
+    <div class="copy-rights">
+        <p>Copyright &copy; 2015.Company name All rights reserved.More Templates</p>
+    </div>
+   
+    <div class="modal fade" tabindex="-1" role="dialog" id="qr_modal">
+        <div class="modal-dialog " role="document" style="width:330px">
+            <div class="modal-content">
+                <div class="modal-header">                
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div style="width:100px" id="wx_auth"></div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="ic_modal">
+        <div class="modal-dialog " role="document" style="width:330px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" >动态密码登录</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form>                                             
+                        <input type="text" class="form-control" placeholder="输入工号" id="ic_userNumber">
+                       
+                        <div class="form-group">                           
+                            <input type="text" placeholder="输入6位数字动态密码"  id="ic_code" />
+                            <button type="button" id="validateCodeBtn" class="btn  btn-info btn-sm" onclick="VlidateCode()">获取密码</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">                    
+                    <button type="button"  onclick="LoginValidate()"  class="btn btn-success">Login</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <script>
+        $('#qr_modal').on('show.bs.modal', function (e) {
+              window.WwLogin({
+                "id": "wx_auth",
+                "appid": "wxbf27fd9188f6ef48",
+                "agentid": "@ViewBag.authAppid",
+                "redirect_uri": '@ViewBag.AuthUrl',
+                "state": "LKASJFLGAJALFJLGER",
+                "href": "",
+            });
+        })
+    </script>
+    
+</body>
+
+
+</html>
+

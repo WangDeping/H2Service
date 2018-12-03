@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "CurrentDepartmentMedicalWasteGrid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section subheader_title{
+    科室医疗废物
+}
+<div class=" row">
+    <div class="col-lg-12">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            科室医疗废物信息
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+                <!--搜索框-->
+                <div class="m-form m-form--label-align-right  m--margin-bottom-30">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 order-2 order-xl-1">
+                            <div class="form-group m-form__group row align-items-center">
+                                <div class="col-md-3">
+                                    <div class="m-form__group m-form__group--inline col-12">
+                                       <h5>当前科室：@ViewBag.DepartmentName</h5>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="m-form__group m-form__group--inline col-12">
+                                        <div class='input-group date' id='start_datepicker'>
+                                            <input type='text' class="form-control m-input" readonly placeholder="开始日期" />
+                                            <span class="input-group-addon">
+                                                <i class="la la-calendar-check-o"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="m-form__group m-form__group--inline col-12">
+                                        <div class='input-group date' id='end_datepicker'>
+                                            <input type='text' class="form-control m-input" readonly placeholder="结束日期" />
+                                            <span class="input-group-addon">
+                                                <i class="la la-calendar-check-o"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <button onclick="search()" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                            <span>
+                                                查询
+                                            </span>
+                                        </span>
+                                    </button>
+                                    <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--END搜索框-->
+
+                <table class="bootstrap-table" id="flows_grid" data-url='@Url.Action("CurrentDepartmentMedicalWasteGrid")'
+                       data-side-pagination="server" data-page-list="[10]" data-pagination="true"
+                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                    <thead>
+                        <tr>
+                            <th data-field="DepartmentName" data-align="center">科室</th>
+                            <th data-field="NurseName" data-align="center">科室交接人</th>
+                            <th data-field="CollectUserName" data-align="center">收废人员</th>
+                            <th data-field="CollectTime" data-align="center">出科时间</th>
+                            <th data-field="Status" data-align="center">状态</th>
+                            <th data-field="Id" data-formatter="actionFormatter" data-align="center">操作</th>
+                        </tr>
+                    </thead>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script>
+    function actionFormatter(value, row, index) {
+        var urlAction = "@Url.Action("Detail","MedicalWaste")/" + value
+        return '\
+						<a href="' + urlAction + '"   class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="详细查看">\
+							<i class="la la-edit"></i>\
+						</a>\
+        ';
+    }
+    $('#start_datepicker,#end_datepicker').datepicker({
+        todayHighlight: true,
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        orientation: 'bottom'
+    });
+    $('#end_datepicker').datepicker('setDate', new Date())
+    $('#start_datepicker').datepicker('setDate', ' 2018-09-01')
+
+    $('#flows_grid').bootstrapTable({
+        queryParams: function (params) {
+            return {
+                MaxResultCount: params.limit,
+                PageNumber: (params.offset / params.limit),
+                Start: moment($('#start_datepicker').datepicker('getDate')).format('YYYY-MM-DD'),
+                End: moment($('#end_datepicker').datepicker('getDate')).format('YYYY-MM-DD'),
+                DepartmentId: @ViewBag.DepartmentId
+            }
+        }
+    })
+    function search() {
+        $('#flows_grid').bootstrapTable('refresh', {
+            Start: moment($('#start_datepicker').datepicker('getDate')).format('YYYY-MM-DD'),
+            End: moment($('#end_datepicker').datepicker('getDate')).format('YYYY-MM-DD'),
+            DepartmentId:@ViewBag.DepartmentId
+        })
+
+    }
+
+</script>

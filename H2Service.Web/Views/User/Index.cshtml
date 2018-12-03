@@ -1,0 +1,488 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+    用户管理
+}
+<div class=" row">
+    <div class="col-lg-12">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            用户信息
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+                <!--搜索框-->
+                <div class="m-form m-form--label-align-right  m--margin-bottom-30">
+                    <div class="row align-items-center">
+                        <div class="col-xl-10 order-2 order-xl-1">
+                            <div class="form-group m-form__group row align-items-center">
+                                <div class="col-md-3">
+                                    <div class="m-form__group m-form__group--inline col-12">
+                                        <div class="form__control ">
+                                            <input type="text" class="form-control m-input" placeholder="工号" id="search_UserNumber" />
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="m-form__group m-form__group--inline col-12">
+
+                                        <div class="form__control ">
+                                            <input type="text" class="form-control m-input" placeholder="姓名" id="search_UserName" />
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="m-form__group m-form__group--inline col-12">
+                                        @*<div class="m-form__label">
+                                                <label>
+                                                    科室:
+                                                </label>
+                                            </div>*@
+                                        <div class="form__control ">
+                                            <input type="text" placeholder="输入'#'查询未分配科室人员" class="form-control m-input" id="search_Department" />
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button onclick="search()" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                            <span>
+                                                查询
+                                            </span>
+                                        </span>
+                                    </button>
+                                    <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-1 order-1 order-xl-2 m--align-right">
+                            <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                <span>
+                                    <i class="la la-weixin"></i>
+                                    <span>
+                                        同步微信
+                                    </span>
+                                </span>
+                            </a>
+                            <div class="m-separator m-separator--dashed d-xl-none"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--END搜索框-->
+
+                <table class="bootstrap-table" id="users_grid" data-url='@Url.Action("UserGrid")'
+                       data-side-pagination="server" data-page-list="[10]" data-pagination="true"
+                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                    <thead>
+                        <tr>
+                            <th data-checkbox="true"></th>
+                            <th data-field="Id" data-align="center">Id</th>
+                            <th data-field="UserNumber"  data-align="center">工号</th>
+                            <th data-field="UserName"  data-align="center">姓名</th>
+                            <th data-field="DepartmentName" data-align="center">科室</th>
+                            <th data-field="Email"  data-align="center">Email</th>
+                            <th data-field="TelPhone" data-align="center" >手机号</th>
+                            <th data-field="IsDeleted" data-align="center" data-formatter="IsDeleted">状态</th>
+                            <th data-field="Id"  data-formatter="actionFormatter" data-align="center">操作</th>
+                        </tr>
+                    </thead>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--UserModal-->
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        个人信息维护
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <form class="m-form m-form--fit m-form--label-align-right" id="userForm">
+                    <div class="m-portlet__body">
+                        <div class="modal-body align-content-center">
+                            <div class="form-group">
+                                <label for="UserName" class="form-control-label">
+                                    姓名:
+                                </label>
+                                <div class="m-input-icon m-input-icon--left">
+                                    <input type="text" class="form-control m-input" id="UserName" readonly>
+                                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                                        <span>
+                                            <i class="la la-user"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                                <input type="hidden" id="Id" />
+                            </div>
+                            <div class="form-group">
+                                <label for="TelPhone" class="form-control-label">
+                                    联系电话:
+                                </label>
+                                <div class="m-input-icon m-input-icon--left">
+                                    <input type="tel" class="form-control m-input" id="TelPhone" readonly>
+                                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                                        <span>
+                                            <i class="la la-mobile"></i>
+                                        </span>
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="Gender" class="form-control-label">
+                                    性别:
+                                </label>
+                                <div class="m-radio-inline ">
+                                    <label class="m-radio m-radio--solid m-radio--state-brand">
+                                        <input type="radio" name="Gender" value="0">
+                                        未知
+                                        <span></span>
+                                    </label>
+                                    <label class="m-radio m-radio--solid m-radio--state-brand">
+                                        <input type="radio" name="Gender" value="1">
+                                        男
+                                        <span></span>
+                                    </label>
+                                    <label class="m-radio m-radio--solid m-radio--state-brand">
+                                        <input type="radio" name="Gender" value="2">
+                                        女
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Email" class="form-control-label">
+                                    邮箱:
+                                </label>
+                                <div class="m-input-icon m-input-icon--left">
+                                    <input type="email" class="form-control m-input" id="Email">
+                                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                                        <span>
+                                            <i class="la la-envelope"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="resetPassword_btn" class="btn btn-primary">
+                                重置密码
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                保存
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--UserModal-->
+    <!--DepartmentModal-->
+    <div class="modal fade" id="departmentModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        调整部门
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body m-scrollable" data-scrollbar-shown="true" data-scrollable="true" data-max-height="300">
+                    <div class="row" data-mobile-max-height="200">
+                        <div class="col-6">
+                            <input type="text" id="tree_search2" class="form-control" />
+                            <div id="depart_tree2" class="tree-demo"></div>
+                            <input id="UserId" type="hidden" />
+                        </div>
+                        <div class="col-6">
+                            <table class="bootstrap-table" id="departmentUsers_grid" data-id-field="Id" data-striped="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="DepartmentName" data-align="center">所属部门</th>
+                                        <th data-field="Id" data-formatter="removeDepartmentUserFormatter" data-align="center">移除</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!--DepartmentModal-->
+    @{Html.RenderAction("PermissionModalPartialView", "Auth");}
+    <!--RoleModal-->
+    <div class="modal fade" id="roleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        角色分配
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <div class="m-portlet__body">
+                    <div class="modal-body align-content-center">
+                        <div class="row" data-mobile-max-height="200">
+                            <div class="col-6">
+                                <table class="bootstrap-table" id="roles_grid"
+                                       data-side-pagination="server" data-page-list="[100]" data-pagination="true"
+                                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true" data-row-style="rowStyle">
+                                    <thead>
+                                        <tr>
+                                            <th data-checkbox="true"></th>
+                                            <th data-field="RoleName" data-align="center">全部角色</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <table class="bootstrap-table" id="userRoles_grid" data-striped="true" data-side-pagination="server" data-page-list="[100]" data-pagination="true">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="RoleName" data-align="center">已有角色</th>
+                                            <th data-field="RoleId" data-formatter="removeUserRoleFormatter" data-align="center">移除</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <!--DepartmentModal-->
+</div>
+@section scriptsection{
+    <script src="@Scripts.Url("~/Scripts/h2web/user/index.js")"></script>
+    <script>
+       
+        function assignPermissionViewById(Id) {
+            $('#UserId').val(Id);
+            $('#permission_tree').jstree("destroy");
+            $('#permission_tree').jstree({
+                "core": {
+                    "themes": {
+                        "responsive": true
+                    },
+                    "check_callback": true,
+                    'data': {
+                        'url': '/Auth/GetAllPermissions/',
+                        'data': function (node) {
+                            return { 'UserId': Id };
+                        }
+                    }
+                },
+                "types": {
+                    "default": {
+                        "icon": "fa fa-folder m--font-brand"
+                    },
+                    "file": {
+                        "icon": "fa fa-file  m--font-brand"
+                    }
+                },
+
+                "plugins": ["checkbox", "types"]
+
+            })
+
+            $('#permissionModal').modal('show');
+
+        }
+        function permissionSave() {
+            var userId = $('#UserId').val();
+            var select_arry = $('#permission_tree').jstree().get_selected(false);          
+            abp.ajax({
+                url: '/User/GrantPermission/',
+                data: JSON.stringify({ UserId: userId, PermissionNames: select_arry })
+            }).done(function (data) {
+                abp.notify.success(data.message);
+                $('#permissionModal').modal('hide');
+            })
+        }
+        function changeDepartmentViewById(Id) {//更改用户部门窗口
+            $('#UserId').val(Id);
+            //  $('#depart_tree2').jstree("destroy");
+            $("#depart_tree2").jstree({
+                "core": {
+                    "multiple": false,
+                    "themes": {
+                        "responsive": true
+                    },
+                    // so that create works
+                    "check_callback": true,
+                    'data': {
+                        'url': '/User/DepartmentTree/' + Id,
+                        'data': function (node) {
+                            return { 'parent': node.id };
+                        }
+                    }
+                },
+                "types": {
+                    "default": {
+                        "icon": "fa fa-folder m--font-brand"
+                    },
+                    "file": {
+                        "icon": "fa fa-file  m--font-brand"
+                    }
+                },
+                "plugins": ["search", "types", "checkbox"],
+                "checkbox": {
+                    "three_state": false
+                }
+            });
+            loadUserInDepartment(Id)
+            $("#depart_tree2").jstree('deselect_all');
+            $('#departmentModal').modal('show');
+
+
+        }
+
+        $('#roles_grid,#userRoles_grid').bootstrapTable({
+
+            onCheck: function (row) {
+                var addUserRole = { UserId: $('#UserId').val(), RoleId: row.Id }
+                abp.ajax({
+                    url: '/User/AddRole',
+                    data: JSON.stringify(addUserRole)
+                }).done(function (data) {
+                    abp.notify.success(data.message);
+                    $('#userRoles_grid').bootstrapTable('refresh', {
+                        url: '/User/GetRoles'
+                    })
+                })
+
+            },
+            queryParams: function (params) {
+                return {
+                    MaxResultCount: params.limit,
+                    PageNumber: (params.offset / params.limit),
+                    UserId: CURRENT_USER
+                }
+            }
+        })
+        function assignRoleViewById(Id) {
+            $('#UserId').val(Id);
+            CURRENT_USER = Id;
+            $('#roles_grid').bootstrapTable('refresh', {
+                url: '/Role/RoleGrid'
+            })
+            $('#userRoles_grid').bootstrapTable('refresh', {
+                url: '/User/GetRoles'
+            })
+            $('#roleModal').modal('show');
+
+        }
+        function removeRoleInUser(roleId) {
+            bootbox.confirm("确定删除此权限吗?", function (result) {
+                var removeUserRole = { UserId: CURRENT_USER, RoleId: roleId };
+                if (result) {
+                    abp.ajax({
+                        url: '/User/RemoveUserRole',
+                        data: JSON.stringify(removeUserRole)
+                    }).done(function (data) {
+                        $('#userRoles_grid').bootstrapTable('refresh', {
+                            url: '/User/GetRoles'
+                        })
+                        abp.notify.success(data.message)
+                    })
+                }
+
+            })
+        }
+
+        $('#depart_tree2').on("select_node.jstree", function (e, data) {
+            var node = data.instance.get_node(data.selected[0]);
+
+           // var childNodes = data.instance.get_children_dom(node);
+          //  if (childNodes.length == 0) {
+
+                bootbox.confirm("确定要把该用户加入" + node.text + "吗?", function (result) {
+                    if (result) {
+                        abp.ajax({
+                            url: '/User/AssginDepartment',
+                            data: JSON.stringify({ UserId: $('#UserId').val(), DepartmentId: node.id })
+                        }).done(function (data) {
+                            loadUserInDepartment($('#UserId').val())
+                            $('#users_grid').bootstrapTable('refresh');
+                            abp.notify.success(data.message);
+                        })
+                    }
+                })
+
+           // }
+        });
+        var to = false;
+        $('#tree_search2').keyup(function () {
+            if (to) { clearTimeout(to); }
+            to = setTimeout(function () {
+                var v = $('#tree_search2').val();
+                $('#depart_tree2').jstree(true).show_all();
+                $('#depart_tree2').jstree(true).search(v);
+                $('.jstree-search').focus();
+            }, 350);
+
+        });
+
+    </script>
+
+}

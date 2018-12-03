@@ -1,0 +1,694 @@
+FATAL 2018-11-24 10:32:42,403 [1    ] Abp.AbpBootstrapper                      - System.MissingMethodException: 找不到方法:“Void AutoMapper.IMappingExpression`2.ConvertUsing(System.Func`2<!0,!1>)”。
+   在 Abp.AutoMapper.AbpAutoMapperModule.CreateCoreMappings(IMapperConfigurationExpression configuration)
+   在 Abp.AutoMapper.AbpAutoMapperModule.<CreateMappings>b__6_0(IMapperConfigurationExpression configuration)
+   在 AutoMapper.MapperConfiguration.Build(Action`1 configure)
+   在 AutoMapper.Mapper.Initialize(Action`1 config)
+   在 Abp.AutoMapper.AbpAutoMapperModule.CreateMappings()
+   在 System.Collections.Generic.List`1.ForEach(Action`1 action)
+   在 Abp.AbpBootstrapper.Initialize()
+System.MissingMethodException: 找不到方法:“Void AutoMapper.IMappingExpression`2.ConvertUsing(System.Func`2<!0,!1>)”。
+   在 Abp.AutoMapper.AbpAutoMapperModule.CreateCoreMappings(IMapperConfigurationExpression configuration)
+   在 Abp.AutoMapper.AbpAutoMapperModule.<CreateMappings>b__6_0(IMapperConfigurationExpression configuration)
+   在 AutoMapper.MapperConfiguration.Build(Action`1 configure)
+   在 AutoMapper.Mapper.Initialize(Action`1 config)
+   在 Abp.AutoMapper.AbpAutoMapperModule.CreateMappings()
+   在 System.Collections.Generic.List`1.ForEach(Action`1 action)
+   在 Abp.AbpBootstrapper.Initialize()
+FATAL 2018-11-24 10:33:29,456 [1    ] Abp.AbpBootstrapper                      - System.MissingMethodException: 找不到方法:“Void AutoMapper.IMappingExpression`2.ConvertUsing(System.Func`2<!0,!1>)”。
+   在 Abp.AutoMapper.AbpAutoMapperModule.CreateCoreMappings(IMapperConfigurationExpression configuration)
+   在 Abp.AutoMapper.AbpAutoMapperModule.<CreateMappings>b__6_0(IMapperConfigurationExpression configuration)
+   在 AutoMapper.MapperConfiguration.Build(Action`1 configure)
+   在 AutoMapper.Mapper.Initialize(Action`1 config)
+   在 Abp.AutoMapper.AbpAutoMapperModule.CreateMappings()
+   在 System.Collections.Generic.List`1.ForEach(Action`1 action)
+   在 Abp.AbpBootstrapper.Initialize()
+System.MissingMethodException: 找不到方法:“Void AutoMapper.IMappingExpression`2.ConvertUsing(System.Func`2<!0,!1>)”。
+   在 Abp.AutoMapper.AbpAutoMapperModule.CreateCoreMappings(IMapperConfigurationExpression configuration)
+   在 Abp.AutoMapper.AbpAutoMapperModule.<CreateMappings>b__6_0(IMapperConfigurationExpression configuration)
+   在 AutoMapper.MapperConfiguration.Build(Action`1 configure)
+   在 AutoMapper.Mapper.Initialize(Action`1 config)
+   在 Abp.AutoMapper.AbpAutoMapperModule.CreateMappings()
+   在 System.Collections.Generic.List`1.ForEach(Action`1 action)
+   在 Abp.AbpBootstrapper.Initialize()
+ERROR 2018-11-24 11:34:21,076 [63   ] App.Controllers.AuthController           - 用户登录：lansecheng
+ERROR 2018-11-24 15:12:44,954 [31   ] App.Controllers.AuthController           - 用户登录：0172
+ERROR 2018-11-24 15:12:44,954 [41   ] App.Controllers.AuthController           - 用户登录：0067
+ERROR 2018-11-24 15:12:44,954 [9    ] App.Controllers.AuthController           - 用户登录：2007
+ERROR 2018-11-24 15:12:44,954 [37   ] App.Controllers.AuthController           - 用户登录：0136
+ERROR 2018-11-24 15:12:44,954 [39   ] App.Controllers.AuthController           - 用户登录：0229
+ERROR 2018-11-24 15:12:44,955 [6    ] App.Controllers.AuthController           - 用户登录：0137
+ERROR 2018-11-24 15:12:44,954 [38   ] App.Controllers.AuthController           - 用户登录：0251
+ERROR 2018-11-24 15:12:44,954 [40   ] App.Controllers.AuthController           - 用户登录：0217
+ERROR 2018-11-24 15:12:45,977 [9    ] App.Controllers.AuthController           - 用户登录：0198
+ERROR 2018-11-24 15:12:45,977 [6    ] App.Controllers.AuthController           - 用户登录：0123
+ERROR 2018-11-24 15:12:45,981 [37   ] App.Controllers.AuthController           - 用户登录：0239
+ERROR 2018-11-24 15:12:45,981 [31   ] App.Controllers.AuthController           - 用户登录：1922
+ERROR 2018-11-24 15:12:45,981 [40   ] App.Controllers.AuthController           - 用户登录：0212
+ERROR 2018-11-24 15:12:45,994 [41   ] App.Controllers.AuthController           - 用户登录：0213
+ERROR 2018-11-24 15:12:46,005 [44   ] App.Controllers.AuthController           - 未注册用户登录失败ot6HzvvmYQgieOrygrRK1Ca0qGAs,设备543d7ed82f67b97cccce057062e34e2f
+ERROR 2018-11-24 15:12:46,120 [39   ] App.Controllers.AuthController           - 用户登录：0251
+ERROR 2018-11-24 15:12:46,130 [6    ] App.Controllers.AuthController           - 用户登录：0288
+ERROR 2018-11-24 15:12:46,399 [31   ] App.Controllers.AuthController           - 用户登录：0229
+ERROR 2018-11-24 15:12:46,487 [39   ] App.Controllers.AuthController           - 用户登录：1922
+ERROR 2018-11-24 15:12:51,127 [37   ] App.Controllers.AuthController           - 用户登录：1609
+ERROR 2018-11-24 15:12:51,144 [42   ] App.Controllers.AuthController           - 用户登录：0918
+ERROR 2018-11-24 15:12:51,146 [40   ] App.Controllers.AuthController           - 用户登录：1062
+ERROR 2018-11-24 15:12:51,172 [41   ] App.Controllers.AuthController           - 未注册用户登录失败ot6Hzvmq9FYV_LdTWbFfE2O1y1S4,设备5f94c8281704502096dec91daf74ed5f
+ERROR 2018-11-24 15:12:52,021 [42   ] App.Controllers.AuthController           - 用户登录：0251
+ERROR 2018-11-24 15:12:52,084 [38   ] App.Controllers.AuthController           - 用户登录：1909
+ERROR 2018-11-24 15:12:52,178 [9    ] App.Controllers.AuthController           - 用户登录：0251
+ERROR 2018-11-24 15:12:52,776 [40   ] App.Controllers.AuthController           - 用户登录：1918
+ERROR 2018-11-24 15:12:53,154 [38   ] App.Controllers.AuthController           - 用户登录：0526
+ERROR 2018-11-24 15:12:53,222 [44   ] App.Controllers.AuthController           - 用户登录：0266
+ERROR 2018-11-24 15:12:53,730 [5    ] App.Controllers.AuthController           - 未注册用户登录失败ot6HzvvmYQgieOrygrRK1Ca0qGAs,设备543d7ed82f67b97cccce057062e34e2f
+ERROR 2018-11-24 15:12:55,216 [44   ] App.Controllers.AuthController           - 用户登录：0318
+ERROR 2018-11-24 15:12:57,565 [5    ] App.Controllers.AuthController           - 未注册用户登录失败ot6HzvvmYQgieOrygrRK1Ca0qGAs,设备543d7ed82f67b97cccce057062e34e2f
+ERROR 2018-11-24 15:13:07,458 [37   ] App.Controllers.AuthController           - 未注册用户登录失败ot6HzvvmYQgieOrygrRK1Ca0qGAs,设备543d7ed82f67b97cccce057062e34e2f
+ERROR 2018-11-24 15:13:21,102 [39   ] App.Controllers.AuthController           - 未注册用户登录失败ot6Hzvmq9FYV_LdTWbFfE2O1y1S4,设备5f94c8281704502096dec91daf74ed5f
+ERROR 2018-11-24 15:13:31,168 [6    ] App.Controllers.AuthController           - 用户登录：0318
+ERROR 2018-11-24 15:13:33,920 [31   ] App.Controllers.AuthController           - 用户登录：2095
+ERROR 2018-11-24 15:13:38,707 [5    ] App.Controllers.AuthController           - 用户登录：0123
+ERROR 2018-11-24 15:14:04,052 [6    ] App.Controllers.AuthController           - 用户登录：0133
+ERROR 2018-11-24 15:14:09,433 [44   ] App.Controllers.AuthController           - 用户登录：1857
+ERROR 2018-11-24 15:14:13,101 [42   ] App.Controllers.AuthController           - 用户登录：0313
+ERROR 2018-11-24 15:14:14,045 [61   ] App.Controllers.AuthController           - 用户登录：0305
+ERROR 2018-11-24 15:14:24,423 [59   ] App.Controllers.AuthController           - 用户登录：0260
+ERROR 2018-11-24 15:14:26,587 [6    ] App.Controllers.AuthController           - 用户登录：0269
+ERROR 2018-11-24 15:14:26,764 [69   ] App.Controllers.AuthController           - 用户登录：0269
+ERROR 2018-11-24 15:14:34,686 [71   ] App.Controllers.AuthController           - 用户登录：1609
+ERROR 2018-11-24 15:14:38,427 [63   ] App.Controllers.AuthController           - 用户登录：0136
+ERROR 2018-11-24 15:15:08,308 [38   ] App.Controllers.AuthController           - 用户登录：0270
+ERROR 2018-11-24 15:15:10,819 [82   ] App.Controllers.AuthController           - 用户登录：1909
+ERROR 2018-11-24 15:15:21,369 [86   ] App.Controllers.AuthController           - 用户登录：1313
+ERROR 2018-11-24 15:15:40,148 [86   ] App.Controllers.AuthController           - 用户登录：0581
+ERROR 2018-11-24 15:15:48,227 [38   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 124
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 124
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:15:49,357 [86   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 124
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 124
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:15:50,368 [86   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 124
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 124
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:15:52,380 [66   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 124
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 124
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:15:53,130 [87   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 124
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 124
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:15:56,320 [87   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 151
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 151
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:15:58,648 [47   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 151
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 151
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:16:00,850 [60   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 148
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 148
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:16:01,580 [88   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 148
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 148
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:16:16,507 [38   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:16:19,830 [72   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:16:19,897 [86   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:16:20,956 [70   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:16:21,800 [70   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:16:23,815 [70   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:16:24,302 [88   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:16:24,550 [72   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:16:24,678 [86   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:16:24,879 [38   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 136
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-24 15:17:23,815 [55   ] App.Controllers.AuthController           - 用户登录：0228
+ERROR 2018-11-24 15:17:28,629 [94   ] App.Controllers.AuthController           - 用户登录：1736
+ERROR 2018-11-24 15:17:40,043 [93   ] App.Controllers.MedicalWasteController   - url:http://dyoa.dysdermyy.org:8001/Content/WxTemp/MedicalWaste/CitMBrblhC4UARTtGJcjk4lk5Hqq-v3hTUZfnLFjm5C4Gt4DXgg8KatCOXGE98sP.jpg;FlowId:49
+ERROR 2018-11-24 15:18:16,668 [55   ] App.Controllers.MedicalWasteController   - url:http://dyoa.dysdermyy.org:8001/Content/WxTemp/MedicalWaste/rvkPfiHHPaFPQ6Z-ogTsWHSi55xbt94sAm88lcrQ5jHZoPIjiiQ_Qblu5W6Mbyh3.jpg;FlowId:49
+ERROR 2018-11-24 15:18:50,726 [75   ] App.Controllers.MedicalWasteController   - url:http://dyoa.dysdermyy.org:8001/Content/WxTemp/MedicalWaste/VfmsJTYQHnU2Z6nofrW8DsK8Ol2J6q_BL8GvUvvQ04kD-kmtokBYSsbyYg0rfOUM.jpg;FlowId:49
+ERROR 2018-11-24 15:23:30,405 [5    ] App.Controllers.MedicalWasteController   - url:http://dyoa.dysdermyy.org:8001/Content/WxTemp/MedicalWaste/vAuZMthPtPYJaAYT03gsR4IujAV33D-APr9t1Am4nAmLWCliNUPdjl-FcSyMYD4F.jpg;FlowId:54
+ERROR 2018-11-24 15:27:38,500 [81   ] App.Controllers.AuthController           - 未注册用户登录失败ot6HzvnF-CYq5XQk1SgO4-2p0EDs,设备815fdc22db27d3180628ebdc002d668b
+ERROR 2018-11-24 16:01:39,224 [70   ] App.Controllers.AuthController           - 用户登录：1683
+ERROR 2018-11-24 16:10:40,958 [69   ] App.Controllers.AuthController           - 用户登录：0386
+ERROR 2018-11-24 16:10:43,553 [5    ] App.Controllers.AuthController           - 用户登录：1092
+ERROR 2018-11-24 16:10:57,287 [80   ] App.Controllers.AuthController           - 用户登录：0381
+ERROR 2018-11-24 16:12:02,129 [61   ] App.Controllers.MedicalWasteController   - There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 173
+Abp.Domain.Entities.EntityNotFoundException: There is no such an entity. Entity type: H2Service.MedicalWastes.MedicalWaste, id: 173
+   在 Abp.Domain.Repositories.AbpRepositoryBase`2.Get(TPrimaryKey id)
+   在 Castle.Proxies.Invocations.IRepository`2_Get_6.InvokeMethodOnTarget()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.Proxies.IRepository`1Proxy_5.Get(Int32 id)
+   在 H2Service.MedicalWastes.MedicalWasteAppService.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\H2Service.Application\MedicalWastes\MedicalWasteAppService.cs:行号 193
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Domain.Uow.UnitOfWorkInterceptor.PerformSyncUow(IInvocation invocation, UnitOfWorkOptions options)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Abp.Auditing.AuditingInterceptor.PerformSyncAuditing(IInvocation invocation, AuditInfo auditInfo)
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 Castle.DynamicProxy.AbstractInvocation.Proceed()
+   在 App.Controllers.MedicalWasteController.RemoveWaste(Int32 Id) 位置 G:\王德平\我的NET项目\3.4.0\src\App\Controllers\MedicalWasteController.cs:行号 146
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c.<BeginInvokeSynchronousActionMethod>b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__11_0()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass11_1.<InvokeActionMethodFilterAsynchronouslyRecursive>b__2()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_6.<BeginInvokeAction>b__3()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)

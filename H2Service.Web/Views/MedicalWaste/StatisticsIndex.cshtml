@@ -1,0 +1,215 @@
+﻿@using H2Service.MedicalWastes
+@using System.Collections.Generic;
+
+@{
+    ViewBag.Title = "StatisticsIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+    医疗废物统计与分析
+}
+<div class=" row">
+    <div class="col-lg-12">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            科室医疗废物信息
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+                <!--搜索框-->
+                <div class="m-form m-form--label-align-right  m--margin-bottom-30">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 order-2 order-xl-1">
+                            <div class="form-group m-form__group row align-items-center">
+                                <div class="col-md-3">
+                                    <div class="m-form__group m-form__group--inline col-12">
+                                        @{Html.RenderAction("RelatedDepartmentsSelect", "Department", new { module = 0 });}
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                              
+                                <div class="col-md-2">
+                                    <div class="m-form__group m-form__group--inline col-12">
+                                        <div class='input-group date' id='start_datepicker'>
+                                            <input type='text' class="form-control m-input" readonly placeholder="开始日期" />
+                                            <span class="input-group-addon">
+                                                <i class="la la-calendar-check-o"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="m-form__group m-form__group--inline col-12">
+                                        <div class='input-group date' id='end_datepicker'>
+                                            <input type='text' class="form-control m-input" readonly placeholder="结束日期" />
+                                            <span class="input-group-addon">
+                                                <i class="la la-calendar-check-o"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                               
+                                <div class="col-md-3">
+                                    <div class="m-form__group m-form__group--inline col-12">
+                                        <select class="form-control m-select2" id="status_select" name="status_select" >
+                                            @foreach (MedicalWasteStatus status in Enum.GetValues(typeof(MedicalWasteStatus)))
+                                            {
+                                                if (status == MedicalWasteStatus.医院暂存点)
+                                                {
+                                                <option value="@status" selected>@status.ToString()</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@status">@status.ToString()</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button onclick="search()" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                            <span>
+                                                查询
+                                            </span>
+                                        </span>
+                                    </button>
+                                    <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--END搜索框-->
+
+                <div class="m-form m-form--label-align-right  m--margin-bottom-30">
+                    <div class="row align-items-center">
+                        <div class="col-xl-10 order-2 order-xl-1" id="bargraph" style="height:400px">
+                         
+                        </div>
+                        <div class="col-xl-10 order-2 order-xl-1" id="linegraph" style="height:400px">
+
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+
+       
+    </div>
+
+</div>
+
+<script>
+
+    $('#start_datepicker,#end_datepicker').datepicker({
+        todayHighlight: true,
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        orientation: 'bottom'
+    });
+    $('#end_datepicker').datepicker('setDate', new Date())
+    $('#start_datepicker').datepicker('setDate', ' @ViewBag.StartDate')
+    $('#status_select').select2();
+</script>
+<script type="text/javascript">
+         // 基于准备好的dom，初始化echarts实例
+    var barChart = echarts.init(document.getElementById('bargraph'), 'light');
+    var lineChart = echarts.init(document.getElementById('linegraph'), 'light');
+         // 指定图表的配置项和数据
+       
+
+    function search() {
+        $.get('/MedicalWaste/BargraphStatistics', {
+            Start: moment($('#start_datepicker').datepicker('getDate')).format('YYYY-MM-DD'),
+            End: moment($('#end_datepicker').datepicker('getDate')).format('YYYY-MM-DD'),
+            DepartmentId: $('#departmentsSelect2').select2('val'),  
+            Status: $('#status_select').select2('val')
+        }).done(function (data) {
+            var option = {
+                title: {
+                    text: '统计柱状图'
+                },
+                height: 300,
+                tooltip: {},
+                legend: {
+                    data: ['数量(包/盒)','重量(Kg)']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    data: data.XAxis.data
+                },
+                yAxis: {},
+                series: data.Series
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            barChart.setOption(option);
+
+            })        
+
+        $.get('/MedicalWaste/LinegraphStatisticsIn7Days', {          
+            DepartmentId: $('#departmentsSelect2').select2('val'),
+            Status: $('#status_select').select2('val')
+        }).done(function (data) {
+            var option = {
+                title: {
+                    text: '七日走势折线图'
+                },
+                height: 300,
+                tooltip: { trigger: 'axis'},
+                legend: {
+                    data: ['感染性废物', '损伤性废物', '病理性废物', '化学性废物','药学性废物']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    data: data.XAxis.data
+                },
+                yAxis: {},
+                series: data.Series
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            lineChart.setOption(option);
+
+        })
+    }
+
+    search();
+
+    
+</script>

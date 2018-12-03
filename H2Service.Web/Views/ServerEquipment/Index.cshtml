@@ -1,0 +1,482 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+
+}
+<div class=" row">
+
+
+
+
+
+    <div class="col-lg-12">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            服务器/设备信息
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                    <!--搜索框-->
+                    <div class="m-form m-form--label-align-right  m--margin-bottom-30" id="search_container">
+                        <div class="row align-items-center">
+                            <div class="col-xl-10 order-2 order-xl-1">
+                                <div class="form-group m-form__group row align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="m-form__group m-form__group--inline col-12">
+                                            <div class="m-form__label">
+                                                <label>
+                                                    IP:
+                                                </label>
+                                            </div>
+                                            <div class="form__control">
+                                                <input type="text" class="form-control" id="search_IP" />
+                                            </div>
+                                        </div>
+                                        <div class="d-md-none m--margin-bottom-10"></div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="m-form__group m-form__group--inline col-12">
+                                            <div class="m-form__label">
+                                                <label>
+                                                    类型:
+                                                </label>
+                                            </div>
+                                            <div class="form__control">
+                                                @Html.Action("ServerEquipmentTypes")
+                                            </div>
+                                        </div>
+                                        <div class="d-md-none m--margin-bottom-10"></div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <button onclick="search()" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                            <span>
+                                                <i class="la la-search"></i>
+                                                <span>
+                                                    查询
+                                                </span>
+                                            </span>
+                                        </button>
+                                        <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                        <div class="d-md-none m--margin-bottom-10"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 order-1 order-xl-2 m--align-right">
+                                <a href="#" onclick="showModal(0)" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                    <span>
+                                        <i class="la la-weixin"></i>
+                                        <span>
+                                            添加服务器/设备
+                                        </span>
+                                    </span>
+                                </a>
+                                <div class="m-separator m-separator--dashed d-xl-none"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--END搜索框-->
+                    <table class="bootstrap-table" id="serverEquipment_grid" data-url='@Url.Action("ServerEquipmentGrid")'
+                           data-side-pagination="server" data-page-list="[10]" data-pagination="true" data-toolbar=".toolbar"
+                           data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                        <thead>
+                            <tr>
+                                <th data-field="SEName" data-align="center" data-width="25%">服务器/设备名称</th>
+                                <th data-field="IP" data-align="center" data-width="10%">IP</th>
+                                <th data-field="ServerRoomName" data-align="center" data-width="10%">存放机房</th>
+                                <th data-field="OperatingSystem" data-align="center" data-width="10%">操作系统</th>
+                                <th data-field="SEType" data-align="center" data-width="10%">类型</th>
+                                <th data-field="SEModel" data-align="center" data-width="10%">型号</th>
+                                <th data-field="PurchaseDate" data-align="center" data-width="10%">投入日期</th>
+                                <th data-field="Id" data-formatter="actionFormatter" data-align="center" data-width="35%">Actions</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!--accountModal-->
+    <div class="modal fade" id="accountModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        登录帐号及密码
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body align-content-center">
+                    <form id="securityForm">
+                        <div class="form-group">
+                            <label for="Account" class="form-control-label">
+                                服务器帐号:
+                            </label>
+                            <div class="input-group">
+                                <input type="hidden" id="ServerId_security" />
+                                <input type="text" required class="form-control m-input" id="Account" aria-describedby="basic-addon2">
+                                <span class="input-group-addon" id="basic-addon2">
+                                    <i class="la la-group"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Password" class="form-control-label">
+                                服务器密码:
+                            </label>
+                            <div class="input-group">
+                                <input type="password" required class="form-control m-input" id="Password" aria-describedby="basic-addon2">
+                                <span class="input-group-addon" id="basic-addon2">
+                                    <i class="la la-user-secret"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="m-checkbox m-checkbox--air m-checkbox--state-success">
+                                <input type="checkbox" id="IsMonitored">
+                                是否需要监控
+                                <span></span>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn_securitySubmit" class="btn btn-primary">
+                        保存
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--accountModal-->
+    <!--ServerModal-->
+    <div class="modal fade" id="serverEquimentModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="width:900px">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        服务器/设备维护
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <!--begin::Form-->
+                <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" id="serverEquipmentForm">
+                    <div class="m-portlet__body">
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-3">
+                                <label>
+                                    服务器/设备名称:
+                                </label>
+                                <input type="text" class="form-control m-input" id="SEName" required>
+                                <input type="hidden"  id="Id"/>
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="">
+                                    IP地址:
+                                </label>
+                                <input type="text" class="form-control m-input" id="IP">
+
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="">
+                                    类型:
+                                </label>
+                                @Html.Action("ServerEquipmentTypes")
+
+                            </div>
+                            <div class="col-lg-3">
+                                <label>
+                                    型号:
+                                </label>
+                                <input type="text" class="form-control m-input" id="SEModel">
+
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+
+                            <div class="col-lg-3">
+                                <label class="">
+                                    存放机房:
+                                </label>
+                                @Html.Action("ServerRoomList", "ServerRoom")
+
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="">
+                                    操作系统:
+                                </label>
+                                @Html.Action("ServerOperatingSystems")
+
+                            </div>
+                            <div class="col-lg-3">
+                                <label>
+                                    购进日期:
+                                </label>
+                                <div class="m-input-icon m-input-icon--right">
+                                    <div class='input-group date' id='datepicker'>
+                                        <input type='text' class="form-control m-input" readonly id="" />
+                                        <span class="input-group-addon">
+                                            <i class="la la-calendar-check-o"></i>
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="">
+                                    保质期(年):
+                                </label>
+                                <div class="m-input-icon m-input-icon--right">
+                                    <input type="text" class="form-control m-input" id="QualityGuaranteePeriod">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+
+                            <div class="col-lg-12">
+                                <label class="">
+                                    主要承载业务/功能:
+                                </label>
+                                <div class="m-input-icon m-input-icon--right">
+                                    <textarea rows="2" class="form-control m-input" id="Functions"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <div class="col-lg-12">
+                                <label class="">
+                                    备注:
+                                </label>
+                                <div class="m-input-icon m-input-icon--right">
+                                    <input type="text" class="form-control m-input" id="Description">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+                        <div class="m-form__actions m-form__actions--solid">
+                            <div class="row">
+                                <div class="col-lg-6">
+
+
+                                </div>
+                                <div class="col-lg-6 m--align-right">
+                                    <button type="submit" class="btn btn-primary">
+                                        保存
+                                    </button>
+                                    <button type="button" id="btn_submit" class="btn btn-secondary" data-dismiss="modal">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--ServerModal-->
+</div>
+
+@section scriptsection{
+
+    <script>
+        $('.m_selectpicker').selectpicker();
+        $('#serverEquipment_grid').bootstrapTable({
+
+            queryParams: function (params) {
+                return {
+                    MaxResultCount: params.limit,
+                    PageNumber: (params.offset / params.limit),
+                    IP: $('#search_IP').val(),
+                    SEType: $('#search_container [name="SEType"]').val()
+                }
+            }, onCheck: function (row, arg) {
+
+
+
+            }
+
+        })
+        function search() {
+            $('#serverEquipment_grid').bootstrapTable('refresh', {
+                IP: $('#search_IP').val(),
+                SEType: $('#search_container [name="SEType"]').val()
+            })
+
+        }
+        function showModal(Id) {
+            $('#Id').val(Id);
+            if (Id == 0) {//添加新服务器
+                $('#serverEquipmentForm').resetForm();
+                $("[name='operatingSystem']").selectpicker('val', -1);
+                $('form [name = "SEType"]').selectpicker('val', -1);
+                $('#serverEquimentModal').modal('show');
+            }
+            else {
+                $.post('/ServerEquipment/GetServerInfo/' + Id, function (data) {
+                    $('#SEName').val(data.SEName)
+                    $('#IP').val(data.IP)
+                    $('form [name="SEType"]').selectpicker('val',data.SEType)
+                    $('#SEModel').val(data.SEModel)
+                    $("[name='select_room']").selectpicker('val',data.ServerRoomId)
+                    $("[name='operatingSystem']").selectpicker('val',data.OperatingSystem)
+                    $('#QualityGuaranteePeriod').val(data.QualityGuaranteePeriod)
+                    $('#datepicker').datepicker('setDate', data.PurchaseDate)
+                    $('#Functions').val(data.Functions)
+                    $("#Description").val(data.Description)
+                    $('#serverEquimentModal').modal('show');
+                })
+
+            }
+        }
+        $('#datepicker').datepicker({
+            todayHighlight: true,
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            orientation: 'bottom'
+        });
+
+        $('#serverEquipmentForm').submit(function (e) {
+            e.preventDefault();
+            var date = ""
+            if ($('#datepicker').datepicker('getDate') != null)
+                date = moment($('#datepicker').datepicker('getDate')).format('YYYY-MM')
+            $.ajax({
+
+                url: '/ServerEquipment/AddorUpdateServerEquipment',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "Id": $('#Id').val(),
+                    "SEName": $('#SEName').val(),
+                    "IP": $('#IP').val(),
+                    "SEType": $('form [name="SEType"]').val(),
+                    "SEModel": $('#SEModel').val(),
+                    "ServerRoomId": $("[name='select_room']").val(),
+                    "OperatingSystem": $("[name='operatingSystem']").val(),
+                    "PurchaseDate": date,
+                    "QualityGuaranteePeriod": $('#QualityGuaranteePeriod').val(),
+                    "Functions": $('#Functions').val(),
+                    "Description": $("#Description").val()
+                }, success: function (data) {
+                    if (data.success) {
+                        abp.notify.success(data.result.message);
+                        $('#serverEquimentModal').modal('hide');
+                        $('#serverEquipment_grid').bootstrapTable('refresh');
+                    }
+                    else
+                        abp.notify.error(data.error.message);
+
+                }, error: function (xhr, status, p3, p4) {
+                    var result = JSON.parse(xhr.responseText)
+
+                    if (!result.success)
+                        abp.notify.error(result.error.message);
+                }
+
+
+            });
+
+        })
+
+        function actionFormatter(value, row, index) {
+            return '\
+						<a href="#" onclick=\'showModal("' + value + '")\'  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="修改">\
+							<i class="la la-edit"></i>\
+						</a>\
+						<a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="删除">\
+							<i class="la la-trash"></i>\
+						</a>\
+                        <a href="#" onclick=\'showAccount("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="帐号密码">\
+							        <i class="la la-user-secret"></i>\
+						</a>\
+					';
+        }
+
+        function showAccount(serverId) {
+
+            $('#securityForm').resetForm();
+            $.post('/ServerEquipment/GetServerSecurityInfo', { 'Id': serverId }, function (data) {
+                $('#Account').val(data.Account)
+                if (data.IsMonitored)
+                    $("#IsMonitored").prop("checked", true);
+
+            })
+            $('#ServerId_security').val(serverId);
+            $('#accountModal').modal('show');
+        }
+
+        $('#btn_securitySubmit').click(function () {
+            var account = $('#Account').val();
+            var password = $('#Password').val();
+            var Id = $('#ServerId_security').val();
+            if (account.trim() == "" || password.trim() == "") {
+                abp.notify.error("帐号密码不能为空");
+                return;
+            }
+            $.ajax({
+                url: '/ServerEquipment/SetServerSecurity',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "Id": Id,
+                    "Account": account,
+                    "Password": password,
+                    "IsMonitored": $("#IsMonitored").prop('checked')
+                }, success: function (data) {
+                    if (data.success) {
+                        abp.notify.success(data.result.message);
+                        $('#accountModal').modal('hide');
+                    }
+                    else
+                        abp.notify.error(data.error.message);
+
+                }, error: function (xhr, status, p3, p4) {
+                    var result = JSON.parse(xhr.responseText)
+                    if (!result.success)
+                        abp.notify.error(result.error.message);
+                }
+
+
+            })
+
+        })
+    </script>
+
+}
+

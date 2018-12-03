@@ -1,0 +1,76 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>H2Service登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"></script>
+    <link href="~/content/style.css" rel='stylesheet' type='text/css' />   
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+   
+    <!--SIGN UP-->
+
+    <div class="login-form">
+       
+        <div class="head-info">
+            <!--
+             <label class="lbl-1"> </label>
+             <label class="lbl-2"> </label>
+             -->
+            <label class="lbl-1"  data-toggle="modal" data-target="#modal" title="扫码登录"> </label>
+        </div>
+        <div class="clear"> </div>
+        <div class="avtar">
+            <img src="../Content/images/avtar.png" />
+        </div>
+        <form>
+            <input type="text" class="text" value="Username" >
+            <div class="key">
+                <input type="password" value="Password" >
+            </div>
+            <a href="#">忘记密码?</a>
+        </form>
+        <div class="signin">
+            <input type="submit" value="Login">
+        </div>
+    </div>
+    <div class="copy-rights">
+        <p>Copyright &copy; 2015.Company name All rights reserved.More Templates</p>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    
+                </div>
+                <div class="modal-body">
+                    <div style="width:100px" id="wx_auth"></div>
+                </div>               
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog --> 
+        </div>
+    <script>
+        $('#modal').on('show.bs.modal', function (e) {
+              window.WwLogin({
+                "id": "wx_auth",
+                "appid": "wxbf27fd9188f6ef48",
+                "agentid": "@ViewBag.authAppid",
+                "redirect_uri": '@ViewBag.AuthUrl',
+                "state": "LKASJFLGAJALFJLGER",
+                "href": "",
+            });
+        })
+    </script>
+   </body>
+</html>
+

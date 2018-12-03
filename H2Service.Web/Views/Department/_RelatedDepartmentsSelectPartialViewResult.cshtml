@@ -1,0 +1,20 @@
+﻿@model List<H2Service.Account.Dto.DepartmentModulesRelationDto>
+<select class="form-control m-select2" style="width:100%" id="departmentsSelect2" name="departmentsSelect2">
+    <option value="0" selected>
+        请选择科室
+    </option>
+    @foreach (var d in Model)
+    {
+        
+            <option value="@d.DepartmentId">
+                @d.DepartmentName
+            </option>
+        
+        
+    }
+
+</select>
+<script>
+    $('#departmentsSelect2').select2();
+
+</script>

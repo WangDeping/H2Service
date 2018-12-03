@@ -1,0 +1,26 @@
+﻿@model List<H2Service.MeritPays.Dto.MeritPayDetailDto>
+   
+ <h4>(共 @Model.Count 条绩效记录)</h4>
+@{int index = 1;}
+@foreach (var mp in Model)
+{
+    <h2>第 @index 条</h2>
+    index++;
+    <table data-toggle="table" width="100%"  style="font-size:18px; margin-bottom:30px" align="center">
+        <tbody>
+            @{
+                var detailItems = mp.Detail.Split('^');
+
+            }
+            @foreach (var item in detailItems)
+            {
+                var keyvalue = item.Split(':');
+                if (keyvalue.Length > 1)
+                {
+                    <tr style="border-bottom:solid 1px #808080"><td style="line-height:25px; height:25px">@keyvalue[0]</td><td>@keyvalue[1]</td></tr>
+                }
+
+            }
+        </tbody>
+    </table>
+}

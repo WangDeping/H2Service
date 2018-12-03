@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "FDIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section subheader_title{
+    督察填报入口
+}
+<div class=" row">
+
+
+
+
+
+    <div class="col-lg-12">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            考核任务周期表
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                   
+
+                    <table class="bootstrap-table" id="periods_grid" data-url='@Url.Action("PeriodsGrid")'
+                           data-side-pagination="server" data-page-list="[10]" data-pagination="true"
+                           data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                        <thead>
+                            <tr>
+                                <th data-field="Title" data-align="center">标题</th>
+                                <th data-field="Period" data-align="center">考核月份</th>
+                                <th data-field="BeginDate" data-align="center">填报开始日期</th>
+                                <th data-field="EndDate" data-align="center">填报截止日期</th>
+                                <th data-field="CreatorUserName" data-align="center">发布人</th>
+                                <th data-field="CreatorDepartmentName" data-align="center">发布科室</th>
+                                <th data-field="CreationTime" data-align="center">发布时间</th>
+                                <th data-field="Status" data-align="center">状态</th>
+                                <th data-field="Id" data-align="center" data-formatter="actionFormatter"></th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#periods_grid').bootstrapTable({
+        queryParams: function (params) {
+            return {
+                MaxResultCount: params.limit,
+                PageNumber: (params.offset / params.limit)
+            }
+        }
+    })
+    function actionFormatter(value, row, index) {
+        return '\
+						<a href="/QC/FillIndex/' + value + '"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="填报">\
+							<i class="la la-edit"></i>\
+						</a>\
+        ';
+    }   
+
+</script>

@@ -1,0 +1,101 @@
+﻿@using System.Globalization
+@using System.Web.Optimization
+@using Abp.Web.Mvc.Extensions
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+    H2Service
+}
+
+<div class=" row">
+    <div class="col-lg-7">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            个人工资历史
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <form class="m-form m-form--fit m-form--label-align-right" id="period-form">
+                <div class="m-portlet__body">
+                    <div class="m-form__section m-form__section--first">
+                        <table class="bootstrap-table" id="period_grid" data-url='@Url.Action("PersonalPeriodList")'
+                               data-side-pagination="server" data-page-list="[10]" data-pagination="true" 
+                               data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                            <thead>
+                                <tr>
+                                    <th data-checkbox="true" ></th>
+                                    <th data-field="Id" data-align="center">序号</th>
+                                    <th data-field="SalaryTypeName" data-align="center">类型</th>
+                                    <th data-field="Period" data-align="center">工资区间</th>
+                                    <th data-field="CreatorUser" data-align="center">上传人</th>
+                                    <th data-field="CreationTime" data-align="center">上传时间</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            工资条明细
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <!--<form class="m-form m-form--fit">-->
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first" id="salaryDetailContainer">
+
+                    @{Html.RenderAction("PersonalDetail");}
+
+                </div>
+
+
+            </div>
+
+            <!--</form>-->
+            <!--end::Form-->
+        </div>
+    </div>
+</div>
+@section scriptsection{
+    <script type="text/javascript">
+
+    $('#period_grid').bootstrapTable({
+
+        queryParams: function (params) {
+            return {
+                MaxResultCount: params.limit,
+                PageNumber: params.offset
+            }
+        }, onCheck: function (row, arg) {
+
+            $('#salaryDetailContainer').load("/Salary/PersonalDetail/" + row.Id)
+          
+        }
+
+    })
+
+    </script>
+
+}

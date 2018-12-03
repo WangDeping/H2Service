@@ -1,0 +1,111 @@
+﻿@model List<H2Service.MedicalWastes.Dto.WasteStatisticOutput>
+@{
+    ViewBag.Title = "GetUnDeliveryCollection";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section subheader_title{
+    待出库医疗废物汇总
+}
+@{ var counts = 0;}
+<div class=" row">
+    @foreach (var d in Model)
+    {
+        counts += d.PackageCount;
+        <div class="col-lg-4">
+            <div class="m-portlet">
+
+                <div class="m-portlet__body">
+                    <div class="m-form__section m-form__section--first">
+                      <h1>@d.Kind.ToString() :</h1>
+                      <h4>@d.Total Kg</h4>
+                      <h4>@d.PackageCount 包</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+    <div class="col-lg-4">
+        <div class="m-portlet">
+
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                    <button onclick="delivery()" type="button" class="btn btn-primary btn-lg" style="width:100%; height:100%">
+                        点击出库
+                    </button>
+                </div>
+            </div>
+
+        </div>
+       
+    </div>
+    
+
+    <div class="col-lg-12">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            出库历史
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+                <table class="bootstrap-table" id="deliveries_grid" data-url='@Url.Action("GetDeliveryHistoryGrid")'
+                       data-side-pagination="server" data-page-list="[10]" data-pagination="true"
+                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                    <thead>
+                        <tr>                            
+                            <th data-field="DistrictName" data-align="center">位置</th>                           
+                            <th data-field="CreatorUserName" data-align="center">出库人员</th>
+                            <th data-field="CreationTime" data-align="center">交接时间</th>
+                            <th data-field="Summary"  data-align="center">出库汇总</th>
+                        </tr>
+                    </thead>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+    </div>  
+
+<script>
+      var districtId =@ViewBag.DistrictId;
+    $('#deliveries_grid').bootstrapTable({
+        queryParams: function (params) {
+            return {
+                MaxResultCount: params.limit,
+                PageNumber: (params.offset / params.limit),
+                DistrictId: districtId
+            }
+        }
+    })
+    toastr.options.onShown = function () { window.location.reload(); }
+    function delivery() {
+        var counts =@counts;
+        if (counts == 0) {
+            abp.notify.warn("暂存点没有医疗废物")
+            toastr.options.onShown = function () { }
+            return;
+        }
+        abp.ajax({
+            url: "/MedicalWaste/DeliveryWasteCollection",
+            data: JSON.stringify({ districtId: districtId })
+        }).done(function (data) {
+            abp.notify.success("操作成功")
+        }).fail(function () {
+            abp.message.error('操作失败,请务必联系管理员', '出库单');
+
+        })
+
+    }
+</script>

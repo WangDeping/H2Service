@@ -1,0 +1,14 @@
+ERROR 2018-11-30 14:45:10,262 [350  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-23 0:00:00gggggg2018-12-01 0:00:00
+ERROR 2018-11-30 14:45:10,353 [350  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-24 15:23:37
+ERROR 2018-11-30 14:45:10,353 [350  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-24 15:22:52
+ERROR 2018-11-30 14:45:10,353 [350  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-24 15:20:57
+ERROR 2018-11-30 14:45:10,354 [350  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-24 15:20:25
+ERROR 2018-11-30 14:45:10,354 [350  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-24 15:19:54
+ERROR 2018-11-30 14:45:10,354 [350  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-24 15:19:42
+ERROR 2018-11-30 14:47:11,922 [341  ] ice.MedicalWastes.MedicalWasteAppService - ##################
+ERROR 2018-11-30 14:47:12,139 [341  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-24 15:23:37
+ERROR 2018-11-30 14:47:12,139 [341  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-24 15:22:52
+ERROR 2018-11-30 14:47:12,139 [341  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-24 15:20:57
+ERROR 2018-11-30 14:47:12,139 [341  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-24 15:20:25
+ERROR 2018-11-30 14:47:12,139 [341  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-24 15:19:54
+ERROR 2018-11-30 14:47:12,139 [341  ] ice.MedicalWastes.MedicalWasteAppService - 2018-11-24 15:19:42

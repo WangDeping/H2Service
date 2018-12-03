@@ -1,0 +1,50 @@
+﻿@model List<H2Service.MeritPays.Dto.MeritPayDetailDto>
+@{ 
+    var list = Model;
+    var header = new List<string>();
+    if (list.Count > 0)
+    {
+        var item = list[0].Detail.Split('^');
+        foreach (var i in item)
+        {
+            header.Add(i.Split(':')[0]);
+        }
+    }
+}
+<table data-toggle="table" data-height="400" class="bootstrap-table" id="details_grid"  data-single-select="true" data-striped="true">
+    <thead>
+        <tr>
+            @foreach (var h in header)
+            {
+                <th>@h</th>
+            }           
+        </tr>
+    </thead>
+    <tbody>
+      @foreach (var record in list)
+      {
+          var item = record.Detail.Split('^');
+        <tr>           
+            @foreach (var i in item)
+            {
+                if (i.Split(':').Length > 1)
+                {
+                <td >@i.Split(':')[1]</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+
+      }
+    </tbody>
+</table>
+
+<script>
+    $('#details_grid').bootstrapTable({
+        fixedColumns: true,//固定列
+        fixedNumber: 3
+    })
+</script>

@@ -1,0 +1,14 @@
+﻿@model string[]
+<select class="form-control m-bootstrap-select m_selectpicker" name="operatingSystem">
+    <option value="-1" selected="selected"></option>
+    @foreach (var system in Model)
+    {
+
+        <option value="@system">
+            @system
+        </option>
+    }
+
+</select>
+
+

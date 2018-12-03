@@ -1,0 +1,35 @@
+﻿@model IEnumerable<H2Service.Account.Dto.DepartmentDto>
+<select class="form-control m-select2" id="departmentsSelect2" name="departmentsSelect2">
+    <option value="0" selected>
+        请选择科室
+    </option>
+    @foreach (var d in Model)
+    {
+        if (d.IsLeaf)
+        {
+        <option value="@d.Id" >
+                @d.DepartmentName
+        </option>
+        }
+        else
+        {
+            <option value="@d.Id" disabled>
+                @d.DepartmentName
+            </option>
+
+        }
+    }
+
+    @*<optgroup label="Alaskan/Hawaiian Time Zone">
+        <option value="AK">
+            Alaska
+        </option>
+        <option value="HI">
+            Hawaii
+        </option>
+    </optgroup>*@   
+</select>
+<script>
+    $('#departmentsSelect2').select2();
+
+</script>

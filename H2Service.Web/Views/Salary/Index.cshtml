@@ -1,0 +1,163 @@
+﻿@using System.Globalization
+ @using System.Web.Optimization
+@using Abp.Web.Mvc.Extensions
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+    H2Service
+    }
+
+           
+            <div class=" row">
+                <div class="col-lg-4">
+                    <div class="m-portlet">
+                        <div class="m-portlet__head">
+                            <div class="m-portlet__head-caption">
+                                <div class="m-portlet__head-title">
+                                    <span class="m-portlet__head-icon m--hide">
+                                        <i class="la la-gear"></i>
+                                    </span>
+                                    <h3 class="m-portlet__head-text">
+                                        工资条上传
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <form class="m-form m-form--fit m-form--label-align-right" id="period-form">
+                            <div class="m-portlet__body">
+                                <div class="m-form__section m-form__section--first">
+                                    <div class="form-group m-form__group">
+
+                                        <div class='input-group date' id='datepicker'>
+                                            <input type='text' class="form-control m-input" readonly placeholder="选择工资区间" />
+                                            <span class="input-group-addon">
+                                                <i class="la la-calendar-check-o"></i>
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group m-form__group">
+                                        @Html.Action("SalaryTypes")
+                                        
+                                    </div>
+
+                                    <div class="form-group m-form__group">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="m-dropzone dropzone  m-dropzone--success"  id="m-dropzone">
+                                                <div class="m-dropzone__msg dz-message needsclick">
+                                                    <h3 class="m-dropzone__msg-title">
+                                                        点击或者拖拽表格.
+                                                    </h3>
+                                                    <span class="m-dropzone__msg-desc">
+                                                        仅支持XLSX格式
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="m-portlet">
+                        <div class="m-portlet__head">
+                            <div class="m-portlet__head-caption">
+                                <div class="m-portlet__head-title">
+                                    <span class="m-portlet__head-icon m--hide">
+                                        <i class="la la-gear"></i>
+                                    </span>
+                                    <h3 class="m-portlet__head-text">
+                                        上传历史
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <!--begin::Form-->
+                        <!--<form class="m-form m-form--fit">-->
+                            <div class="m-portlet__body">
+                                <div class="m-form__section m-form__section--first">
+                                   
+                                    @Html.Action("SalaryPeriodList")                                  
+                                  
+                                </div>
+                                
+                              
+                            </div>
+                         
+                        <!--</form>-->
+                        <!--end::Form-->
+                    </div>
+                </div>
+             </div>               
+               
+
+         
+           
+      <!--</form>-->
+
+    <!--end::Form-->
+
+@section scriptsection{    
+
+    <script type="text/javascript">      
+        $('.m_selectpicker').selectpicker();
+        var myDropzone = new Dropzone('#m-dropzone', {
+            url:'@Url.Action("SalaryUpload")',
+             paramName: "file",
+             maxFiles: 1,
+             maxFilesize: 10,
+             method: "post",
+             acceptedFiles: ".xlsx",
+             dictResponseError: '文件上传失败!',
+             dictInvalidFileType: "你不能上传该类型文件,文件类型只能是.xlsx",
+             dictFallbackMessage: "浏览器不受支持",
+             dictFileTooBig: "文件过大上传文件最大支持.",              
+             dictRemoveLinks: "删除",
+             addRemoveLinks: true,
+             init: function () {
+                 this.on("addedfile", function (file) {
+                     if ($('#datepicker').datepicker('getDate') == null) {
+                         abp.notify.error("选择正确工资区间上传")
+                         return false;
+                     }
+                    var perioid = moment($('#datepicker').datepicker('getDate')).format('YYYY-MM')                    
+                    //上传文件时触发的事件
+                    this.options.url = '@Url.Action("SalaryUpload")/' + perioid + '/' + $('.m_selectpicker').val();
+                    abp.ui.setBusy('#period-form')
+                }),
+                    this.on("success", function (file, data) {
+                        abp.ui.clearBusy('#period-form');
+                     abp.notify.success("保存成功");
+                     myDropzone.removeFile(file);
+                    
+                    $('#period_grid').bootstrapTable('refresh')
+                    }),
+                    this.on("error", function (file, data) {  
+                    abp.ui.clearBusy('#period-form');
+                        abp.notify.error(data.error.message);
+                    })
+                   
+            }
+         })
+        $('#datepicker').datepicker({
+            todayHighlight: true,
+            format: 'yyyy-mm',    
+            autoclose: true,
+            orientation: 'bottom'
+        });
+      
+
+</script>
+
+<script src = "@Scripts.Url("~/Scripts/h2web/salary/Index.js")" ></script >
+ 
+}
+
+
+
+

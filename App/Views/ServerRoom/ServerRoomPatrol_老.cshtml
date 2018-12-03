@@ -1,0 +1,218 @@
+﻿
+@{
+    ViewBag.Title = "ServerRoomPatrol";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading ">
+                <h3 class="panel-title ">机房巡视- @ViewBag.ServerRoomName</h3>
+            </div>
+            <div class="panel-body" >
+                <form>
+                    <input type="hidden" id="ServerRoomId" value="@ViewBag.ServerRoomId" />
+                    <div class="m-form__group form-group row">
+                        <label class="col-4 col-form-label">
+                            温度
+                        </label>
+                        <div class="col-8">
+                            <input id="Temperature" type="text" class="form-control" value="20" name="Temperature">
+                        </div>
+                    </div>
+                    <div class="m-form__group form-group row">
+                        <label class="col-4 col-form-label">
+                            湿度
+                        </label>
+                        <div class="col-8">
+                            <input id="Humidity" type="text" class="form-control" value="50" name="Humidity">
+                        </div>
+                    </div>
+                    <div class="m-form__group form-group row">
+                        <label class="col-3 col-form-label">
+                            机房清洁
+                        </label>
+                        <div class="col-3">
+                            <span class="m-switch m-switch--outline m-switch--icon m-switch--danger">
+                                <label>
+                                    <input type="checkbox" id="IsClean" checked="checked" name="IsClean">
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                        <label class="col-3 col-form-label">
+                            有噪音
+                        </label>
+                        <div class="col-3">
+                            <span class="m-switch m-switch--outline m-switch--icon m-switch--danger">
+                                <label>
+                                    <input type="checkbox" id="HasNoise" name="HasNoise">
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="m-form__group form-group row">
+                        <label class="col-3 col-form-label">
+                            有异味
+                        </label>
+                        <div class="col-3">
+                            <span class="m-switch m-switch--outline m-switch--icon m-switch--danger">
+                                <label>
+                                    <input type="checkbox" name="HasOdor" id="HasOdor">
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                        <label class="col-3 col-form-label">
+                            故障灯亮
+                        </label>
+                        <div class="col-3">
+                            <span class="m-switch m-switch--outline m-switch--icon m-switch--danger">
+                                <label>
+                                    <input type="checkbox" name="HasWarningLight" id="HasWarningLight">
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="m-form__group form-group row">
+                        <label class="col-3 col-form-label">
+                            UPS正常
+                        </label>
+                        <div class="col-3">
+                            <span class="m-switch m-switch--outline m-switch--icon m-switch--danger">
+                                <label>
+                                    <input type="checkbox" id="IsUPSWorking" checked="checked" name="IsUPSWorking">
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                        <label class="col-3 col-form-label">
+                            空调正常
+                        </label>
+                        <div class="col-3">
+                            <span class="m-switch m-switch--outline m-switch--icon m-switch--danger">
+                                <label>
+                                    <input type="checkbox" checked="checked" id="IsAirConditionerWorking" name="IsAirConditionerWorking">
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="m-form__group form-group row">
+                        <label class="col-3 col-form-label">
+                            消防正常
+                        </label>
+                        <div class="col-3">
+                            <span class="m-switch m-switch--outline m-switch--icon m-switch--danger">
+                                <label>
+                                    <input type="checkbox" checked="checked" id="IsFireFightingDeviceWorking" name="IsFireFightingDeviceWorking">
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="m-form__group form-group row">
+                        <div class="col-12">
+                            <input type="text" class="form-control " placeholder="检查总结" id="RoomSummary" rows="3">
+                        </div>
+                    </div>
+                    <div class="m-form__group form-group row thumbnailImgs">
+
+                    </div>
+
+                    <div class="m-form__group form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-primary form-control " type="button" id="camBtn">巡视拍照</button>
+                        </div>
+
+
+                    </div>
+                    <div class="m-form__group form-group row">
+
+                        <div class="col-12">
+                            <button class="btn btn-success form-control" type="button" id="saveBtn">保存提交</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    <script type="text/javascript">
+        var imgsArray = new Array();
+        toastr.options = {
+            "positionClass": "toast-bottom-full-width"
+
+        }
+        $('#Humidity, #Temperature').TouchSpin({
+            buttondown_class: 'btn btn-primary',
+            buttonup_class: 'btn btn-primary',
+            min: 0,
+            max: 100,
+            step: 1,
+            decimals: 0,
+            boostat: 5,
+            maxboostedstep: 10,
+        });
+
+        $('#camBtn').click(function () {
+            wx.chooseImage({
+                count: 9, // 默认9
+                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['camera'], // 可以指定来源是相册还是相机，默认二者都有
+                success: function (res) {
+                    var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                    $("#camBtn,#saveBtn").attr("disabled", true);
+                    $('.thumbnailImgs').append('<div class="col-4"><a href="#" class="thumbnail"><img src="' + localIds + '" /></a></div >');
+                    wx.uploadImage({
+                        localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
+                        isShowProgressTips: 1,// 默认为1，显示进度提示
+                        success: function (ures) {
+                            var serverId = ures.serverId; // 返回图片的服务器端ID
+                            imgsArray.push(serverId);
+                            $("#camBtn,#saveBtn").attr("disabled", false);
+                        }
+                    });
+                }
+            });
+
+        })
+
+        $('#saveBtn').click(function () {
+            if (imgsArray.length <= 0) {
+                toastr.error('请拍摄至少一张照片!')
+                return;
+            }
+            if ($('#RoomSummary').val() == "") {
+                toastr.error('请填写检查总结!')
+                return;
+            }
+            var serverRoomPatrol = new Object();
+            serverRoomPatrol.Temperature = $('#Temperature').val();
+            serverRoomPatrol.Humidity = $('#Humidity').val();
+            serverRoomPatrol.IsClean = $('#IsClean').is(':checked');
+            serverRoomPatrol.HasNoise = $('#HasNoise').is(':checked');
+            serverRoomPatrol.HasOdor = $('#HasOdor').is(':checked');
+            serverRoomPatrol.HasWarningLight = $('#HasWarningLight').is(':checked');
+            serverRoomPatrol.IsUPSWorking = $('#IsUPSWorking').is(':checked');
+            serverRoomPatrol.IsAirConditionerWorking = $('#IsAirConditionerWorking').is(':checked');
+            serverRoomPatrol.IsFireFightingDeviceWorking = $('#IsFireFightingDeviceWorking').is(':checked');
+            serverRoomPatrol.ServerRoomId = $('#ServerRoomId').val();
+            serverRoomPatrol.ImgsPath = imgsArray.join('^');
+            serverRoomPatrol.RoomSummary = $('#RoomSummary').val();
+            $("#camBtn,#saveBtn").attr("disabled", true);
+            $.post('/ServerRoom/CreatePatrol/', { 'serverRoomPatrol': serverRoomPatrol }, function (data) {
+                // $("#camBtn,#saveBtn").attr("disabled", false);    //按钮禁用
+                if (data.Code == 0) {
+                    WeixinJSBridge.call('closeWindow');
+
+                }
+            })
+        })
+    </script>

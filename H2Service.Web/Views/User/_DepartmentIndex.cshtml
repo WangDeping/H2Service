@@ -1,0 +1,366 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+    组织管理
+}
+<div class=" row">
+    <div class="col-lg-3">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            部门选择
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <form class="m-form m-form--fit m-form--label-align-right" id="period-form">
+                <div class="m-portlet__body">
+                    <div class="form-group m-form__group">
+                        <input type="text" id="tree_search" class="form-control" />
+                    </div>
+                    <div id="depart_tree" class="tree-demo"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            部门下用户
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+
+                <table class="bootstrap-table" id="users_grid" 
+                       data-side-pagination="server" data-page-list="[10]" data-pagination="true"
+                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true" data-row-style="rowStyle">
+                    <thead>
+                        <tr>
+                            <th data-field="Id" data-align="center">Id</th>
+                            <th data-field="UserNumber" data-align="center">工号</th>
+                            <th data-field="UserName" data-align="center">姓名</th>
+                            <th data-field="TelPhone" data-align="center">手机号</th>
+                            <th data-field="IsDeleted" data-align="center" data-formatter="IsDeleted">状态</th>
+                            <th data-field="Solutions" data-align="center"></th>
+                        </tr>
+                    </thead>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--DepartmentModal-->
+    <div class="modal fade" id="departmentModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        部门信息维护
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <form class="m-form m-form--fit m-form--label-align-right" id="departmentForm">
+                    <div class="m-portlet__body">
+                        <div class="modal-body align-content-center">
+
+                            <div class="form-group">
+                                <label for="DepartmentName" class="form-control-label">
+                                    部门名称:
+                                </label>
+                                <input type="text" class="form-control" id="DepartmentName" required>
+                                <input type="hidden" id="Id" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Location" class="form-control-label">
+                                    上级部门:
+                                </label>
+                                <input type="text" class="form-control" id="ParentName" disabled="disabled" required>
+                                <input type="hidden" id="FatherId" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Description" class="form-control-label">
+                                    科室电话:
+                                </label>
+                                <input type="text" id="DepartmentPhone" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="Description" class="form-control-label">
+                                    顺序(数值越高越靠前):
+                                </label>
+                                <input type="text" id="Order" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                保存
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--DepartmentModal-->
+
+    @{Html.RenderAction("PermissionModalPartialView", "Auth");}
+</div>
+<script>
+
+    $('#users_grid').bootstrapTable({
+        queryParams: function (params) {
+            return {
+                MaxResultCount: params.limit,
+                PageNumber: (params.offset / params.limit)               
+            }
+        }
+    })
+    //function search() {
+    //    $('#users_grid').bootstrapTable('refresh', {
+    //        UserNumber: $('#search_UserNumber').val(),
+    //        UserName: $('#search_UserName').val()
+    //    })
+
+    //}
+    function IsDeleted(value, row, index) {
+        if (value)
+            return '<span class="m-badge m-badge--danger m-badge--wide">禁用</span>'
+        else
+            return "正常"
+
+    }
+
+    function rowStyle(row, index) {
+        return {
+            classes: 'text-nowrap another-class'
+        };
+
+    }
+
+    $("#depart_tree")
+        .on('move_node.jstree', function (e, data) {            
+            $.post('/Department/ChangeFather', { Id: data.node.id, FatherId: data.parent }, function (data) {
+            })
+
+        }).on("select_node.jstree", function (e, data) {
+            var node = data.instance.get_node(data.selected[0]);
+
+            var childNodes = data.instance.get_children_dom(node);
+            if (childNodes.length == 0) {
+                $('#users_grid').bootstrapTable('refresh', {
+                    url: '/User/UserGrid',
+                    query: {                        
+                            DepartmentName: node.text                        
+                    }
+                })
+        
+            }
+            })
+        .jstree({
+            "core": {
+                "themes": {
+                    "responsive": true
+                },
+                // so that create works
+                "check_callback": true,
+                'data': {
+                    'url': '/Department/DepartmentTree',
+                    'data': function (node) {
+                        return { 'parent': node.id };
+                    }
+                }
+            },
+            "types": {
+                "default": {
+                    "icon": "fa fa-folder m--font-brand"
+                },
+                "file": {
+                    "icon": "fa fa-file  m--font-brand"
+                }
+            },
+            "state": { "key": "demo3" },
+            "plugins": ["contextmenu", "dnd", "search", "state", "types"],
+            "contextmenu": {
+                "items": {
+                    "create": null,
+                    "rename": null,
+                    "remove": null,
+                    "ccp": null,
+                    "创建子部门": {
+                        "label": "创建子部门",
+                        "action": function (data) {
+                            var inst = $.jstree.reference(data.reference),
+                                obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性
+                            addModalShow(obj)
+                        }
+                    },
+                    "查看/编辑": {
+                        "label": "查看/编辑",
+                        "action": function (data) {
+                            var inst = $.jstree.reference(data.reference),
+                                obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性
+                            var parent_id = inst.get_parent(obj)
+                            var parent_node = inst.get_node(parent_id);
+                            editModalShow(obj, parent_node)
+                        }
+                    },
+                    "删除部门": {
+                        "label": "删除部门",
+                        "action": function (data) {
+                            bootbox.confirm("确定要删除此部门吗?", function (r) {
+                                if (r) {
+                                    var inst = $.jstree.reference(data.reference),
+                                        obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性
+                                    var childNodes = inst.get_children_dom(obj);
+                                    if (childNodes.length > 0) {
+                                        abp.notify.error("该部门下有子部门,不能直接删除！");
+                                        return
+                                    }
+                                    abp.ajax({
+                                        url: '/Department/RemoveDepartment',
+                                        data: JSON.stringify({ Id: obj.id })
+                                    }).done(function (data) {
+                                            abp.notify.success(data.message);
+                                            $('#depart_tree').jstree().refresh();
+                                        })                                  
+                                }
+                            })
+                           
+                        }
+                    },
+                    "部门权限": {
+                        "label": "部门权限",
+                        "action": function (data) {
+                            var inst = $.jstree.reference(data.reference),
+                             obj = inst.get_node(data.reference);                           
+                            assignPermissionViewById(obj.id)
+                        }
+                    }
+                }
+
+            }
+
+        });
+    var departmentId = 0;
+    function assignPermissionViewById(Id) {
+        departmentId = Id;
+        $('#permission_tree').jstree("destroy");
+        $('#permission_tree').jstree({
+            "core": {
+                "themes": {
+                    "responsive": true
+                },
+                "check_callback": true,
+                'data': {
+                    'url': '/Auth/GetAllPermissions/',
+                    'data': function (node) {
+                        return { 'DepartmentId': Id };
+                    }
+                }
+            },
+            "types": {
+                "default": {
+                    "icon": "fa fa-folder m--font-brand"
+                },
+                "file": {
+                    "icon": "fa fa-file  m--font-brand"
+                }
+            },
+
+            "plugins": ["checkbox", "types"]
+
+        })
+
+        $('#permissionModal').modal('show');
+
+    }
+    function permissionSave() {        
+        var select_arry = $('#permission_tree').jstree().get_selected(false);
+        abp.ajax({
+            url: '/Department/SetPermission/',
+            data: JSON.stringify({ DepartmentId: departmentId, PermissionNames: select_arry })
+        }).done(function (data) {
+            abp.notify.success(data.message);
+            $('#permissionModal').modal('hide');
+            })      
+    }
+    var to = false;
+    $('#tree_search').keyup(function () {
+        if (to) { clearTimeout(to); }
+        to = setTimeout(function () {
+            var v = $('#tree_search').val();
+            $('#depart_tree').jstree(true).show_all();
+            $('#depart_tree').jstree(true).search(v);
+            $('.jstree-search').focus();
+        }, 250);
+
+    });
+    function addModalShow(node) {
+        $('#departmentForm').resetForm();
+        $('#FatherId').val(node.id);
+        $('#ParentName').val(node.text);
+        $('#Order,#Id').val(0)
+        $('#departmentModal').modal('show');
+    }
+    function editModalShow(node, parent) {
+
+        $.post('/Department/GetDepartmentById', { Id: node.id }, function (data) {
+            $('#departmentForm').resetForm();
+            $('#DepartmentName').val(data.DepartmentName)
+            $('#DepartmentPhone').val(data.DepartmentPhone)
+            $('#FatherId').val(data.FatherId);
+            $('#ParentName').val(parent.text);
+            $('#Order').val(data.Order)
+            $('#Id').val(data.Id)
+            $('#departmentModal').modal('show');
+        })
+
+
+    }
+    $('#departmentForm').submit(function (e) {
+        e.preventDefault();
+        var department = {
+            'Id': $('#Id').val(),
+            'DepartmentName': $('#DepartmentName').val(),
+            'FatherId': $('#FatherId').val(),
+            'DepartmentPhone': $('#DepartmentPhone').val(),
+            'Order': $('#Order').val()
+        }
+        abp.ajax({
+            url: '/Department/AddorUpdateDepartment',
+            data: JSON.stringify(department)
+        }).done(function (data) {
+            abp.notify.success(data.message);
+            $('#departmentModal').modal('hide');
+            $('#depart_tree').jstree().refresh();
+            })       
+
+    })
+</script>

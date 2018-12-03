@@ -1,0 +1,231 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+    机房管理
+}
+<div class=" row">     
+    <div class="col-lg-12">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            机房巡视
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+              <!--搜索框-->
+                   <!-- <div class="m-form m-form--label-align-right  m--margin-bottom-30">
+                            <div class="row align-items-center">
+                                <div class="col-xl-8 order-2 order-xl-1">
+                                    <div class="form-group m-form__group row align-items-center">
+                                        <div class="col-md-6">
+                                            <div class="m-form__group m-form__group--inline col-12">
+                                                <div class="m-form__label col-2">
+                                                    <label>
+                                                        机房:
+                                                    </label>
+                                                </div>
+                                                <div class="m-form__control ">
+                                                    @Html.Action("ServerRoomList")
+                                                </div>
+                                            </div>
+                                            <div class="d-md-none m--margin-bottom-10"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="m-form__group m-form__group--inline col-12">
+                                                <div class="m-form__label col-2">
+                                                    <label class="m-label m-label--single ">
+                                                        日期:
+                                                    </label>
+                                                </div>
+                                                <div class="m-form__control">
+                                                    <input  class="form-control" id="daterangepicker" readonly placeholder="选择日期区间" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="d-md-none m--margin-bottom-10"></div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+                                    <a href="#" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                            <span>
+                                                查询
+                                            </span>
+                                        </span>
+                                    </a>
+                                    <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                </div>
+                            </div>
+                        </div>
+                       -->
+               <!--搜索框-->
+                 
+                    <table class="bootstrap-table" id="patrol_grid" data-url='@Url.Action("PatrolList")'
+                           data-side-pagination="server" data-page-list="[10]" data-pagination="true" 
+                           data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                        <thead>
+                            <tr>                                
+                                <th data-field="ServerRoomName" data-align="center">机房名称</th>
+                                <th data-field="CreationTime" data-align="center">巡视时间</th>
+                                <th data-field="CreatorName">巡视人</th>
+                                <th data-field="Temperature" data-align="center">温度</th>
+                                <th data-field="Humidity" data-align="center">湿度</th>
+                                <th data-field="IsClean" data-align="center" data-formatter="cleanFormatter">清洁</th>
+                                <th data-field="HasNoise" data-align="center" data-formatter="noiseFormatter">噪音</th>
+                                <th data-field="HasOdor" data-align="center" data-formatter="odorFormatter">异味</th>
+                                <th data-field="HasWarningLight" data-align="center" data-formatter="lightFormatter">故障灯</th>
+                                <th data-field="IsUPSWorking" data-align="center" data-formatter="upsFormatter">UPS</th>
+                                <th data-field="IsAirConditionerWorking" data-align="center" data-formatter="airConditionerFormatter">空调</th>
+                                <th data-field="IsFireFightingDeviceWorking" data-align="center" data-formatter="fireFightingDeviceFormatter">消防</th>
+                                <th data-field="ImgsPath" data-align="center" data-formatter="picFormatter">小结</th>
+                               
+                            </tr>
+                        </thead>
+                    </table>
+
+                
+            </div>           
+           
+        </div>        
+    </div>
+    
+    <!--PicModal-->
+    <div class="modal fade " id="picModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        机房查房图片
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body ">
+                    <div class="row" id="thumbnail_container">
+
+                    </div>
+                   
+                   <div class="row">                     
+                       <div class="alert alert-success form-control" id="summary" role="alert"></div>
+                   </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--PicModal-->
+   
+</div>
+@section scriptsection{
+
+    <script >
+        $('.m_selectpicker').selectpicker();
+        $('#daterangepicker').daterangepicker({
+            buttonClasses: 'm-btn btn',
+            applyClass: 'btn-primary',
+            cancelClass: 'btn-secondary', 
+            dateLimit: {
+                days: 365 * 15
+            },
+            showDropdowns: true,
+            "locale": {
+                format: 'YYYY-MM-DD',
+                monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
+                    '七月', '八月', '九月', '十月', '十一月', '十二月']
+            }
+
+
+        });
+        $('#patrol_grid').bootstrapTable({
+            queryParams: function (params) {
+                return {
+                    roomId:0,
+                    MaxResultCount: params.limit,
+                    PageNumber: (params.offset / params.limit)
+                }
+            }
+        })
+
+        function cleanFormatter(value, row, index) {
+            if (value)
+                return "清洁"
+            else
+                return '<span style="color:red; font-weight:bold">脏乱</span>'
+        }
+        function noiseFormatter(value, row, index) {
+            if (value)
+                return '<span  class="m-badge m-badge--danger m-badge--wide">噪音</span>'
+            else
+                return "正常"
+        }
+        function odorFormatter(value, row, index) {
+            if (value)
+                return '<span class="m-badge m-badge--danger m-badge--wide">异味</span>'
+            else
+                return "正常"
+        }
+        function lightFormatter(value, row, index) {
+            if (value)
+                return '<span class="m-badge m-badge--danger m-badge--wide">灯亮</span>'
+            else
+                return "正常"
+        }
+        function upsFormatter(value, row, index) {
+            if (value)
+                return "正常"
+            else
+                return '<span class="m-badge m-badge--danger m-badge--wide">故障</span>'
+        }
+
+        function airConditionerFormatter(value, row, index) {
+            if (value)
+                return "正常"
+            else
+                return '<span class="m-badge m-badge--danger m-badge--wide">故障</span>'
+        }
+
+        function fireFightingDeviceFormatter(value, row, index) {
+            if (value)
+                return "正常"
+            else
+                return '<span class="m-badge m-badge--danger m-badge--wide">故障</span>'
+        }
+
+        function picFormatter(value, row, index) {  
+            var result = '<a href="#" onclick="showPic(\'' + value + '\',\'' + row.RoomSummary + '\')"  title="巡视图片"><i class="la la-photo"></i></a>';
+            return result
+        }
+        function showPic(imgs,summary) {        
+            $('#thumbnail_container').html('');
+            var imgArrary = imgs.split('^');
+            for (var index in imgArrary) {              
+                var appendHtml = "<div class='col-sm-4 col-md-4'><a href='#' ><img src='" + imgArrary[index] + "' class='img-thumbnail' /></a></div>"
+                $('#thumbnail_container').append(appendHtml);
+            }
+            $('#summary').html("巡视小结:"+summary)
+            $('#picModal').modal('show');
+
+        }
+    </script>
+
+}
+

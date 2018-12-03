@@ -1,0 +1,46 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>   
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>H2Service</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" ></script>
+
+    <script src="~/Scripts/assets/vendors/base/vendors.bundle.js"></script>
+    <script src="~/Scripts/assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
+    <link href="~/Scripts/assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script>        
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '@ViewBag.appid', // 必填，企业号的唯一标识，此处填写企业号corpid
+            timestamp: @ViewBag.timestamp, // 必填，生成签名的时间戳
+            nonceStr: '@ViewBag.noncestr', // 必填，生成签名的随机串
+            signature: '@ViewBag.signature',// 必填，签名，见附录1
+            jsApiList: ['chooseImage', 'previewImage', 'uploadImage', 'downloadImage' ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2     
+        });
+        toastr.options = {
+            closeButton: false,
+            debug: false,
+            progressBar: true,
+            positionClass: "toast-top-full-width",
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "2000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut"
+        };  
+    </script>
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>

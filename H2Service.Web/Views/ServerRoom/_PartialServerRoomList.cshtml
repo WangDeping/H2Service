@@ -1,0 +1,13 @@
+﻿@model  IEnumerable<H2Service.ServerRooms.Dto.ServerRoomDto>
+
+<select class="form-control m-bootstrap-select m_selectpicker" name="select_room">
+    @foreach (var room in Model)
+    {
+
+        <option value="@room.Id">
+            @room.RoomName
+        </option>
+    }
+
+</select>
+

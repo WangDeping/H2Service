@@ -1,0 +1,36 @@
+ERROR 2018-11-17 14:09:13,741 [42   ] App.Controllers.AuthController           - 用户登录：lansecheng
+ERROR 2018-11-17 16:49:40,213 [26   ] App.Controllers.AuthController           - 用户登录：lansecheng
+ERROR 2018-11-17 17:03:32,923 [44   ] App.Controllers.AuthController           - 传入字典的模型项的类型为“Abp.UI.UserFriendlyException”，但此字典需要类型“Abp.Web.Mvc.Models.ErrorViewModel”的模型项。
+System.InvalidOperationException: 传入字典的模型项的类型为“Abp.UI.UserFriendlyException”，但此字典需要类型“Abp.Web.Mvc.Models.ErrorViewModel”的模型项。
+   在 System.Web.Mvc.ViewDataDictionary`1.SetModel(Object value)
+   在 System.Web.Mvc.ViewDataDictionary..ctor(ViewDataDictionary dictionary)
+   在 System.Web.Mvc.WebViewPage`1.SetViewData(ViewDataDictionary viewData)
+   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-17 17:04:28,923 [28   ] App.Controllers.AuthController           - 传入字典的模型项的类型为“Abp.UI.UserFriendlyException”，但此字典需要类型“Abp.Web.Mvc.Models.ErrorViewModel”的模型项。
+System.InvalidOperationException: 传入字典的模型项的类型为“Abp.UI.UserFriendlyException”，但此字典需要类型“Abp.Web.Mvc.Models.ErrorViewModel”的模型项。
+   在 System.Web.Mvc.ViewDataDictionary`1.SetModel(Object value)
+   在 System.Web.Mvc.ViewDataDictionary..ctor(ViewDataDictionary dictionary)
+   在 System.Web.Mvc.WebViewPage`1.SetViewData(ViewDataDictionary viewData)
+   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-17 17:04:31,460 [98   ] App.Controllers.AuthController           - 传入字典的模型项的类型为“Abp.UI.UserFriendlyException”，但此字典需要类型“Abp.Web.Mvc.Models.ErrorViewModel”的模型项。
+System.InvalidOperationException: 传入字典的模型项的类型为“Abp.UI.UserFriendlyException”，但此字典需要类型“Abp.Web.Mvc.Models.ErrorViewModel”的模型项。
+   在 System.Web.Mvc.ViewDataDictionary`1.SetModel(Object value)
+   在 System.Web.Mvc.ViewDataDictionary..ctor(ViewDataDictionary dictionary)
+   在 System.Web.Mvc.WebViewPage`1.SetViewData(ViewDataDictionary viewData)
+   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__5(IAsyncResult asyncResult)
+ERROR 2018-11-17 17:08:27,825 [64   ] App.Controllers.AuthController           - 未注册用户登录失败ot6Hzvs0NmrVn17ik50RV31Iy1mU,设备b74b0bc85ee8941367227fdbc6c4d00d

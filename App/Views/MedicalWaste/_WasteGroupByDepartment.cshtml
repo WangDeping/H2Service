@@ -1,0 +1,21 @@
+﻿@model  H2Service.MedicalWastes.Dto.DisplayWasteInDepartmentOutput
+<input hidden id="flowId" value="@Model.FlowId" />
+@foreach (var wastekind in Model.GroupWasteList)
+{
+    <div class="weui-cells__title">@wastekind.KindName</div>
+    <div class="weui-cells weui-cells_form ">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">数量/重量</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="text" readonly value="@(wastekind.Count+"包/"+wastekind.TotalWeight+"Kg")">
+            </div>
+            <div class="weui-cell__ft">
+                <button class="weui-vcode-btn append-btn" kind="@wastekind.Kind" flowId="@Model.FlowId">追加</button>
+                <a class="weui-vcode-btn" href="@Url.Action("WasteList", "MedicalWaste")?FlowId=@Model.FlowId&Kind=@wastekind.Kind" kind="@wastekind.Kind" flowId="@Model.FlowId">详细</a>
+            </div>
+        </div>
+    </div>
+}
+<script>
+  
+</script>

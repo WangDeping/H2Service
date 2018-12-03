@@ -1,0 +1,13 @@
+﻿@model  IEnumerable<H2Service.Salarires.SalaryType>
+
+<select class="form-control m-bootstrap-select m_selectpicker">
+    @foreach (var salaryType in Model)
+    {
+
+        <option value="@salaryType.Id">
+            @salaryType.SalaryTypeName
+        </option>
+    }  
+  
+</select>
+

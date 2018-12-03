@@ -1,0 +1,142 @@
+﻿
+@{   
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+   机房信息管理
+}
+<div class=" row">
+    <div class="col-lg-12">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            机房信息
+                        </h3>
+                    </div>
+                </div>
+            </div>
+          
+                <div class="m-portlet__body">
+                    <div class="m-form__section m-form__section--first">
+                        <div class="toolbar">
+                            <button id="newBtn"  class="btn btn-primary">新建机房</button>
+                        </div>
+                        <table class="bootstrap-table" id="serverRoom_grid" data-url='@Url.Action("ServerRoomGrid")'
+                               data-side-pagination="server" data-page-list="[10]" data-pagination="true" data-toolbar=".toolbar"
+                               data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                            <thead>
+                                <tr>
+                                    <th data-checkbox="true"></th>                                 
+                                    <th data-field="RoomName" data-align="center">机房名称</th>
+                                    <th data-field="DepartmentName" data-align="center">管理科室</th>
+                                    <th data-field="Location" data-align="center">机房位置</th>  
+                                    <th data-field="Description" data-align="center">描述</th> 
+                                    <th data-field="Id" data-align="center" data-formatter="actionFormatter"></th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div>
+           
+        </div>
+    </div>
+
+ 
+
+    <!--QrModal-->
+    <div class="modal fade" id="qrModal" tabindex="-1" role="dialog"  >
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                       机房巡视二维码入口
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body align-content-center">
+                   <img id="qrCodeImg"  />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>                 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--QrModal-->
+
+    <!--ServerModal-->
+    <div class="modal fade" id="serverRoomModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                       机房信息维护
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <form class="m-form m-form--fit m-form--label-align-right" id="serverRoomForm">
+                    <div class="modal-body align-content-center">
+
+                        <div class="form-group">
+                            <label for="ServerName" class="form-control-label">
+                                机房名称:
+                            </label>
+                            <input type="text" class="form-control" id="ServerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="departmentsSelect2" >
+                                管理科室:
+                            </label>                           
+                                @{Html.RenderAction("RelatedDepartmentsSelect", "Department", new { module = 4 });}                        
+                        </div>                      
+                        <div class="form-group">
+                            <label for="Location" class="form-control-label">
+                                机房位置:
+                            </label>
+                            <input type="text" class="form-control" id="Location" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Description" class="form-control-label">
+                                描述:
+                            </label>
+                            <textarea class="form-control" id="Description" required></textarea>
+                            <input type="hidden" id="Id"  value="0" />
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">
+                            保存
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--ServerModal-->
+</div>
+@section scriptsection{
+   
+<script src="~/Scripts/h2web/serverroom/index.js"></script>
+
+}
+

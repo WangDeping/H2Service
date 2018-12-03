@@ -1,0 +1,13 @@
+﻿@model string[]
+<select class="form-control m-bootstrap-select m_selectpicker" name="SEType">
+    <option value="-1" selected="selected"></option>
+    @foreach (var serverEquipment in Model)
+    {
+
+        <option value="@serverEquipment">
+            @serverEquipment
+        </option>
+    }
+
+</select>
+

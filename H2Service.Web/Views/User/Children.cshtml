@@ -1,0 +1,26 @@
+﻿@model  IEnumerable<H2Service.Account.Dto.DepartmentDto>
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Children</title>
+</head>
+<body>
+    <ul> 
+        @foreach (var department in Model)
+        {
+
+            <li>
+                @department.DepartmentName
+            </li>
+        }  
+    </ul>
+</body>
+</html>

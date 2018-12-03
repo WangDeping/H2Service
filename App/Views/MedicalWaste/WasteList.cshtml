@@ -1,0 +1,53 @@
+﻿@model IEnumerable<H2Service.MedicalWastes.Dto.MedicalWasteDto>
+@{
+    ViewBag.Title = "分类医疗废物列表";
+    Layout = "~/Views/Shared/_OnlyJqweuiLayout.cshtml";
+}
+<header class='demos-header'>
+    <h1 class="demos-title"> @ViewBag.Kind</h1>
+</header>
+
+<div class="bd">
+    <div class="page__bd">
+        <div class="weui-cells">      
+            @foreach (var waste in Model)
+            {
+            <div class="weui-cell weui-cell_swiped">
+                <div class="weui-cell__bd">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p>@(waste.CreatorUserName)@(waste.CreationTime)称重:@(waste.Weight)Kg </p>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="weui-cell__ft">
+                    <a class="weui-swiped-btn weui-swiped-btn_warn delete-swipeout" href="javascript:deleteWaste(@waste.Id)">删除</a>
+                </div>
+            </div>  
+            }
+        </div>
+     
+    </div>
+</div>
+
+@section Script{
+    <script type="text/javascript">
+        $.toast.prototype.defaults.duration=1000
+        function deleteWaste (Id)
+        {
+            $.post('/MedicalWaste/RemoveWaste/', { Id: Id }, function (data) {
+                if (data.Code<0)
+                    $.toast(data.Message, "cancel");
+                else
+                    $.toast("操作成功", function () {                       
+                        window.location.href='@Url.Action("Index", "MedicalWaste",new { Id = ViewBag.DepId })'
+
+                    });
+            })
+        }
+
+    </script>
+    
+    }
+

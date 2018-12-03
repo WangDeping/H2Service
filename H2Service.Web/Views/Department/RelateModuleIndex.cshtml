@@ -1,0 +1,181 @@
+﻿@using H2Service.Authorization.Departments
+@{
+    ViewBag.Title = "DepartmentRelateModuleIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section subheader_title{
+    科室关联模块
+}
+<div class=" row">
+    <div class="col-lg-3">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            部门选择
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <form class="m-form m-form--fit m-form--label-align-right" id="period-form">
+                <div class="m-portlet__body">
+                    <div class="form-group m-form__group">
+                        <input type="text" id="tree_search" class="form-control" />
+                    </div>
+                    <div id="depart_tree" class="tree-demo"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                           关联到业务模块
+                        </h3>
+                    </div>
+                </div>
+            </div>
+          
+            <div class="m-portlet__body">
+                <div class="form-group m-form__group row">
+                    <label class="col-form-label col-lg-2 col-sm-12">
+                       选择业务模块
+                    </label>
+                    <div class="col-lg-10 col-md-9 col-sm-12">
+                        <select class="form-control m-bootstrap-select m_selectpicker" id="module_select" onchange="refreshList(this)">
+                            <option value="-1" selected>
+                                
+                            </option>
+                            @foreach (H2Module module in Enum.GetValues(typeof(H2Module)))
+                            {
+                                <option value="@module.GetHashCode()">@module</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="m-demo" id="list_container" data-code-preview="true" data-code-html="true" data-code-js="false">
+                  @{Html.RenderAction("RelatedDepartments", new { module = 0 });}
+                </div>
+                    
+
+                </div>
+           
+</div>
+    </div>
+</div>
+<script>
+    $("#depart_tree").on("select_node.jstree", function (e, data) {
+            var node = data.instance.get_node(data.selected[0]);
+            var childNodes = data.instance.get_children_dom(node);
+            if (childNodes.length == 0) {
+                $('#users_grid').bootstrapTable('refresh', {
+                    url: '/User/UserGrid',
+                    query: {
+                        DepartmentName: node.text
+                    }
+                })
+            }
+        })
+        .jstree({
+            "core": {
+                "themes": {
+                    "responsive": true
+                },
+                // so that create works
+                "check_callback": true,
+                'data': {
+                    'url': '/Department/DepartmentTree',
+                    'data': function (node) {
+                        return { 'parent': node.id };
+                    }
+                }
+            },
+            "contextmenu": {
+                "items": {
+                    "create": null,
+                    "rename": null,
+                    "remove": null,
+                    "ccp": null,
+                    "关联模块": {
+                        "label": "关联到模块",
+                        "action": function (data) {
+                            var inst = $.jstree.reference(data.reference),
+                             obj = inst.get_node(data.reference);//获得当前节点,可以拿到当前节点所有属性
+                            relateModule(obj)
+                        }
+                    }, 
+                }
+            },
+            "types": {
+                "default": {
+                    "icon": "fa fa-folder m--font-brand"
+                },
+                "file": {
+                    "icon": "fa fa-file  m--font-brand"
+                }
+            },
+            "state": { "key": "demo3" },
+            "plugins": ["contextmenu", "search",  "state", "types"]
+        });
+    var to = false;
+    $('#tree_search').keyup(function () {
+        if (to) { clearTimeout(to); }
+        to = setTimeout(function () {
+            var v = $('#tree_search').val();
+            $('#depart_tree').jstree(true).show_all();
+            $('#depart_tree').jstree(true).search(v);
+            $('.jstree-search').focus();
+        }, 250);
+
+    });
+
+
+    $('#module_select').selectpicker();
+
+    function relateModule(node) {
+        var module = $('#module_select').selectpicker('val');
+        if (module < 0) {
+            abp.notify.error("未选中模块"); return;
+        }
+        abp.ajax({
+            url: '/Department/RelateModule',
+            data: JSON.stringify({ 'DepartmentId': node.id, Module: module })
+        }).done(function (data) {
+            abp.notify.success(data.message);
+            refreshList();
+        })
+    }
+    function refreshList() {
+        var selected_module = $('#module_select').selectpicker('val');
+        $("#list_container").load("/Department/RelatedDepartments", { "module":selected_module }, function () {
+          
+        });
+    }
+    function removeRelation(Id) {
+        bootbox.confirm("确定要删除吗？", function (r) {
+            if (r) {
+                abp.ajax({
+                    url: '/Department/RemoveRelation',
+                    data: JSON.stringify({ 'Id': Id})
+                }).done(function (data) {
+                    abp.notify.success(data.message);
+                    refreshList();
+                })
+
+
+            }
+
+        })
+    }
+</script>

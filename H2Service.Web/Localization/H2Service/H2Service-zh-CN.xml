@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<localizationDictionary culture="zh-CN">
+  <texts>
+    <text name="HomePage" value="主页" />
+    <text name="About" value="关于我们" />
+    <text name="WelcomeMessage" value="欢迎使用 H2Service!" />
+    <text name="Home_ThisIsATemplate" value="H2Service项目模板是Web应用开发的起点,它采用..." />
+    <text name="Home_AspNetDescription" value="ASP.NET MVC提供了强大的、基于模式的途径，来搭建动态Web应用。它使您做到清晰的关注点分离，享受完全可控的、有趣的、敏捷的开发." />
+    <text name="Home_AspNetBoilerplateDescription" value="ASP.NET Boilerplate是一个Web开发框架，它吸纳和提供了Web开发的一些最佳实践，以及流行的框架工具集." />
+    <text name="Others" value="其它" />
+    <text name="LearnMore" value="了解更多" />
+    <text name="Home_OtherTools" value="许多其它流行的框架/库，如ASP.NET Web API, EntityFramework/NHibernate, Castle Windsor, Log4Net, Twitter Bootstrap, jQuery..." />
+    <text name="AboutFormat" value="关于 {0}" />
+    <text name="About_AspNetBoilerplateDescription" value="ASP.NET Boilerplate是开发新Web应用的起点,，它吸纳和提供了Web开发的一些最佳实践，以及流行的框架工具集! ASP.NET Boilerplat基础框架能支撑一系列流行的框架实践，如 &lt;strong&gt;NLayer architecture&lt;/strong&gt; and &lt;strong&gt;Domain Driven Design&lt;/strong&gt;." />
+    <text name="ForMoreInformation" value="更多信息" />
+    <text name="工资与绩效" value="工资与绩效" />
+    <text name="工资查询" value="工资查询" />
+    <text name="工资导入" value="工资导入" />
+    <text name="绩效导入" value="绩效导入" />
+    <text name="绩效查询" value="绩效查询" />
+     <text name="本科室绩效" value="本科室绩效" />
+    <text name="机房信息" value="机房信息" />
+    <text name="机房事件" value="机房事件" />
+    <text name="机房巡视" value="机房巡视" />
+    <text name="机房管理" value="机房管理" />
+    <text name="用户管理" value="用户管理" />
+    <text name="工资管理" value="工资管理" />
+    <text name="服务器/设备" value="服务器/设备" />
+    <text name="服务器监控" value="服务器监控" />
+    <text name="系统管理" value="系统管理" />
+    <text name="部门管理" value="部门管理" />
+    <text name="角色管理" value="角色管理" />
+    <text name="权限分配" value="权限分配" />
+    <text name="院感管理" value="院感管理" />  
+    <text name="医疗废物交接记录" value="医疗废物交接记录" />
+    <text name="医疗废物统计" value="医疗废物统计" />
+    <text name="医疗废物暂存点" value="医疗废物暂存点" />
+    <text name="医疗废物专职人员" value="医疗废物专职人员" />
+    <text name="医疗废物预警" value="医疗废物预警" />
+    <text name="医疗废物二维码入口" value="医疗废物二维码入口" />
+    <text name="外部人员" value="外部人员" />
+    <text name="外部单位" value="外部单位" />
+    <text name="外部单位/人员" value="外部单位/人员" />
+    <text name="质量控制" value="质量控制" />
+    <text name="督察填报" value="督察填报" />
+    <text name="发布督察任务" value="发布督察任务" />
+    <text name="科室关联模块" value="科室关联模块" />
+
+    
+  </texts>
+</localizationDictionary>

@@ -1,0 +1,20 @@
+﻿
+@model string
+<table  data-toggle="table" width="100%" style="font-size:18px" align="center">
+  
+    <tbody>
+        @{
+            var detailItems = Model.Split('^');
+
+        }
+        @foreach (var item in detailItems)
+        {
+            var keyvalue = item.Split(':');
+            if (keyvalue.Length > 1)
+            {
+                <tr style="border-bottom:solid 1px #808080"><td style="line-height:16px; height:16px">@keyvalue[0]</td><td>@keyvalue[1]</td></tr>
+            }
+
+        }
+    </tbody>
+</table>

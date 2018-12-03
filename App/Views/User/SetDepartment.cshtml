@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "GetDepartmentList";
+    Layout = "~/Views/Shared/_OnlyJqweuiLayout.cshtml";
+}
+
+@model IEnumerable<H2Service.Account.Dto.DepartmentDto>
+<header class='demos-header'>
+    <h1 class="demos-title">设置科室 </h1>
+</header>
+<div id="container">
+
+    <div class="weui-cells__title">单选列表项</div>
+    <div class="weui-cells weui-cells_radio">
+        @foreach (var dep in Model)
+        {
+            <label class="weui-cell weui-check__label" for="@dep.Id">
+                <div class="weui-cell__bd">
+                    <p>@dep.DepartmentName</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" arg="@dep.DepartmentName" value="@dep.Id" name="departmentRadio" id="@dep.Id" >
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+        }
+      
+       
+       
+    </div>
+</div>
+
+<script>
+    $(':radio').click(function () {
+        var  depId = $(this).val()  //获取选中的radio的值
+        //var depName = $(this).attr('arg');
+        $.confirm("选择后不能改变，确定吗?", function () {
+            $.post('/User/PutUserDepartment', { "departmentId": depId }, function (data) {
+                //var data = eval("(" + data + ")")
+                if (data.Code > 0)
+                    $.toast(data.Message);
+                else
+                    $.toast(data.Message,"forbidden");
+            })
+        }, function () {
+            //点击取消后的回调函数
+        });
+    });
+</script>

@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section subheader_title{
+    工资与绩效
+}
+<div class=" row">
+    <div class="col-lg-4">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            绩效工资上传
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <form class="m-form m-form--fit m-form--label-align-right" id="period-form">
+                <div class="m-portlet__body">
+                    <div class="m-form__section m-form__section--first">
+                        <div class="form-group m-form__group">
+
+                            <div class='input-group date' id='datepicker'>
+                                <input type='text' class="form-control m-input" readonly placeholder="选择绩效奖金区间" />
+                                <span class="input-group-addon">
+                                    <i class="la la-calendar-check-o"></i>
+                                </span>
+                            </div>
+
+                        </div>
+
+             
+
+                        <div class="form-group m-form__group">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="m-dropzone dropzone  m-dropzone--success" id="m-dropzone">
+                                    <div class="m-dropzone__msg dz-message needsclick">
+                                        <h3 class="m-dropzone__msg-title">
+                                            点击或者拖拽表格.
+                                        </h3>
+                                        <span class="m-dropzone__msg-desc">
+                                            仅支持XLSX格式
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            上传历史
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <!--<form class="m-form m-form--fit">-->
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+
+                    <table class="bootstrap-table" id="periods_grid" data-url='@Url.Action("GetMeritPayPeriodsGrid")'
+                           data-side-pagination="server" data-page-list="[10]" data-pagination="true"
+                           data-id-field="Id" data-unique-id="Id">
+                        <thead>
+                            <tr>
+                                <th data-field="Id" data-align="center">序号</th>                               
+                                <th data-field="Period" data-align="center">绩效区间</th>
+                                <th data-field="CreatorName" data-align="center">上传人</th>
+                                <th data-field="CreationTime" data-align="center">上传时间</th>
+                                <th data-field="Id" data-formatter="actionFormatter" data-align="center">操作</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+
+
+            </div>
+
+            <!--</form>-->
+            <!--end::Form-->
+        </div>
+    </div>
+</div>               
+<script type="text/javascript">
+
+    $('#periods_grid').bootstrapTable({
+        queryParams: function (params) {
+            return {
+                MaxResultCount: params.limit,
+                PageNumber: params.offset / params.limit
+            }
+        }
+
+    })
+        
+    function actionFormatter(value, row, index) {
+        return '\
+						<a href="#" onclick=\'deletePeriod("' + value + '")\'  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="修改用户">\
+							<i class="la la-trash"></i>\
+						</a>\
+        ';
+    }
+    function deletePeriod(Id){
+        bootbox.confirm("确定要删除此记录吗?", function (r) {
+            if (r)
+                abp.ajax({
+                    url: '/MeritPay/Remove',
+                    data: JSON.stringify({ 'Id': Id })
+                }).done(function (data) {
+                    abp.notify.success(data.message);                    
+                    $('#periods_grid').bootstrapTable('refresh')
+                })
+
+        })
+    }
+        $('.m_selectpicker').selectpicker();
+        var myDropzone = new Dropzone('#m-dropzone', {
+            url:'@Url.Action("SalaryUpload")',
+             paramName: "file",
+             maxFiles: 1,
+             maxFilesize: 10,
+             method: "post",
+             acceptedFiles: ".xlsx",
+             dictResponseError: '文件上传失败!',
+             dictInvalidFileType: "你不能上传该类型文件,文件类型只能是.xlsx",
+             dictFallbackMessage: "浏览器不受支持",
+             dictFileTooBig: "文件过大上传文件最大支持.",
+             dictRemoveLinks: "删除",
+             addRemoveLinks: true,
+             init: function () {
+                 this.on("addedfile", function (file) {
+                     if ($('#datepicker').datepicker('getDate') == null) {
+                         abp.notify.error("选择正确绩效工资区间上传")
+                         return false;
+                     }
+                    var perioid = moment($('#datepicker').datepicker('getDate')).format('YYYY-MM')
+                    //上传文件时触发的事件
+                    this.options.url = '@Url.Action("MeritPayUpload")/' + perioid + '/' + $('.m_selectpicker').val();
+                    abp.ui.setBusy('#period-form')
+                }),
+                    this.on("success", function (file, data) {
+                        abp.ui.clearBusy('#period-form');
+                     abp.notify.success("保存成功");
+                     myDropzone.removeFile(file);
+
+                    $('#periods_grid').bootstrapTable('refresh')
+                    }),
+                    this.on("error", function (file, data) {
+                    abp.ui.clearBusy('#period-form');
+                        abp.notify.error(data.error.message);
+                    })
+
+            }
+         })
+        $('#datepicker').datepicker({
+            todayHighlight: true,
+            format: 'yyyy-mm',
+            autoclose: true,
+            orientation: 'bottom'
+    });
+   
+
+</script>

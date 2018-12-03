@@ -1,0 +1,28 @@
+﻿@model List<H2Service.Account.Dto.DistrictDto>
+@{
+    ViewBag.Title = "DistrictWithMedicalWaste";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section subheader_title{
+   医疗废物暂存点
+}
+
+<div class=" row">
+    @foreach (var d in Model)
+    {
+    <div class="col-lg-6">
+        <div class="m-portlet">           
+
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                    <h1><a href='@Url.Action("GetUnDeliveryCollection","MedicalWaste",new {districtId=d.Id })'>@d.DistrictName</a></h1>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    }
+
+</div>  
+

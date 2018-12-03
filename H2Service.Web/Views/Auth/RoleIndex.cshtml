@@ -1,0 +1,246 @@
+﻿
+@{
+    ViewBag.Title = "RoleIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+    角色管理
+}
+<div class=" row">
+    <div class="col-lg-4">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            角色列表
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__body">
+                <div class="form-group m-form__group">
+                    <input type="button" value="创建角色" class="btn btn-primary" onclick="addModalShow()" />
+                </div>
+                <table class="bootstrap-table" id="roles_grid" data-url='@Url.Action("RoleGrid")'
+                       data-side-pagination="server" data-page-list="[10]" data-pagination="true"
+                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true" data-row-style="rowStyle">
+                    <thead>
+                        <tr>
+                            <th data-field="Id" data-align="center">Id</th>
+                            <th data-field="RoleName" data-align="center">名称</th>
+                            <th data-field="Id" data-formatter="actionFormatter" data-align="center">操作</th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            角色下用户
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+
+                <table class="bootstrap-table" id="users_grid"
+                       data-side-pagination="server" data-page-list="[10]" data-pagination="true"
+                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true" data-row-style="rowStyle">
+                    <thead>
+                        <tr>
+                            <th data-field="Id" data-align="center">Id</th>
+                            <th data-field="UserNumber" data-align="center">工号</th>
+                            <th data-field="UserName" data-align="center">姓名</th>
+                            <th data-field="TelPhone" data-align="center">手机号</th>
+                            <th data-field="IsDeleted" data-align="center" data-formatter="IsDeleted">状态</th>
+                            <th data-field="Solutions" data-align="center"></th>
+                        </tr>
+                    </thead>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--RoleModal-->
+    <div class="modal fade" id="roleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        角色信息维护
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <form class="m-form m-form--fit m-form--label-align-right" id="roleForm">
+                    <div class="m-portlet__body">
+                        <div class="modal-body align-content-center">
+
+                            <div class="form-group">
+                                <label for="RoleName" class="form-control-label">
+                                    角色名称:
+                                </label>
+                                <input type="text" class="form-control" id="RoleName" required>
+                                <input type="hidden" id="Id" />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                保存
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--RoleModal-->
+
+    @{Html.RenderAction("PermissionModalPartialView", "Auth");}
+</div>
+<script>
+    $('#roles_grid,#users_grid').bootstrapTable({
+        queryParams: function (params) {
+            return {
+                MaxResultCount: params.limit,
+                PageNumber: (params.offset / params.limit)
+            }
+        }
+    })
+    $('#roles_grid').on('click-row.bs.table', function (e, row, element) {
+
+        $('#users_grid').bootstrapTable('refresh', {
+            url: '/Auth/GetUsersInByRole',
+            query: {
+                RoleId: row.Id
+            }
+        })
+
+    });
+    function actionFormatter(value, row, index) {
+        return '\
+						<a href="#" onclick=\'editViewById("' + value + '")\'  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="修改用户">\
+							<i class="la la-edit"></i>\
+						</a>\
+                        <a href="#" onclick=\'assignPermissionViewById("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="分配权限">\
+							            <i class="la la-key"></i>\
+						</a>\
+						<a href="#"  onclick=\'removeRole("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="删除">\
+							<i class="la la-trash"></i>\
+						</a>\
+        ';
+
+    }
+
+    function addModalShow() {
+        $('#roleForm').resetForm();
+        $('#Id').val(0)
+        $('#roleModal').modal('show');
+
+    }
+    function editViewById(Id) {
+        $.post('/Auth/GetRole', { Id: Id }, function (data) {
+            $('#RoleName').val(data.RoleName)
+            $('#Id').val(data.Id)
+            $('#roleModal').modal('show');
+        })
+    }
+    function removeRole(Id) {
+
+        bootbox.confirm("确定要删除此角色吗?", function (r) {
+            if (r)
+                abp.ajax({
+                    url: '/Auth/RemoveRole',
+                    data: JSON.stringify({ 'Id': Id })
+                }).done(function (data) {
+                    abp.notify.success(data.message);
+                    $('#roleModal').modal('hide');
+                    $('#roles_grid').bootstrapTable('refresh')
+                })
+
+        })
+
+    }
+    $('#roleForm').submit(function (e) {
+        e.preventDefault();
+        abp.ajax({
+            url: '/Auth/AddorUpdateRole',
+            data: JSON.stringify({ Id: $('#Id').val(), RoleName: $('#RoleName').val() })
+        }).done(function (data) {
+            abp.notify.success(data.message);
+            $('#roleModal').modal('hide');
+            $('#roles_grid').bootstrapTable('refresh')
+        })
+
+    })
+
+
+    var roleId = 0;
+    function assignPermissionViewById(Id) {
+        roleId = Id;
+        $('#permission_tree').jstree("destroy");
+        $('#permission_tree').jstree({
+            "core": {
+                "themes": {
+                    "responsive": true
+                },
+                "check_callback": true,
+                'data': {
+                    'url': '/Auth/GetAllPermissions/',
+                    'data': function (node) {
+                        return { 'RoleId': Id };
+                    }
+                }
+            },
+            "types": {
+                "default": {
+                    "icon": "fa fa-folder m--font-brand"
+                },
+                "file": {
+                    "icon": "fa fa-file  m--font-brand"
+                }
+            },
+
+            "plugins": ["checkbox", "types"]
+
+        })
+
+        $('#permissionModal').modal('show');
+
+    }
+    function permissionSave() {
+        var select_arry = $('#permission_tree').jstree().get_selected(false);
+        abp.ajax({
+            url: '/Auth/SetPermission/',
+            data: JSON.stringify({ RoleId: roleId, PermissionNames: select_arry })
+        }).done(function (data) {
+            abp.notify.success(data.message);
+            $('#permissionModal').modal('hide');
+            })        
+    }
+</script>

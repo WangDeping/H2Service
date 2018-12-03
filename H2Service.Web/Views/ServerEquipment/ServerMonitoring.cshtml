@@ -1,0 +1,100 @@
+﻿@using H2Service.ServerRooms.Dto;
+@{
+    ViewBag.Title = "ServerMonitoring";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section subheader_title{
+
+}
+@{
+    List<ServerMonitoringDto> serversList = ViewBag.Servers;
+
+    var arr = new int[23] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 };
+    var len = serversList.Count;
+    var colsMax = 4;
+    var row = len % colsMax > 0 ? 1 + len / colsMax : len / colsMax;
+}
+<div class=" row">
+    @for (var col = 0; col <= colsMax - 1; col++)
+    {
+        <div class="col-md-3">
+            @for (var i = 0; i < row; i++)
+            {
+                if ((colsMax * i + col) < len)
+                {
+                 <!--begin::Portlet-->
+                    <div class="m-portlet">
+                        <div class="m-portlet__head">
+                            <div class="m-portlet__head-caption">
+                                <div class="m-portlet__head-title">
+                                    <span class="m-portlet__head-icon m--hide">
+                                        <i class="la la-gear"></i>
+                                    </span>
+                                    <h3 class="m-portlet__head-text">
+
+                                        @serversList[colsMax * i + col].ServerEquipment.SEName
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <!--begin::Form-->
+                        <form class="m-form">
+                            <div class="m-portlet__body">
+                                <h5 class="m-portlet__head-text">
+                                    @serversList[colsMax * i + col].ServerEquipment.IP
+                                </h5>
+                                <div class="form-group m-form__group">
+                                    @foreach (var disk in serversList[colsMax * i + col].ServerMonitoring.DisksList)
+                                    {
+                                    <span class="m-section__sub">
+                                        @disk.Name (剩余:@disk.FreeSpace.ToString("f2") GB)
+                                    </span>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: @disk.Utilization.ToString("f2")%" aria-valuenow="@disk.Utilization.ToString("f2")" aria-valuemin="0" aria-valuemax="100">@disk.Utilization.ToString("f2")%</div>
+
+                                    </div>
+                                    }
+
+                                </div>
+
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions m-form__actions">
+                                    <span class="m-switch m-switch--outline m-switch--success">
+                                        <label>
+                                            @if (serversList[colsMax * i + col].ServerMonitoring.ConnectStatus)
+                                            {
+                                            <input type="checkbox" checked="checked" disabled="disabled">
+                                            }
+                                            else
+                                            {
+                                            <input type="checkbox" disabled="disabled">
+                                            }
+                                            <span></span>
+
+
+                                        </label>
+
+
+                                    </span>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </form>
+                        <!--end::Form-->
+
+
+                    </div>
+                <!--end::Portlet-->
+                }
+
+            }
+        </div>
+    }
+</div>

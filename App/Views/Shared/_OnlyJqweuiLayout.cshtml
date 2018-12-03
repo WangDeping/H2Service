@@ -1,0 +1,18 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="~/Content/weui.min.css" />
+    <link rel="stylesheet" href="~/Content/jquery-weui.min.css" />
+    <link rel="stylesheet" href="~/Content/weui-demo.css" />
+    <script type="text/javascript" src="~/Scripts/jquery-2.1.4.js"></script>
+</head>
+<body ontouchstart>
+    @RenderBody()
+   
+    <script type="text/javascript" src="~/Scripts/jqweui/jquery-weui.js"></script>
+</body>
+@RenderSection("Script",false)
+</html>

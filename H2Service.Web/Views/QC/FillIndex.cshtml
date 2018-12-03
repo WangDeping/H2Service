@@ -1,0 +1,231 @@
+﻿
+@{
+    ViewBag.Title = "FillIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section subheader_title{
+    督察扣分填报
+}
+
+<div class=" row">
+    <div class="col-lg-5">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            督察表单
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <form class="m-form m-form--fit m-form--label-align-right">
+                <input id="detailId" type="hidden" value="0" />
+                <div class="m-portlet__body">         
+                    <div class="form-group m-form__group">
+                        <label for="exampleInputPassword1">
+                            被督查科室
+                        </label>
+                        @{Html.RenderAction("RelatedDepartmentsSelect", "Department", new { module = 3 });}
+                       
+                    </div>
+                    <div class="form-group m-form__group">
+                        <label for="exampleSelect1">
+                            被督查人(可选)
+                        </label>
+                        <select class="form-control m-select2" id="user_select" name="param">                         
+                            <option value="-1">
+                              请选择
+                            </option>                     
+                        </select>
+                    </div>
+                    <div class="form-group m-form__group">
+                        <label for="exampleSelect1">
+                           扣分
+                        </label>
+                        <div class="m-bootstrap-touchspin-brand">
+                            <input id="point" type="text" class="form-control" value="2" name="point" placeholder="0~100" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group m-form__group">
+                        <label for="exampleSelect1">
+                            备注(扣分原因)
+                        </label>
+                        <textarea class="form-control m-input " id="Des" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="m-portlet__foot m-portlet__foot--fit">
+                    <div class="m-form__actions">
+                        <input  type="hidden" id="periodId" value="@ViewBag.Period.Id"/>
+                        @if (DateTime.Parse(ViewBag.Period.BeginDate) < DateTime.Now && DateTime.Parse(ViewBag.Period.EndDate) > DateTime.Now)
+                        { <button type="button" class="btn btn-metal" onclick="saveDetail()">
+                            保存
+                        </button>
+                        }
+                        <button type="reset" class="btn btn-secondary">
+                            清空
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            @ViewBag.Period.Title
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+
+                <table class="bootstrap-table" id="details_grid"
+                       data-side-pagination="server"   data-url='@Url.Action("FuncDepDetailsGrid")'
+                       data-id-field="Id"  data-show-footer="true" data-unique-id="Id" data-single-select="true" data-striped="true" data-row-style="rowStyle">
+                    <thead>
+                        <tr>
+                            <th data-field="PunishedDepartmentName" data-align="center">被督查科室</th>
+                            <th data-field="PunishedUserName" data-align="center">被督查人</th>
+                            <th data-field="Points" data-align="center" data-footer-Formatter="sumPoints">扣分</th>
+                            <th data-field="FunctionalDepartmentName" data-align="center">督察科室</th>                          
+                            <th data-field="Id" data-align="center" data-formatter="actionFormatter"></th>
+                        </tr>
+                    </thead>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>    
+ 
+</div>
+<script>
+    function sumPoints(value, row, index) {
+        var total = 0;
+        for (var i in value) {
+            total += value[i].Points;
+        }
+
+        return "共计:" + total+"分"
+
+    }
+     function actionFormatter(value, row, index) {     
+        return '\
+						<a href="#" onclick=\'remove("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="详细查看">\
+							  <i class="la la-trash"></i>\
+						</a>\
+        ';
+    }
+
+    var $user_select2 = $('#user_select').select2({
+        ajax: {
+            type: 'GET',
+            url: '/User/Select2UsersInDepartmet',
+            dataType: 'json',
+            delay: 550,
+            data: function (params) {
+                return {
+                    userName: params.term,
+                    page: params.page,// 第几页
+                    rows: 10// 每页显示多少行
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                return {
+                    results: data.items,
+                    pagination: {
+                        more: (params.page * 10) < data.total_count
+                    }
+                };
+            },
+
+            cache: true
+        },
+        placeholder: '请选择',
+        language: "zh-CN",
+        allowClear: true,//允许清空
+        escapeMarkup: function (markup) { return markup; }, // 自定义格式化防止xss注入
+        minimumInputLength: 1,//最少输入多少个字符后开始查询
+        formatResult: function formatRepo(repo) { return repo.text; }, // 函数用来渲染结果
+        formatSelection: function formatRepoSelection(repo) { return repo.text; }
+    });
+    //$('#departmentsSelect2').on("select2:select", function (e) {
+    //    var depId = $(this).val();
+    //})
+    $('#details_grid').bootstrapTable({
+        queryParams: function (params) {
+            return {
+                DepartmentPunishmentPeriodId: '@ViewBag.Period.Id'
+            }
+        }
+    })
+    $('#point').TouchSpin({
+        buttondown_class: 'btn btn-secondary',
+        buttonup_class: 'btn btn-secondary',
+        min: 0,
+        max: 100,
+        step: 0.1,
+        decimals: 1,
+        boostat: 5,
+        maxboostedstep: 10,
+    });
+    function saveDetail() {
+        if ($('#departmentsSelect2').select2('val') <= 0) {
+            abp.notify.error("请选择被督查科室");
+            return;
+        }
+        if ($('#point').val() <= 0) {
+            abp.notify.error("请输入正确的扣分分值");
+            return;
+        }
+        var detail_data = {
+            'Id': $('#detailId').val(),
+            'DepartmentPunishmentPeriodId': $('#periodId').val(),
+            'PunishedDepartmentId': $('#departmentsSelect2').select2('val'),
+            'Points': $('#point').val()
+        }
+        if ($('#user_select').select2('val') > 0)
+            detail_data.PunishedUserId = $('#user_select').select2('val')
+        else
+            delete detail_data.PunishedUserId
+        abp.ajax({
+            url: '/QC/AddorUpdateDetail',
+            data: JSON.stringify(detail_data)
+        }).done(function (data) {
+            abp.notify.success(data.message);
+            $('#details_grid').bootstrapTable('refresh')
+        })
+    }
+
+    function remove(Id) {
+        bootbox.confirm("确定要删除此记录吗?", function (r) {
+            if (r) {
+                abp.ajax({
+                    url: '/QC/RemoveDetail/',
+                    data: JSON.stringify({ Id: Id })
+                }).done(function (data) {
+                    $('#details_grid').bootstrapTable('refresh')                 
+                    abp.notify.success(data.message);
+                })
+
+            }
+
+        })
+
+
+    }
+</script>

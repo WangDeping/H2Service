@@ -1,0 +1,13 @@
+﻿@model string[]
+<select class="form-control m-bootstrap-select m_selectpicker" name="Aspects">
+    <option value="-1" selected="selected"></option>
+    @foreach (var aspect in Model)
+    {
+
+        <option value="@aspect">
+            @aspect
+        </option>
+    }
+
+</select>
+<script> $('.m_selectpicker').selectpicker();</script>

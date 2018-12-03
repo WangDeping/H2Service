@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "PermissionIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section subheader_title{
+    权限分配
+}
+<div class=" row">
+    <div class="col-lg-3">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            权限字典
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <form class="m-form m-form--fit m-form--label-align-right" id="period-form">
+                <div class="m-portlet__body">                    
+                    <div id="permission_tree" class="tree-demo"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            角色/部门/用户
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+
+         
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+   
+</div>
+<script>
+    $("#permission_tree").jstree({
+            "core": {
+                "themes": {
+                    "responsive": true
+                },
+                // so that create works
+                "check_callback": true,
+                'data': {
+                    'url': '/Auth/GetAllPermissions',
+                    'data': function (node) {
+                        return { 'parent': node.id };
+                    }
+                }
+            },
+            "types": {
+                "default": {
+                    "icon": "fa fa-folder m--font-brand"
+                },
+                "file": {
+                    "icon": "fa fa-file  m--font-brand"
+                }
+            },
+            "state": { "key": "demo3" },
+            "plugins": ["contextmenu", "dnd", "search", "state", "types"]           
+
+        });
+</script>

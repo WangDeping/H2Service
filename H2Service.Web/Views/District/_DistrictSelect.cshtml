@@ -1,0 +1,8 @@
+﻿@model IEnumerable<H2Service.Account.Dto.DistrictDto>
+<select class="form-control m-input" id="districtSelect" name="districtSelect" >
+
+    @foreach (var d in Model)
+    {
+        <option value="@d.Id" > @d.DistrictName</option>
+    }
+</select>

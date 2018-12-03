@@ -1,0 +1,46 @@
+﻿    @model H2Service.Salaries.Dto.PersonalSalaryOutput
+@{
+    Layout = null;
+    }
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>个人工资查询</title>       
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+    </head>
+    <body>  
+
+        <audio id="laugh" preload="auto" autoplay="autoplay" src="~/Content/Voice/babylaugh.mp3"></audio>
+     
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="panel-primary">
+                        <div class="panel-heading "><h5>工资条</h5></div>
+                        <div class="panel-body">
+                            <ul class="list-group" id="ullist">
+                                <li class="list-group-item"><h6>工号:@Model.UserNumber</h6></li>
+                                @{
+                                    var detailItems = Model.Detail.Split('^');                                    
+                                }
+                                @foreach (var item in detailItems)
+                                {
+
+                                    var keyvalue = item.Split(':');
+                                    if (keyvalue.Length > 1)
+                                    {                                     
+                                        <li class="list-group-item"><h6>@keyvalue[0]:@keyvalue[1]</h6></li>
+                                    }
+                                }                            
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+    </body>
+
+</html>

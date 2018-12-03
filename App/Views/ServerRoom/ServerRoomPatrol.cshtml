@@ -1,0 +1,238 @@
+﻿
+@{
+    ViewBag.Title = "机房巡视";
+    Layout = "~/Views/Shared/_WxconfigLayout.cshtml";
+}
+
+<header class='demos-header'>
+    <h1 class="demos-title">@ViewBag.ServerRoomName </h1>
+</header>
+<div id="waste_container">    
+    <input type="hidden" id="ServerRoomId" value="@ViewBag.ServerRoomId" />
+    <div class="weui-cells weui-cells_form ">
+        <div class="weui-cell">           
+            <div class="weui-cell__bd">
+                <label class="weui-label">机房温度(°C)</label>               
+            </div>
+           <div class="weui-cell__ft">
+               <div class="weui-count">
+                   <a class="weui-count__btn weui-count__decrease"></a>
+                   <input class="weui-count__number" type="number" id="Temperature" value="18" />
+                   <a class="weui-count__btn weui-count__increase"></a>
+               </div>
+
+           </div>
+        </div>        
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <label class="weui-label">机房湿度(%)</label>
+            </div>
+            <div class="weui-cell__ft">
+                <div class="weui-count">
+                    <a class="weui-count__btn weui-count__decrease"></a>
+                    <input class="weui-count__number" type="number" id="Humidity" value="55" />
+                    <a class="weui-count__btn weui-count__increase"></a>
+                </div>
+
+            </div>
+        </div>       
+    </div>
+  
+    <div class="weui-cells weui-cells_form ">
+        <div class="weui-cell weui-cell_switch">
+            <div class="weui-cell__bd">机房清洁</div>
+            <div class="weui-cell__ft">
+                <label for="IsClean" class="weui-switch-cp">
+                    <input id="IsClean" class="weui-switch-cp__input" type="checkbox" checked="checked">
+                    <div class="weui-switch-cp__box"></div>
+                </label>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_switch">
+            <div class="weui-cell__bd">机房噪音</div>
+            <div class="weui-cell__ft">
+                <label for="HasNoise" class="weui-switch-cp">
+                    <input id="HasNoise" class="weui-switch-cp__input" type="checkbox" >
+                    <div class="weui-switch-cp__box"></div>
+                </label>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_switch">
+            <div class="weui-cell__bd">机房异味</div>
+            <div class="weui-cell__ft">
+                <label for="HasOdor" class="weui-switch-cp">
+                    <input id="HasOdor" class="weui-switch-cp__input" type="checkbox" >
+                    <div class="weui-switch-cp__box"></div>
+                </label>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_switch">
+            <div class="weui-cell__bd">故障报警</div>
+            <div class="weui-cell__ft">
+                <label for="HasWarningLight" class="weui-switch-cp">
+                    <input id="HasWarningLight" class="weui-switch-cp__input" type="checkbox" >
+                    <div class="weui-switch-cp__box"></div>
+                </label>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_switch">
+            <div class="weui-cell__bd">UPS正常</div>
+            <div class="weui-cell__ft">
+                <label for="IsUPSWorking" class="weui-switch-cp">
+                    <input id="IsUPSWorking" class="weui-switch-cp__input" type="checkbox" checked="checked">
+                    <div class="weui-switch-cp__box"></div>
+                </label>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_switch">
+            <div class="weui-cell__bd">空调运转</div>
+            <div class="weui-cell__ft">
+                <label for="IsAirConditionerWorking" class="weui-switch-cp">
+                    <input id="IsAirConditionerWorking" class="weui-switch-cp__input" type="checkbox" checked="checked">
+                    <div class="weui-switch-cp__box"></div>
+                </label>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_switch">
+            <div class="weui-cell__bd">消防设施正常</div>
+            <div class="weui-cell__ft">
+                <label for="IsFireFightingDeviceWorking" class="weui-switch-cp">
+                    <input id="IsFireFightingDeviceWorking" class="weui-switch-cp__input" type="checkbox" checked="checked">
+                    <div class="weui-switch-cp__box"></div>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <div class="weui-uploader">
+                    <div class="weui-uploader__hd">
+                        <p class="weui-uploader__title">巡视拍照</p>
+                        <div class="weui-uploader__info">0/6</div>
+                    </div>
+                    <div class="weui-uploader__bd">
+                        <ul class="weui-uploader__files" id="uploaderFiles">
+                            
+
+                        </ul>
+                        <div class="weui-uploader__input-box">
+                            <input id="btnCam" onclick="choosePic()" class="weui-uploader__input" type="button">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <textarea class="weui-textarea" id="RoomSummary" placeholder="巡视结论" rows="2"></textarea>
+                <div class="weui-textarea-counter">100字内</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="weui-btn-area">
+        <button class="weui-btn weui-btn_primary"   href="javascript:" id="submitBtn">确定</button>
+    </div>
+</div>
+
+
+<script>
+    var MAX = 99, MIN = 1;
+    $('.weui-count__decrease').click(function (e) {
+        var $input = $(e.currentTarget).parent().find('.weui-count__number');
+        var number = parseInt($input.val() || "0") - 1
+        if (number < MIN) number = MIN;
+        $input.val(number)
+    })
+    $('.weui-count__increase').click(function (e) {
+        var $input = $(e.currentTarget).parent().find('.weui-count__number');
+        var number = parseInt($input.val() || "0") + 1
+        if (number > MAX) number = MAX;
+        $input.val(number)
+    })
+   
+    var imgsArray = new Array();
+    function choosePic() {
+        if (imgsArray.length >= 6) {
+            $.toast("最多6张", "forbidden");
+            return;
+        }
+        wx.chooseImage({
+            count: 1,
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['camera'], // 可以指定来源是相册还是相机，默认二者都有
+            success: function (res) {
+                $('#submitBtn').addClass("weui-btn_disabled")
+                var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+
+                $('#uploaderFiles').append('<li class="weui-uploader__file"><img width="77" height="77" src="' + localIds + '" /></li>');
+                wx.uploadImage({
+                    localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
+                    isShowProgressTips: 1,// 默认为1，显示进度提示
+                    success: function (ures) {
+                        var serverId = ures.serverId; // 返回图片的服务器端ID
+                        imgsArray.push(serverId);
+                        $('.weui-uploader__info').html(imgsArray.length + "/6")
+                        $('#submitBtn').removeClass("weui-btn_disabled");
+                    }
+                });
+            }
+        });
+
+    }
+   
+
+    $('#submitBtn').click(function () {
+        if (imgsArray.length <= 0) {
+            $.toast("缺少照片", "forbidden");
+            return;
+        }
+        if ($('#RoomSummary').val() == "") {
+            $.toast("巡视总结为空", "forbidden");
+            return;
+        }
+        $('#submitBtn').addClass("weui-btn_disabled")
+        var serverRoomPatrol = new Object();
+        serverRoomPatrol.Temperature = $('#Temperature').val();
+        serverRoomPatrol.Humidity = $('#Humidity').val();
+        serverRoomPatrol.IsClean = $('#IsClean').is(':checked');
+        serverRoomPatrol.HasNoise = $('#HasNoise').is(':checked');
+        serverRoomPatrol.HasOdor = $('#HasOdor').is(':checked');
+        serverRoomPatrol.HasWarningLight = $('#HasWarningLight').is(':checked');
+        serverRoomPatrol.IsUPSWorking = $('#IsUPSWorking').is(':checked');
+        serverRoomPatrol.IsAirConditionerWorking = $('#IsAirConditionerWorking').is(':checked');
+        serverRoomPatrol.IsFireFightingDeviceWorking = $('#IsFireFightingDeviceWorking').is(':checked');
+        serverRoomPatrol.ServerRoomId = $('#ServerRoomId').val();
+        serverRoomPatrol.ImgsPath = imgsArray.join('^');
+        serverRoomPatrol.RoomSummary = $('#RoomSummary').val();      
+        $.post('/ServerRoom/CreatePatrol/', { 'serverRoomPatrol': serverRoomPatrol }, function (data) {
+            $('#submitBtn').removeAttr("disabled")
+            if (data.Code == 0) {
+            
+                WeixinJSBridge.call('closeWindow');
+
+            }
+        })
+    })
+</script>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+

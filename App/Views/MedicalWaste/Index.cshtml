@@ -1,0 +1,97 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>医疗废物登记</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="~/Content/weui.min.css" />
+    <link rel="stylesheet" href="~/Content/jquery-weui.min.css" />
+    <link rel="stylesheet" href="~/Content/weui-demo.css" />
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script>
+
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '@ViewBag.appid', // 必填，企业号的唯一标识，此处填写企业号corpid
+            timestamp: @ViewBag.timestamp, // 必填，生成签名的时间戳
+            nonceStr: '@ViewBag.noncestr', // 必填，生成签名的随机串
+            signature: '@ViewBag.signature',// 必填，签名，见附录1
+            jsApiList: ['chooseImage', 'previewImage', 'uploadImage', 'downloadImage', 'scanQRCode' ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+    </script>
+
+</head>
+<body ontouchstart>
+    <header class='demos-header'>
+        <h1 class="demos-title">@ViewBag.Flow.DepartmentName </h1>
+    </header>
+    <div id="waste_container">
+        @Html.Action("WasteGroup", "MedicalWaste", new { Id = ViewBag.Flow.Id })
+    </div>
+
+    <div class="weui-cells__title">专门收废人员</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label for="" class="weui-label">交接</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="inputMan" onclick="scan()" placeholder="点击扫码" readonly>
+            </div>
+            <div class="weui-cell__ft">
+                <i class="weui-icon-info-circle"></i>
+            </div>
+        </div>
+    </div>
+
+    @Html.Action("GetImages", "MedicalWaste", new { Id = ViewBag.Flow.Id })
+
+    <div id="collectUserInfo" class="weui-popup__container popup-bottom">
+        <div class="weui-popup__overlay"></div>
+        <div class="weui-popup__modal">
+            <div class="toolbar">
+                <div class="toolbar-inner">
+                    <a href="javascript:;" class="picker-button close-popup">关闭</a>
+                    <h1 class="title">收废人员信息</h1>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="weui-panel weui-panel_access">
+                    <div class="weui-panel__bd">
+                        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                            <div class="weui-media-box__hd" style="width:120px;height:120px;">
+                                <img id="userAvatar" class="weui-media-box__thumb" alt="">
+                            </div>
+                            <div class="weui-media-box__bd">
+                                <input type="hidden" id="ExternalUserId" value="0" />
+                                <h4 class="weui-media-box__title">姓名：<label id="UserName"></label></h4>
+                                <h4 class="weui-media-box__title">单位：<label id="DeparmentName">宝丽洁公司</label></h4>
+                                <h4 class="weui-media-box__title">性别：<label id="Gender"></label></h4>
+                                <h4 class="weui-media-box__title">手机：<label id="TelPhone"></label></h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="weui-btn-area">
+                    <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">交接</a>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="~/Scripts/jqweui/jquery-weui.js"></script>
+    <script type="text/javascript">
+        var APPEND_IMAGE_URL = '@Url.Action("AppendImage", "MedicalWaste")';
+        var GET_EXTERNAL_USER_URL = '@Url.Action("GetUser", "MedicalWaste")';
+        var APPEND_WASTE_URL = '@Url.Action("AppendWaste", "MedicalWaste")';
+        var PREVIEWFLOW_URL= '@Url.Action("PreviewFlow", "MedicalWaste")';
+        var FLOW_ID= '@ViewBag.Flow.Id'
+      
+    </script>
+    <script src="~/Scripts/waste/index.js?v=1.2"></script>
+  
+</body>
+</html>

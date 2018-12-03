@@ -1,0 +1,148 @@
+﻿@model H2Service.MedicalWastes.Dto.DisplayWasteInDepartmentOutput
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+    院感管理
+}
+<style type="text/css">
+    .m-list-timeline__items .m-list-timeline__item .m-list-timeline__time {
+        width: 120px;
+    }
+</style>
+@{ string[] colorArrary = { "m-list-timeline__badge--success", "m-list-timeline__badge--danger", "m-list-timeline__badge--warning", "m-list-timeline__badge--primary", "m-list-timeline__badge--brand" }; }
+<div class=" row">
+    <div class="col-lg-9">
+        @foreach (var group in Model.GroupWasteList)
+        {   
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <span class="m-portlet__head-icon m--hide">
+                                <i class="la la-gear"></i>
+                            </span>
+                            <h3 class="m-portlet__head-text">
+                                @group.KindName
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-portlet__body">
+                    <div class="m-form__section m-form__section--first">
+                        <h5>总重：@group.TotalWeight Kg</h5>
+                        <h5>共计：@group.Count 小包</h5>
+                    </div>
+                </div>
+
+                <div class="m-portlet__foot">
+                    <div class="col-lg-12 m--valign-middle">
+                        <div class="m-demo" data-code-preview="true" data-code-html="true" data-code-js="false">
+                            <div class="m-demo__preview">
+                                <div class="m-list-timeline">
+                                    <div class="m-list-timeline">
+                                        <div class="m-list-timeline__items">
+                                            @{int index = 0; }
+                                            @foreach (var waste in Model.DetailWasteList.FindAll(T => (int)T.Kind == group.Kind))
+                                            {
+                                                var currentColor = colorArrary[index % colorArrary.Length];
+                                                <div class="m-list-timeline__item">
+                                                    <span class="m-list-timeline__badge"></span>
+                                                    <span class="m-list-timeline__badge m-list-timeline__badge--brand @currentColor"></span>
+                                                    <span class="m-list-timeline__icon flaticon-share"></span>
+                                                    <span class="m-list-timeline__text">
+                                                        @waste.CreatorUserName 于 @waste.CreationTime 称重 @waste.Weight Kg  唯一识别码：@waste.Code
+                                                    </span>
+                                                    <span class="m-list-timeline__time">
+                                                        <a href="javascript:print('@Model.Flow.DepartmentName','@waste.CreatorUserName','@waste.Code','@waste.Weight','@waste.Kind',' @waste.CreationTime ')"   class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" >	<i class="la la-print"></i>	</a>
+                                                    </span>  
+                                                </div>
+                                                index++;
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-lg-3">
+       @foreach (var img in Model.Images)
+       {
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            照片留存
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                   <img src="@img.ImgPath"  class="m--marginless m--img-centered" width="100%" />
+                </div>
+            </div>
+        </div>
+        
+       }
+
+    </div>
+</div>
+<script>
+    function print(dep,user,code,weight,kind,time) {
+        //护理用瓶签800*500
+        var LODOP = getLodop();
+        LODOP.SET_PRINT_PAGESIZE(1, 800, 500, ""); //设置纸张
+        LODOP.SET_PRINT_MODE("POS_BASEON_PAPER", true); //设置以纸张边缘为基点   
+       
+        LODOP.ADD_PRINT_HTM(5, "50", "100%", "", "<P STYLE='font:18px'>医疗废物外包装警示标识 </P>")
+        LODOP.ADD_PRINT_IMAGE(65, 15, 124, 120, "<img width='81' height='80' src='@ViewBag.WasteFlgImg' />");
+        LODOP.ADD_PRINT_IMAGE(145, 30, "100%", "", "<strong>医疗废物</strong>");
+        LODOP.ADD_PRINT_IMAGE(165, 5, "100%", "", "<strong>MEDICAL WASTE</strong>");
+        LODOP.ADD_PRINT_IMAGE(70, 100, "100%", "", "<p style='font:14px'>科室：" + dep + "</p>");
+        //LODOP.ADD_PRINT_IMAGE(95, 100, "100%", "", "<p style='font:14px'>记录人：王德平</p>");
+        LODOP.ADD_PRINT_IMAGE(95, 100, "100%", "", "<p style='font:14px'>称重(人)：" + weight + "Kg(" + user + ")</p>");
+        LODOP.ADD_PRINT_IMAGE(120, 100, "100%", "", "<p style='font:14px'>分类：" + kind + "</p>");
+        LODOP.ADD_PRINT_IMAGE(145, 100, "100%", "", "<p style='font:14px'>" + time + "</p>");
+        LODOP.ADD_PRINT_BARCODE(30, 20, 280, 35, "PDF417", code);//
+        LODOP.PREVIEW();//打印预览
+        //LODOP.PRINT_SETUP();
+        //LODOP.PRINT(); //直接打印
+
+
+    }
+</script>
+
+@section scriptsection{
+    <script>
+        
+        var expandLi = $("#m_ver_menu").find('a[href = "/MedicalWaste/Index"]').parent('li').parents('li').eq(0).addClass('m-menu__item--open').addClass('m-menu__item--expanded');
+        var selectLi = $("#m_ver_menu").find('a[href = "/MedicalWaste/Index"]').parent('li').addClass('m-menu__item--active');
+        $('#subnav li:gt(0)').remove()
+        var array = new Array();
+        array.push($.trim(expandLi.find('span').html()));
+        array.push($.trim(selectLi.find('span').html()))
+        array.forEach(function (name) {
+            $('#subnav').append(' <li class="m-nav__separator">-</li>')
+            $('#subnav').append('<li class="m-nav__item"><a href="" class="m-nav__link"><span class="m-nav__link-text" > ' + name + '</span ></a ></li >')
+           
+        });
+        $('#subnav').append(' <li class="m-nav__separator">-</li>')
+        $('#subnav').append('<li class="m-nav__item"><a href="" class="m-nav__link"><span class="m-nav__link-text"> 医疗废物详细</span ></a ></li >')
+
+
+    </script>
+    
+    }
