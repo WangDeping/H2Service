@@ -1,3 +1,0 @@
-ERROR 2018-11-13 09:04:02,243 [104  ] App.Controllers.AuthController           - 未注册用户登录失败ot6Hzvs0NmrVn17ik50RV31Iy1mU,设备b74b0bc85ee8941367227fdbc6c4d00d
-ERROR 2018-11-13 09:05:15,527 [103  ] App.Controllers.AuthController           - 未注册用户登录失败ot6Hzvs0NmrVn17ik50RV31Iy1mU,设备b74b0bc85ee8941367227fdbc6c4d00d
-ERROR 2018-11-13 09:05:20,510 [69   ] App.Controllers.AuthController           - 未注册用户登录失败ot6Hzvs0NmrVn17ik50RV31Iy1mU,设备b74b0bc85ee8941367227fdbc6c4d00d
