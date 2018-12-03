@@ -50,14 +50,6 @@ namespace H2Service.WeChatWork
             }
         }
 
-       /* public WxRetAuthBase GetAuthBaseByCode(string code)
-        {
-            var agentid = "0";
-            var urlencode = "http%3a%2f%2flocalhost%3a8000%2fSalary%2fIndex";
-            var accessToken = _tokenManager.GetWxToken("0");
-            var codeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxbf27fd9188f6ef48&redirect_uri=http%3a%2f%2fdyoa.dysdermyy.org%3a8000%2f&response_type=code&scope=SCOPE&agentid=0&state=STATE#wechat_redirect";
-
-            //var postWxUrl = " https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=ACCESS_TOKEN&code=CODE";
-        }*/
+    
     }
 }
