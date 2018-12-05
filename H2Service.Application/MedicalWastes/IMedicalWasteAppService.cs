@@ -39,5 +39,7 @@ namespace H2Service.MedicalWastes
         void RemoveWaste(int Id);
 
         IEnumerable<DepartmentDto> GetDepartmentsWhoDontHaveWaste(int days);
+
+        IEnumerable<DepartmentDto> GetDepartmentsWhoDontHandoverWaste(int days);
     }
 }

@@ -172,8 +172,14 @@ namespace H2Service.Web.Controllers
 
         public ActionResult GetDontHaveWasteDepartments(int days)
         {
-            var lists = _medicalWasteAppService.GetDepartmentsWhoDontHaveWaste(days);
-            return PartialView("_DontHaveWasteDepartments",lists);
+            var list = _medicalWasteAppService.GetDepartmentsWhoDontHaveWaste(days);
+            return PartialView("_DontHaveWasteDepartments",list);
+        }
+
+        public ActionResult GetDontHandOverWasteDepartments(int days)
+        {
+            var list = _medicalWasteAppService.GetDepartmentsWhoDontHandoverWaste(days);
+            return PartialView("_DontHaveWasteDepartments", list);
         }
     }
 }

@@ -10,73 +10,117 @@
 
 <div class=" row">
     <div class="col-lg-12">
-        <div class="m-portlet">
+        <div class="m-portlet m-portlet--tabs">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">
                     <div class="m-portlet__head-title">
-                        <span class="m-portlet__head-icon m--hide">
-                            <i class="la la-gear"></i>
-                        </span>
                         <h3 class="m-portlet__head-text">
-                            近期未产生医疗废物科室
+                           预警查询
                         </h3>
                     </div>
+                </div>
+                <div class="m-portlet__head-tools">
+                    <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--right m-tabs-line-danger" role="tablist">
+                        <li class="nav-item m-tabs__item">
+                            <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_portlet_tab_donthave" role="tab">
+                                近期未产生医疗废物科室
+                            </a>
+                        </li>
+                        <li class="nav-item m-tabs__item">
+                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_tab_donthandover" role="tab">
+                                近期未交接医疗废物科室
+                            </a>
+                        </li>
+                        <li class="nav-item m-tabs__item">
+                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_tab_1_3" role="tab">
+                                超48小时未出院医疗废物(未启用)
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
             <div class="m-portlet__body">
-                <!--搜索框-->
-                <div class="m-form m-form--label-align-right  m--margin-bottom-30">
-                    <div class="row align-items-center">
-                        <div class="col-xl-12 order-2 order-xl-1">
-                            <div class="form-group m-form__group row align-items-center">
-                                <div class="col-md-3">
-                                    <div class="m-form__group m-form__group--inline col-12">
-                                        <select class="form-control m-select2" style="width:100%" id="daysSelect2" name="daysSelect2">
-                                            <option value="0" selected>
-                                              请选择
-                                            </option>
-                                          
-                                            @for(var day=1;day<=30;day++)
-                                            {
-                                                <option value="@day">
-                                                    近 @day 天未有医疗废物产生
-                                                </option>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_portlet_tab_donthave">
+                        <!--搜索框-->
+                        <div class="m-form m-form--label-align-right  m--margin-bottom-30">
+                            <div class="row align-items-center">
+                                <div class="col-xl-12 order-2 order-xl-1">
+                                    <div class="form-group m-form__group row align-items-center">
+                                        <div class="col-md-6">
+                                            <div class="m-form__group m-form__group--inline col-12">
+                                                <select class="form-control m-select2" style="width:100%" id="daysDontHaveSelect2" name="daysSelect2">
+                                                    <option value="0" selected>
+                                                        请选择
+                                                    </option>
+                                                    @for (var day = 1; day <= 30; day++)
+                                                    {
+                                                        <option value="@day">
+                                                            近 @day 天未有医疗废物产生
+                                                        </option>
+                                                    }
 
+                                                </select>
+                                            </div>
+                                            <div class="d-md-none m--margin-bottom-10"></div>
+                                        </div>
 
-                                            }
-
-                                        </select>
                                     </div>
-                                    <div class="d-md-none m--margin-bottom-10"></div>
-                                </div>                               
-                                <div class="col-md-3">
-                                    <button onclick="search()" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
-                                        <span>
-                                            <i class="la la-search"></i>
-                                            <span>
-                                                查询
-                                            </span>
-                                        </span>
-                                    </button>
-                                    <div class="m-separator m-separator--dashed d-xl-none"></div>
-                                    <div class="d-md-none m--margin-bottom-10"></div>
                                 </div>
-                            
-                      
+
                             </div>
                         </div>
 
+                        <!--END搜索框-->
+
+                        <div class="m-demo" id="list_container" data-code-preview="true" data-code-html="true" data-code-js="false">
+
+                        </div>
+
+                    </div>
+                    <div class="tab-pane" id="m_portlet_tab_donthandover">
+                        <!--搜索框-->
+                        <div class="m-form m-form--label-align-right  m--margin-bottom-30">
+                            <div class="row align-items-center">
+                                <div class="col-xl-12 order-2 order-xl-1">
+                                    <div class="form-group m-form__group row align-items-center">
+                                        <div class="col-md-6">
+                                            <div class="m-form__group m-form__group--inline col-12">
+                                                <select class="form-control m-select2" style="width:100%" id="daysDontHandoverSelect2" name="daysDontHandoverSelect2">
+                                                    <option value="0" selected>
+                                                        请选择
+                                                    </option>
+                                                    @for (var day = 1; day <= 30; day++)
+                                                    {
+                                                        <option value="@day">
+                                                            近 @day 天未交接医疗废物
+                                                        </option>
+                                                    }
+
+                                                </select>
+                                            </div>
+                                            <div class="d-md-none m--margin-bottom-10"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--END搜索框-->
+
+                        <div class="m-demo" id="list_container2" data-code-preview="true" data-code-html="true" data-code-js="false">
+
+                        </div>
+
+                    </div>
+                    <div class="tab-pane active" id="m_portlet_tab_1_3">
+
+
                     </div>
                 </div>
-
-                <!--END搜索框-->
-
-                <div class="m-demo" id="list_container" data-code-preview="true" data-code-html="true" data-code-js="false">
-                   
-                </div>
-
-
+                
             </div>
 
         </div>
@@ -84,12 +128,19 @@
 
 </div>
 <script>
-    $('#daysSelect2').select2();
-    $("#daysSelect2").on("select2:select", function () {
+    $('#daysDontHaveSelect2,#daysDontHandoverSelect2').select2();
+    $("#daysDontHaveSelect2").on("select2:select", function () {
         var days = $(this).val();
         $("#list_container").load("/MedicalWaste/GetDontHaveWasteDepartments",
             { "days": days }, function () {
 
         });
+    });
+    $("#daysDontHandoverSelect2").on("select2:select", function () {
+        var days = $(this).val();
+        $("#list_container2").load("/MedicalWaste/GetDontHandOverWasteDepartments",
+            { "days": days }, function () {
+
+            });
     });
 </script>

@@ -228,5 +228,31 @@ namespace H2Service.MedicalWastes
             return expectList;
 
         }
+        /// <summary>
+        /// 查询近期几天内无医疗废物交接科室
+        /// </summary>
+        /// <param name="days"></param>
+        /// <returns></returns>
+        public IEnumerable<DepartmentDto> GetDepartmentsWhoDontHandoverWaste(int days)
+        {
+            var date = DateTime.Now.AddDays(0 - days);
+            var shouleHaveList = _departmentAppService.GetRelatedDepartments((int)H2Module.医疗废物).Select(T =>
+                    new DepartmentDto { Id = T.DepartmentId, DepartmentName = T.DepartmentName }).ToList();
+            var hasList = _flowRepository.GetAll()
+                .Where(T => T.Status == MedicalWasteStatus.医院暂存点)
+                .GroupBy(T => new { DepartmentId = T.DepartmentId, DepartmentName = T.Department.DepartmentName })
+                .Select(T => new 
+                {
+                    DepartmentId = T.Key.DepartmentId,
+                    DepartmentName = T.Key.DepartmentName,
+                    CollectTime = T.Max(x => x.CollectTime)
+                })
+                .Where(T=>T.CollectTime>=date)
+                .Select(T => new DepartmentDto { Id = T.DepartmentId, DepartmentName = T.DepartmentName })
+                .ToList();          
+            var expectList = shouleHaveList.Except(hasList, new DepartmentsListEquality());
+            return expectList;
+
+        }
     }
 }
