@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace H2Service.WeChatWork.Entities
 {
- public   class WxRetMsgBase
+    /// <summary>
+    /// 永久图片上传后的返回
+    /// </summary>
+  public  class WxRetImg:WxRetBase
     {
-        public int errcode { get; set; }
-        public string errmsg { get; set; }
+        public string url { get; set; }
     }
 }

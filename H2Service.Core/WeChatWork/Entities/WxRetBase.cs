@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace H2Service.WeChatWork.Entities
 {
- public   class WxJSApiTicket: WxRetBase
+ public   class WxRetBase
     {
-        public string ticket { get; set; }
-
-        public int expires_in { get; set; }
+        public int errcode { get; set; }
+        public string errmsg { get; set; }
     }
 }

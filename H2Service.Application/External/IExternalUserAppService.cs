@@ -2,6 +2,7 @@
 using Abp.Application.Services.Dto;
 using H2Service.Dto;
 using H2Service.External.Dto;
+using H2Service.Users.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace H2Service.External
 
         void UpdateUser(ExternalUserDto input);
 
-        void CreateUser(ExternalUserDto input);
+        void CreateUser(UserDto input,int departmentId,int remoteDepartmentId);
 
         PagedResultDto<ExternalUserDto> GetPagedExternalUsers(GetExternalUsersInput input);
 

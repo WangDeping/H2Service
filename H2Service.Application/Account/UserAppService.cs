@@ -119,6 +119,7 @@ namespace H2Service.Users
                          TelPhone = T.TelPhone,
                          Gender = T.Gender,
                          Email = T.Email,
+                         Code=T.Code,
                          DepartmentName = S.DepartmentName == null ? "" : S.DepartmentName,
                          DepartmentId=S.DepartmentName==null?0:S.Id,
                          IsDeleted = T.IsDeleted

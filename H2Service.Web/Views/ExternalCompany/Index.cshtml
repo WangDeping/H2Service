@@ -16,23 +16,22 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            外来单位
+                            外部单位
                         </h3>
                     </div>
                 </div>
             </div>
             <div class="m-portlet__body">
-                <div class="form-group m-form__group">
+                @*<div class="form-group m-form__group">
                     <input type="button" value="创建单位" class="btn btn-primary" onclick="createCompany()" />
-                </div>
+                </div>*@
                 <table class="bootstrap-table" id="companies_grid" data-url='@Url.Action("CompaniesGrid")'
                        data-side-pagination="server" data-page-list="[10]" data-pagination="true"
                        data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true" data-row-style="rowStyle">
                     <thead>
                         <tr>
-                            <th data-field="CompanyName" data-align="center">名称</th>
-                            <th data-field="Aspect" data-align="center">合作领域</th>
-                            <th data-field="Id" data-formatter="actionFormatter" data-align="center">操作</th>
+                            <th data-field="DepartmentName" data-align="center">名称</th>                      
+                            <th data-field="Id" data-formatter="actionFormatter" data-align="center">添加人员</th>
                         </tr>
                     </thead>
                 </table>
@@ -65,7 +64,7 @@
                             <th data-field="UserName" data-align="center">姓名</th>
                             <th data-field="Gender" data-align="center">性别</th>
                             <th data-field="TelPhone" data-align="center">手机号</th>
-                            <th data-field="ExternalCompanyName" data-align="center">单位</th>
+                            <th data-field="DepartmentName" data-align="center">单位</th>
                             <th data-field="Id" data-formatter="actionFormatter2" data-align="center">操作</th>
                         </tr>
                     </thead>
@@ -78,53 +77,7 @@
     </div>
 
 
-    <!--CompanyModal-->
-    <div class="modal fade" id="companyModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog " role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        外部单位信息维护
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            &times;
-                        </span>
-                    </button>
-                </div>
-                <form class="m-form m-form--fit m-form--label-align-right" id="companyForm">
-                    <div class="m-portlet__body">
-                        <div class="modal-body align-content-center">
-
-                            <div class="form-group">
-                                <label for="RoleName" class="form-control-label">
-                                    单位名称:
-                                </label>
-                                <input type="text" class="form-control" id="CompanyName" required>
-                                <input type="hidden" id="CompanyId" />
-                            </div>
-                            <div class="form-group">
-                                <label for="RoleName" class="form-control-label">
-                                    合作领域:
-                                </label>
-                                @Html.Action("ExternalCompanyAspects")
-
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">
-                                保存
-                            </button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--CompanyModal-->
+  
     <!--UserModal-->
     <div class="modal fade" id="userModal" tabindex="-1" role="dialog">
         <div class="modal-dialog " role="document">
@@ -151,10 +104,22 @@
                             </div>
                             <div class="form-group">
                                 <label for="IDNumber" class="form-control-label">
-                                    身份证号码:
+                                    姓名全拼:
                                 </label>
-                                <input type="text" class="form-control" id="IDNumber" required>
+                                <input type="text" class="form-control" id="UserNumber" required>
 
+                            </div>
+                            <div class="form-group">
+                                <div class="m-dropzone dropzone  m-dropzone--success" id="m-dropzone">
+                                    <div class="m-dropzone__msg dz-message needsclick">
+                                        <h3 class="m-dropzone__msg-title">
+                                            点击或者拖拽图片
+                                        </h3>
+                                        <span class="m-dropzone__msg-desc">
+                                            仅支持JPG,JPEG,PNG格式
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="TelPhone" class="form-control-label">
@@ -169,17 +134,12 @@
                                 </label>
                                 <div class="m-radio-inline ">
                                     <label class="m-radio m-radio--solid m-radio--state-brand">
-                                        <input type="radio" name="Gender" value="UnKnown" checked>
-                                        未知
-                                        <span></span>
-                                    </label>
-                                    <label class="m-radio m-radio--solid m-radio--state-brand">
-                                        <input type="radio" name="Gender" value="Male">
+                                        <input type="radio" name="Gender" value="1" checked>
                                         男
                                         <span></span>
                                     </label>
                                     <label class="m-radio m-radio--solid m-radio--state-brand">
-                                        <input type="radio" name="Gender" value="Female">
+                                        <input type="radio" name="Gender" value="2">
                                         女
                                         <span></span>
                                     </label>
@@ -200,9 +160,9 @@
         </div>
     </div>
     <!--UserModal-->
-    <!--Barcode-->
-    <div class="modal fade" id="barcodeModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog " role="document" style="width:350px">
+    <!--Qrcode-->
+    <div class="modal fade" id="qrcodeModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document" style="width:300px">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
@@ -215,19 +175,15 @@
                     </button>
                 </div>
                 <div class="modal-body align-content-center">
-                    <img id="barcodeImg" />
+                    <img id="qrcodeImg" />
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        Close
-                    </button>
-                </div>
+            
             </div>
         </div>
     </div>
-    <!--Barcode-->
+    <!--Qrcode-->
     <!--Avatar-->
-    <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog">
+    @*<div class="modal fade" id="avatarModal" tabindex="-1" role="dialog">
         <div class="modal-dialog " role="document" style="width:350px">
             <div class="modal-content">
                 <div class="modal-header">
@@ -242,7 +198,7 @@
                 </div>
                 <div class="modal-body align-content-center">
                     <img  id="AvatarImg" src="" />
-                    <div class="m-dropzone dropzone  m-dropzone--success" id="m-dropzone">
+                    @*<div class="m-dropzone dropzone  m-dropzone--success" id="m-dropzone">
                         <div class="m-dropzone__msg dz-message needsclick">
                             <h3 class="m-dropzone__msg-title">
                                 点击或者拖拽图片
@@ -251,7 +207,7 @@
                                 仅支持JPG,JPEG,PNG格式
                             </span>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -260,11 +216,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
     <!--Avatar-->
 </div>
 
-<script>
+<script>    
+    var currentCompanyId = 0;
+    var media_id= "";
     Dropzone.autoDiscover = false;
     $('#companies_grid,#users_grid').bootstrapTable({
         queryParams: function (params) {
@@ -275,7 +233,7 @@
         }
     })
     $('#companies_grid').on('click-row.bs.table', function (e, row, element) {
-        $('#CompanyId').val(row.Id)
+        currentCompanyId=row.Id
         $('#users_grid').bootstrapTable('refresh', {
             url: '/ExternalCompany/UsersGrid',
             query: {
@@ -285,65 +243,23 @@
 
     });
     function actionFormatter(value, row, index) {
-        return '\
-						<a href="#" onclick=\'editCompany("' + value + '")\'  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="修改信息">\
-							<i class="la la-edit"></i>\
-						</a>\
-                        <a href="#" onclick=\'addUser("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="添加人员">\
+        return '\ <a href="#" onclick=\'addUser("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="添加人员">\
 							            <i class="la la-user-plus"></i>\
 						</a>\
         ';
     }
     function actionFormatter2(value, row, index) {
-        return '\
-						<a href="#" onclick=\'editUser("' + value + '")\'  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="修改用户">\
-							<i class="la la-edit"></i>\
-						</a>\
-                        <a href="#" onclick=\'showBarcode("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="查看条码">\
+        return '\	<a href="#" onclick=\'showQrcode("' + row.Code + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="查看条码">\
 							            <i class="la la-barcode"></i>\
-						</a>\
-                        <a href="#" onclick=\'showAvatar("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="上传头像">\
-							            <i class="la la-photo"></i>\
-						</a>\
+						</a>\ 
 						<a href="#"  onclick=\'removeUser("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="删除">\
 							<i class="la la-trash"></i>\
 						</a>\
         ';
-    }
-    function createCompany() {
-        $('#companyForm').resetForm();
-        $('#CompanyId').val(0)
-        $('#companyModal').modal('show');
-
-    }
-    function editCompany(Id) {
-        $('#companyForm').resetForm();
-        $('#CompanyId').val(Id)
-        $.post('/ExternalCompany/GetCompany', { Id: Id }, function (data) {
-            $('#CompanyName').val(data.CompanyName)
-            $("[name='Aspects']").selectpicker('val', data.Aspect)
-        })
-        $('#companyModal').modal('show');
-    }
-    $('#companyForm').submit(function (e) {
-        e.preventDefault();
-        abp.ajax({
-            url: '/ExternalCompany/AddOrUpdateCompany',
-            data: JSON.stringify({
-                'Id': $('#CompanyId').val(),
-                'CompanyName': $('#CompanyName').val(),
-                "Aspect": $("[name='Aspects']").val()
-            })
-        }).done(function (data) {
-            abp.notify.success(data.message);
-            $('#companyModal').modal('hide');
-            $('#companies_grid').bootstrapTable('refresh')
-        })
-
-    });
+    }   
     function addUser(companyId) {
         $('#userForm').resetForm();
-        $('#CompanyId').val(companyId)
+        currentCompanyId = companyId;
         $('#UserId').val(0)
         $('#userModal').modal('show');
 
@@ -364,29 +280,24 @@
     }
 
     function removeUser(Id) {
-        bootbox.confirm({
-            size: "small",
-            message: "确定要删除此用户吗",
-            callback: function (result) {
-                if (result) {
-                    abp.ajax({
-                        url: '/ExternalCompany/RemoveUser',
-                        data: JSON.stringify({
-                            'Id': Id
-                        })
-                    }).done(function (data) {
-                        abp.notify.success(data.message);
-                        $('#users_grid').bootstrapTable('refresh', {
-                            query: {
-                                ExternalCompanyId: $('#CompanyId').val()
-                            }
-                        })
+        bootbox.confirm("确定要删除该用户吗?", function (r) {
+            if (r) {
+                abp.ajax({
+                    url: '/User/RemoveUser/',
+                    data: JSON.stringify({ Id: Id })
+                }).done(function (data) {
+                    $('#users_grid').bootstrapTable('refresh', {
+                        query: {
+                            ExternalCompanyId: $('#CompanyId').val()
+                        }
                     })
-                }
+                    abp.notify.success(data.message);
+                })
+
             }
+
         })
 
-        
     }
     $('#userForm').submit(function (e) {
         e.preventDefault();
@@ -394,9 +305,10 @@
             url: '/ExternalCompany/AddOrUpdateUser',
             data: JSON.stringify({
                 'Id': $('#UserId').val(),
-                'ExternalCompanyId': $('#CompanyId').val(),
+                'DepartmentId': currentCompanyId,
                 'UserName': $('#UserName').val(),
-                "IDNumber": $("#IDNumber").val(),
+                "UserNumber": $("#UserNumber").val(),
+                "AvatarUrl": media_id,
                 "TelPhone": $("#TelPhone").val(),
                 'Gender': $("input[name='Gender']:checked").val()
             })
@@ -412,10 +324,10 @@
 
     });
 
-    function showBarcode(Id) {
-        var codeUrl = "/ExternalCompany/UserQrcode/" + Id
-        $('#barcodeImg').attr('src', codeUrl)
-        $('#barcodeModal').modal('show');
+    function showQrcode(code) {
+        var codeUrl = "/QrCode/GetQrCode?content="+ code
+        $('#qrcodeImg').attr('src', codeUrl)
+        $('#qrcodeModal').modal('show');
     }
   
     function showAvatar(Id) {
@@ -436,7 +348,7 @@
             url: '@Url.Action("SetAvatar/")' ,
         paramName: "file",
         maxFiles: 1,
-        maxFilesize: 10,
+        maxFilesize: 2,
         method: "post",
         acceptedFiles: ".jpg,.jpeg,.png",
         dictResponseError: '文件上传失败!',
@@ -449,9 +361,11 @@
                 this.on("processing", function (file) {
                     this.options.url = '@Url.Action("SetAvatar/")' + $('#UserId').val();
                 });
-            this.on("success", function (file, data) {
-                $('#AvatarImg').attr('src', "../Content/avatars/external/" + data.result.message + "?r="+Math.random());
-                myDropzone.removeFile(file);
+                this.on("success", function (file, data) {
+                    media_id = data.result.message;             
+                    abp.notify.success("上传成功")
+               // $('#AvatarImg').attr('src', "../Content/avatars/external/" + data.result.message + "?r="+Math.random());
+                //myDropzone.removeFile(file);
             }),
                 this.on("error", function (file, data) {
                     abp.notify.error(data.Message);

@@ -1598,6 +1598,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\QrCodeController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DistrictController.cs" />
     <Compile Include="Controllers\ExternalCompanyController.cs" />
@@ -1625,6 +1626,7 @@
     <Compile Include="Models\Layout\TopBarViewBar.cs" />
     <Compile Include="Models\MedicalWaste\MedicalWasteGridRequestModel.cs" />
     <Compile Include="Models\RepViewModel.cs" />
+    <Compile Include="Models\Users\ExternalUserModel.cs" />
     <Compile Include="Models\Users\LoginValidateModel.cs" />
     <Compile Include="Models\Users\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1721,6 +1723,7 @@
     <Folder Include="Extensions\" />
     <Folder Include="Models\ServerRooms\" />
     <Folder Include="tmpFiles\" />
+    <Folder Include="Views\BarCode\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\H2Service.Application\H2Service.Application.csproj">

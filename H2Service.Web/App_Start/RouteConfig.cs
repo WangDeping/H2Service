@@ -27,6 +27,11 @@ namespace H2Service.Web
                 url: "{controller}/{action}/{period}/{typeId}",
                 defaults:new { controller="Salary",action= "SalaryUpload",typeId=UrlParameter.Optional}
                 );
+            routes.MapRoute(
+                name: "二维码",
+                url: "{controller}/{action}/{content}",
+                defaults: new { controller = "QrCode", action = " GetQrCode", content = UrlParameter.Optional }
+                );
         }
     }
 }

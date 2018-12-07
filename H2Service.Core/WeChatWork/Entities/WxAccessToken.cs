@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace H2Service.WeChatWork.Entities
 {
- public   class WxAccessToken:WxRetMsgBase
+ public   class WxAccessToken:WxRetBase
     {
         public string access_token { get; set; }
 

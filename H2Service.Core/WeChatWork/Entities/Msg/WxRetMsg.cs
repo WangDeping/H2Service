@@ -9,7 +9,7 @@ namespace H2Service.WeChatWork.Entities
     /// <summary>
     /// 微信主动发送消息返回值
     /// </summary>
- public   class WxRetMsg:WxRetMsgBase
+ public   class WxRetMsg:WxRetBase
     {
         public string invaliduser { get; set; }
 

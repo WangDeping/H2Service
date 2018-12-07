@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace H2Service.WeChatWork.Entities
 {
-    public class WxRetAuthBase : WxRetMsgBase
+    public class WxRetAuthBase : WxRetBase
     {
         public string UserId{get;set;}
 

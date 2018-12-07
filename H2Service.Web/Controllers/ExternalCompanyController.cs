@@ -1,5 +1,6 @@
 ﻿using Abp.UI;
 using Abp.Web.Models;
+using H2Service.Account;
 using H2Service.Dto;
 using H2Service.External;
 using H2Service.External.Dto;
@@ -11,6 +12,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Configuration;
+using H2Service.Users;
+using H2Service.Web.Models.Users;
+using H2Service.Users.Dto;
+using H2Service.WeChatWork;
 
 namespace H2Service.Web.Controllers
 {
@@ -18,11 +24,21 @@ namespace H2Service.Web.Controllers
     {
         private readonly IExternalCompanyAppService _externalCompanyAppService;
         private readonly IExternalUserAppService _externalUserAppService;
+        private readonly IDepartmentAppService _departmentAppService;
+        private readonly IUserAppService _userAppService;
+        private readonly WxFileManager _wxFileManager;
         public ExternalCompanyController(IExternalCompanyAppService externalCompanyAppService,
-            IExternalUserAppService externalUserAppService)
+            IExternalUserAppService externalUserAppService,
+            IDepartmentAppService departmentAppService,
+            IUserAppService userAppService,
+            WxFileManager wxFileManager
+            )
         {
              _externalCompanyAppService = externalCompanyAppService;
             _externalUserAppService = externalUserAppService;
+            _departmentAppService = departmentAppService;
+            _userAppService = userAppService;
+            _wxFileManager = wxFileManager;
 
         }
 
@@ -33,8 +49,10 @@ namespace H2Service.Web.Controllers
         [DontWrapResult]
         public JsonResult CompaniesGrid(PagedInputDto request)
         {
-            var result = _externalCompanyAppService.GetPagedExternalCompanies(request);
-            return Json(new { total = result.TotalCount, rows = result.Items }, JsonRequestBehavior.AllowGet);
+            var rootCompanyId =int.Parse(WebConfigurationManager.AppSettings["externalLocalDepartmentRootId"]);
+            var result = _departmentAppService.DepartmentWithDescendants(rootCompanyId).Where(T => T.Id != rootCompanyId);
+           // var result = _externalCompanyAppService.GetPagedExternalCompanies(request);
+            return Json(new { total = result.Count(), rows = result }, JsonRequestBehavior.AllowGet);
         }
 
         public PartialViewResult ExternalCompanyAspects()
@@ -44,7 +62,7 @@ namespace H2Service.Web.Controllers
         }
 
         public JsonResult AddOrUpdateCompany(ExternalCompanyDto request)
-        {
+        {         
             if (request.Id == 0)
                 _externalCompanyAppService.CreateExternalCompany(request);
             else
@@ -53,54 +71,51 @@ namespace H2Service.Web.Controllers
         }
 
         [DontWrapResult]
-        public JsonResult GetCompany(int Id)
-        {
-            var company = _externalCompanyAppService.GetExternalCompany(Id);
-            return Json(company, JsonRequestBehavior.AllowGet);
-        }
-
-        [DontWrapResult]
         public JsonResult UsersGrid(GetExternalUsersInput request)
-        {
-            var result = _externalUserAppService.GetPagedExternalUsers(request);
-
-            return Json(new { total = result.TotalCount, rows = result.Items }, JsonRequestBehavior.AllowGet);
+        {          
+            var result = _userAppService.GetUsersDepartmentWithDescendants(request.ExternalCompanyId);
+            return Json(new { total = result.Count, rows = result}, JsonRequestBehavior.AllowGet);
         }
-        [DontWrapResult]
-        public ActionResult UserQrcode(int Id)
-        {
-            var code = _externalUserAppService.GetCode(Id);
-            var stream = QrCodeHelper.CommonQrCode(code);
-            return File(stream.ToArray(), "image/jpeg");
-
-        }
-        public JsonResult AddOrUpdateUser(ExternalUserDto input)
-        {
+    
+        public JsonResult AddOrUpdateUser(ExternalUserModel input)
+        {           
+            var remoteDepartmetnId = int.Parse(WebConfigurationManager.AppSettings["externalRemoteDepartmentRootId"]);
+            input.RemoteDepartmentId = remoteDepartmetnId;
             if (input.Id == 0)
-                _externalUserAppService.CreateUser(input);
-            else
-                _externalUserAppService.UpdateUser(input);
+            {
+                var userDto = new UserDto {
+                     AvatarUrl=input.AvatarUrl,
+                     Gender=(Authorization.Gender)input.Gender,
+                     TelPhone=input.TelPhone,
+                     UserName=input.UserName,                     
+                     UserNumber=input.UserNumber                     
+                };
+                try
+                {
+                    _externalUserAppService.CreateUser(userDto, input.DepartmentId, remoteDepartmetnId);
+                }
+                catch (Exception ex)
+                {
+                    throw new UserFriendlyException(ex.Message);
+                }
+            }
+            //else
+            //    _externalUserAppService.UpdateUser(input);
             return Json(new ErrorInfo(0, "保存成功"));
         }
-        [DontWrapResult]
-        public JsonResult GetUser(int Id)
-        {
-            var user = _externalUserAppService.GetUser(Id);
-            return Json(user,JsonRequestBehavior.AllowGet);
-        }
-       
+      
         public JsonResult SetAvatar(int Id)
-        {
-            var code = _externalUserAppService.GetCode(Id);
+        {          
             if (Request.Files != null)
             {
                 var avatarFile = Request.Files[0];
-                var extension = avatarFile.FileName.Substring(avatarFile.FileName.LastIndexOf("."));
-                var filePath = Server.MapPath(@"~/Content/avatars/external/" + code + extension);
-                avatarFile.SaveAs(filePath);               
-                var fileName = code + extension;              
-                _externalUserAppService.SetAvatar(Id, fileName);              
-                return Json(new ErrorInfo(0, fileName));
+                var buf = new byte[avatarFile.InputStream.Length];
+                avatarFile.InputStream.Read(buf, 0, (int)avatarFile.InputStream.Length);
+                var result= _wxFileManager.UploadTempFile(avatarFile.FileName,buf,"image");
+                if(result.errcode==0)
+                 return Json(new ErrorInfo(0,result.media_id));
+                else
+                    return Json(new ErrorInfo(-1, result.errmsg));
             }
             else
                 return Json(new ErrorInfo(-1, "出错了"));
@@ -126,10 +141,6 @@ namespace H2Service.Web.Controllers
         {
             return _externalUserAppService.GetAvatar(Id);
         }
-        public JsonResult RemoveUser(int Id)
-        {
-            _externalUserAppService.RemoveUser(Id);
-            return Json(new ErrorInfo(0, "删除成功"));
-        }
+       
     }
 }

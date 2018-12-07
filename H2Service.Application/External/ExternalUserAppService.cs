@@ -10,15 +10,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.UI;
+using H2Service.Authorization;
+using H2Service.Users.Dto;
+using Abp.Events.Bus;
+using H2Service.Events;
+using H2Service.Helpers;
+
 namespace H2Service.External
 {
  public   class ExternalUserAppService:H2ServiceAppServiceBase,IExternalUserAppService
     {
         private readonly IRepository<ExternalUser> _externalUserRepository;
-
-        public ExternalUserAppService(IRepository<ExternalUser> externalUserRepository)
+        private readonly IRepository<User,long> _userRepository;
+        private readonly IRepository<Department> _departmentRepository;
+        private readonly IEventBus _eventBus;
+        public ExternalUserAppService(IRepository<ExternalUser> externalUserRepository,
+            IRepository<Department> departmentRepository,
+            IRepository<User,long> userRepository,
+            IEventBus eventBus)
         {
             _externalUserRepository = externalUserRepository;
+            _userRepository = userRepository;
+            _departmentRepository = departmentRepository;
+            _eventBus = eventBus;
+
         }
 
         public PagedResultDto<ExternalUserDto> GetPagedExternalUsers(GetExternalUsersInput input)
@@ -37,12 +52,29 @@ namespace H2Service.External
         {
             return _externalUserRepository.Get(Id).Code;
         }
-        public void CreateUser(ExternalUserDto input)
+
+        public void CreateUser(UserDto input, int departmentId, int remoteDepartmentId)
         {
-            var user = input.MapTo<ExternalUser>();
-            user.Code =new Random().Next(10000000, 99999999).ToString()+new Random().Next(1000,9999);
-            _externalUserRepository.Insert(user);
+            if (_userRepository.FirstOrDefault(T => T.UserNumber == input.UserNumber) != null)
+                throw new Exception("用户名已存在");
+            var user = input.MapTo<User>();
+            user.AvatarUrl = null;
+            user.Password = SecurityHelper.EncryptMd5(input.TelPhone) ;
+            user.Code =user.UserNumber;
+            var userEntity = _userRepository.Insert(user);
+            var department = _departmentRepository.Get(departmentId);
+            department.Users.Add(userEntity);
+            _eventBus.Trigger(new CreateUserEventData {
+                 AvatarUrl=input.AvatarUrl,
+                 Gender=(int)user.Gender,
+                 DepartmentId=remoteDepartmentId,
+                 TelPhone=user.TelPhone,
+                 UserName=user.UserName,
+                 UserNumber=user.UserNumber
+            });
+
         }
+      
 
         public void UpdateUser(ExternalUserDto input)
         {
@@ -75,5 +107,7 @@ namespace H2Service.External
             var user = _externalUserRepository.FirstOrDefault(T => T.Code == code);
             return user.MapTo<GetExternalUserByCodeOutput>();
         }
+
+       
     }
 }

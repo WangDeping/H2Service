@@ -26,6 +26,7 @@ namespace H2Service.Users.Dto
         public Gender Gender { get; set; }
 
         public string Email { get; set; }
+        
 
     }
 }

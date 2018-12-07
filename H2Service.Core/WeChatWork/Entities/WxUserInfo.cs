@@ -16,7 +16,8 @@ namespace H2Service.WeChatWork.Entities
         public string mobile { get; set; }
         public string gender { get; set; }
         public string email { get; set; }
-        public string avatar { get; set; }
+        public string avatar_mediaid { get; set; }
+        public int department { get; set; }
         public string qr_code { get; set; }
     }
 }
