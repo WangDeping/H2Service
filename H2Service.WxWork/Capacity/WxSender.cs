@@ -3,23 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using H2Service.WeChatWork.Entities;
+using H2Service.WxWork.Entities;
 using Abp.Domain.Services;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Abp.Dependency;
+using Castle.Core.Logging;
 
-namespace H2Service.WeChatWork
+namespace H2Service.WxWork
 {
-    public class WxSender : DomainService
+    public class WxSender : ITransientDependency
     {
         private WxTokenManager _tokenManager;
-        public WxSender(WxTokenManager wxTokenManager)
+        private ILogger _logger;
+        public WxSender(WxTokenManager wxTokenManager,
+            ILogger logger)
         {
             _tokenManager = wxTokenManager;
+            _logger = logger;
         }
         private const string SENDMSG_URL= "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={0}";
 
-        public WxRetMsg SendMsg(WxSendMsg msg)
+        public WxRetMsg SendMsg<T>(T msg)where T:WxSendMsg
         {
             var access_token = this._tokenManager.GetWxToken(msg.agentid);
             var postUrl = string.Format(SENDMSG_URL, access_token);
@@ -27,15 +32,17 @@ namespace H2Service.WeChatWork
             using (var client = new HttpClient())
             {
                 var postContent = new StringContent(JsonConvert.SerializeObject(msg));
+                _logger.Error("SendMsg发送消息数据:" + JsonConvert.SerializeObject(msg));
                 var result = client.PostAsync(postUrl, postContent);               
                 var responseJson = result.Result.Content.ReadAsStringAsync().Result;
-              
+
+                _logger.Error("SendMsg消息返回值:"+responseJson);
                 return JsonConvert.DeserializeObject<WxRetMsg>(responseJson);
 
             }
-        }
+        }      
 
-        public async Task<WxRetMsg> SendMsgAsync(WxSendMsg msg)
+        public async Task<WxRetMsg> SendMsgAsync<T>(T msg)where T:WxSendMsg
         {
             var access_token = this._tokenManager.GetWxToken(msg.agentid);
            var postUrl= string.Format(SENDMSG_URL, access_token);

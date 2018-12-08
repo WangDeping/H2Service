@@ -4,8 +4,8 @@ using H2Service.Authorization;
 using H2Service.Authorization.Dto;
 using H2Service.Extensions;
 using H2Service.Users;
-using H2Service.WeChatWork;
-using H2Service.WeChatWork.Dto;
+using H2Service.WxWork;
+using H2Service.WxWork.Dto;
 using System;
 using System.Web.Mvc;
 
@@ -15,16 +15,16 @@ namespace App.Controllers
     {
         
 
-        private readonly IWxAppService _wxAppService;
+        private readonly WxUserManager _wxUserManager;
         private readonly IUserAppService _userAppService;
         private readonly ILoginAppService _loginAppService;
         private readonly IAuthorizationManager _authorizationManager;
 
-        public AuthController(IWxAppService wxAppService,
+        public AuthController(WxUserManager wxUserManager,
             IUserAppService userAppService,
             ILoginAppService loginAppService,
             IAuthorizationManager authorizationManager) {
-            _wxAppService = wxAppService;
+            _wxUserManager = wxUserManager;
             _userAppService = userAppService;
             _loginAppService = loginAppService;
             _authorizationManager = authorizationManager;
@@ -33,7 +33,7 @@ namespace App.Controllers
         public ActionResult Index()
         {          
             Session["retUrl"] = Request.QueryString["ReturnUrl"];  
-            string authUrl = _wxAppService.GetWxAuthUrl();           
+            string authUrl = _wxUserManager.GetWxAuthUrl();           
             Response.StatusCode = 301;
             Response.Status = "301 Moved Permanently";
             Response.AppendHeader("Location", authUrl);
@@ -43,16 +43,15 @@ namespace App.Controllers
         }
        
         public ActionResult GetWxCode() {
-            var code = Request.QueryString["code"]; 
-            WxUserInfoBaseDto userBaseInfo = _wxAppService.GetWxUserBaseInfoByCode(code);
+            var code = Request.QueryString["code"];
+            var authUserInfo = _wxUserManager.GetWxAuthUserInfo(code);
             //属于企业微信内部人员
-            if (userBaseInfo.errcode == 0) {                
-                if (!string.IsNullOrEmpty(userBaseInfo.OpenId)) { 
-                    Logger.Error(string.Format("未注册用户登录失败{0},设备{1}", userBaseInfo.OpenId, userBaseInfo.DeviceId));
-                    //throw new UserFriendlyException("非本院职工不能访问本系统");
+            if (authUserInfo.errcode == 0) {                
+                if (!string.IsNullOrEmpty(authUserInfo.OpenId)) { 
+                    Logger.Error(string.Format("未注册用户登录失败{0},设备{1}", authUserInfo.OpenId, authUserInfo.DeviceId));
                     return View("Denied", new ErrorInfo{  Details="非本院职工不能访问本系统"});
                 }
-                var user= _userAppService.GetUserByNumber(userBaseInfo.UserId);
+                var user= _userAppService.GetUserByNumber(authUserInfo.UserId);
                 Logger.Error("用户登录："+user.UserNumber);
                 //登入
                 if (user != null)
@@ -66,16 +65,7 @@ namespace App.Controllers
                 Response.Redirect(Session["retUrl"].ToString());
             return View();            
         }
-        [Authorize]
-        public ActionResult Test()
-        {
-
-            var userNumber = AbpSession.GetUserNumber();          
-            var wxUser = _wxAppService.GetWxUserInfoDetail(userNumber);           
-            ViewBag.User = wxUser;
-              
-            return View();
-        }
+      
         public ActionResult LoginOut()
         {
 

@@ -1,5 +1,5 @@
 ﻿using H2Service.MeritPays;
-using H2Service.WeChatWork;
+using H2Service.WxWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +11,12 @@ namespace App.Controllers
     public class MeritPayController : AppControllerBase
     {
         private IMeritPayAppService _meritPayAppService;
-        private readonly IWxAppService _wxAppService;
+        private readonly WxTokenManager _wxTokenManager;
         public MeritPayController(IMeritPayAppService meritPayAppService,
-            IWxAppService wxAppService)
+           WxTokenManager wxTokenManager)
         {
             _meritPayAppService = meritPayAppService;
-            _wxAppService = wxAppService;
+            _wxTokenManager = wxTokenManager;
 
         }
 
@@ -24,7 +24,7 @@ namespace App.Controllers
         [Authorize]
         public ActionResult PersonalMeritPay(int Id)
         {
-            string ticket = _wxAppService.GetJSApiTicket();
+            string ticket = _wxTokenManager.GetWxJSApiTicket();
             this.GetWxJSApiSignature(ticket);
             var output = _meritPayAppService.PersonalDetails(Id);
             return View(output);

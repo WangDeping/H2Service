@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace H2Service.WeChatWork
+namespace H2Service.WxWork.Entities
 {
-    class WxJSApiTicketManager
+ public   class WxUserInfoList:WxRetBase
     {
+        public List<WxGetUserInfo> userlist { get; set; }
     }
 }

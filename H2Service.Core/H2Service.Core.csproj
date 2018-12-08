@@ -269,34 +269,17 @@
     <Compile Include="ServerRooms\ServerRoomEvent.cs" />
     <Compile Include="ServerRooms\ServerRoomPatrol.cs" />
     <Compile Include="ServerRooms\ServerWMICoreManger.cs" />
-    <Compile Include="WeChatWork\Cryptography.cs" />
-    <Compile Include="WeChatWork\Entities\File\WxRetImg.cs" />
-    <Compile Include="WeChatWork\Entities\File\WxRetTepmFile.cs" />
-    <Compile Include="WeChatWork\Entities\WxAccessToken.cs" />
-    <Compile Include="WeChatWork\Entities\WxJSApiTicket.cs" />
-    <Compile Include="WeChatWork\Entities\Msg\WxNewsMsgArticle.cs" />
-    <Compile Include="WeChatWork\Entities\Msg\WxNewsMsgArticleCollection.cs" />
-    <Compile Include="WeChatWork\Entities\WxRetAuthBase.cs" />
-    <Compile Include="WeChatWork\Entities\Msg\WxRetMsg.cs" />
-    <Compile Include="WeChatWork\Entities\WxRetBase.cs" />
-    <Compile Include="WeChatWork\Entities\Msg\WxSendMsg.cs" />
-    <Compile Include="WeChatWork\Entities\Msg\WxSendNewsMsg.cs" />
-    <Compile Include="WeChatWork\Entities\Msg\WxSendTextMsg.cs" />
-    <Compile Include="WeChatWork\Entities\Msg\WxTextMsgContent.cs" />
-    <Compile Include="WeChatWork\Entities\WxUserInfo.cs" />
-    <Compile Include="WeChatWork\IWxWorkService.cs" />
-    <Compile Include="WeChatWork\WXBizMsgCrypt.cs" />
-    <Compile Include="WeChatWork\WxFileManager.cs" />
-    <Compile Include="WeChatWork\WxJSApiTicketManager.cs" />
-    <Compile Include="WeChatWork\WxTokenManager.cs" />
-    <Compile Include="WeChatWork\WxUserManager.cs" />
-    <Compile Include="WeChatWork\WxSender.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\H2Service.WxWork\H2Service.WxWork.csproj">
+      <Project>{9f97d9f1-fea5-4bf2-9f45-4a9a8d6fe4a6}</Project>
+      <Name>H2Service.WxWork</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

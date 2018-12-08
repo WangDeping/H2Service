@@ -1,14 +1,15 @@
-﻿using Abp.Domain.Services;
-using H2Service.WeChatWork.Entities;
+﻿using Abp.Dependency;
+using Abp.Domain.Services;
+using H2Service.WxWork.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace H2Service.WeChatWork
+namespace H2Service.WxWork
 {
- public   interface IWxWorkService: IDomainService
+ public   interface IWxWorkService: ITransientDependency
     {
        
         /// <summary>

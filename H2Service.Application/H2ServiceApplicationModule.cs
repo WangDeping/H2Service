@@ -18,14 +18,18 @@ using H2Service.Salarires;
 using H2Service.ServerRooms;
 using H2Service.ServerRooms.Dto;
 using H2Service.Users.Dto;
-using H2Service.WeChatWork.Dto;
+using H2Service.WxWork.Dto;
+using H2Service.WxWork.Entities;
 using System;
 using System.Linq;
 using System.Reflection;
 
 namespace H2Service
 {
-    [DependsOn(typeof(H2ServiceCoreModule), typeof(AbpAutoMapperModule))]
+    [DependsOn(typeof(H2ServiceCoreModule), 
+        typeof(AbpAutoMapperModule),
+         typeof(H2ServiceWxWorkModule)
+        )]
     public class H2ServiceApplicationModule : AbpModule
     {
         public override void PreInitialize()
@@ -129,7 +133,7 @@ namespace H2Service
 
 
 
-                cfg.CreateMap<WxUserInfoDetailDto, CreateUserDto>()
+                cfg.CreateMap<WxGetUserInfo, CreateUserDto>()
                 .ForMember(d => d.AvatarUrl, opt => { opt.MapFrom(s => s.avatar); })
                 .ForMember(d => d.Email, opt => { opt.MapFrom(s => s.email); })
                 .ForMember(d => d.TelPhone, opt => { opt.MapFrom(s => s.mobile); })

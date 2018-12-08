@@ -6,8 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net;
 using System.Web.Configuration;
-using H2Service.WeChatWork.Dto;
-using H2Service.WeChatWork;
+using H2Service.WxWork.Dto;
+using H2Service.WxWork;
 using H2Service.Users;
 using H2Service.Authorization;
 using H2Service.Authorization.Dto;
@@ -24,14 +24,15 @@ namespace H2Service.Web.Controllers
 {
     public class AuthController : AbpController
     {
-        private readonly IWxAppService _wxAppService;
+       
         private readonly IUserAppService _userAppService;
         private readonly ILoginAppService _loginAppService;
         private readonly IPermissionAppService _permissionAppService;
         private readonly IRoleAppService _roleAppService;
         private readonly ICacheManager _cacheManager;
-        private readonly IAuthorizationManager _authorizationManager;      
-        public AuthController(IWxAppService wxAppService,
+        private readonly IAuthorizationManager _authorizationManager;
+        private readonly WxUserManager _wxUserManager;
+        public AuthController(WxUserManager wxUserManager,
             IUserAppService userAppService,
             ILoginAppService loginAppService,
             IPermissionAppService permissionAppService,
@@ -39,7 +40,7 @@ namespace H2Service.Web.Controllers
             ICacheManager cacheManager,
             IAuthorizationManager authorizationManager)
         {
-            _wxAppService = wxAppService;
+            _wxUserManager = wxUserManager;
             _userAppService = userAppService;
             _loginAppService = loginAppService;
             _permissionAppService = permissionAppService;
@@ -120,11 +121,11 @@ namespace H2Service.Web.Controllers
         {
             var code = Request.QueryString["code"];
 
-            WxUserInfoBaseDto userBaseInfo = _wxAppService.GetWxUserBaseInfoByCode(code);
+            var userAuthInfo = _wxUserManager.GetWxAuthUserInfo(code);
             //属于企业微信内部人员
-            if (userBaseInfo.errcode == 0)
+            if (userAuthInfo.errcode == 0)
             {
-                var user = _userAppService.GetUserByNumber(userBaseInfo.UserId);
+                var user = _userAppService.GetUserByNumber(userAuthInfo.UserId);
                 //登入
                 if (user != null)
                 {

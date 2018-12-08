@@ -5,7 +5,7 @@ using Castle.Core.Logging;
 using H2Service.Authorization;
 using H2Service.ServerRooms;
 using H2Service.ServerRooms.Dto;
-using H2Service.WeChatWork;
+using H2Service.WxWork;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,15 +19,19 @@ namespace App.Controllers
     [Authorize]
     public class ServerRoomController : AppControllerBase
     {
-        private readonly IServerRoomAppService _serverRoomAppService;
-        private readonly IWxAppService _wxAppService;
+        private readonly IServerRoomAppService _serverRoomAppService;      
+        private readonly WxFileManager _wxFileManager;
         private readonly string wxTempFilePath;
-        public ServerRoomController(IServerRoomAppService serverRoomAppService,
-            IWxAppService wxAppService)
+        private readonly WxTokenManager _wxTokenManger;
+        public ServerRoomController(IServerRoomAppService serverRoomAppService,    
+            WxTokenManager wxTokenManager,
+            WxFileManager wxFileManager
+            )
         {
             _serverRoomAppService = serverRoomAppService;
-            _wxAppService = wxAppService;
+            _wxTokenManger = wxTokenManager;
             wxTempFilePath = ConfigurationManager.AppSettings["wxTempFilePath"];
+            _wxFileManager = wxFileManager;
         }
         /// <summary>
         /// 机房巡视入口
@@ -37,7 +41,7 @@ namespace App.Controllers
         [AbpMvcAuthorize(PermissionNames.Pages_ServerRoom_Partrol)]
         public ActionResult ServerRoomPatrol(int Id=0)
         {
-            string ticket = _wxAppService.GetJSApiTicket();
+            string ticket = _wxTokenManger.GetWxJSApiTicket();
             this.GetWxJSApiSignature(ticket);
             var serverRoom = _serverRoomAppService.GetServerRoomById(Id);
             ViewBag.ServerRoomId = Id;
@@ -57,7 +61,7 @@ namespace App.Controllers
                 {
                     //保存http访问路径到数据库
                     Logger.Error("图片保存路径:"+savePath);
-                    var url = wxTempFilePath + "ServerRoom/"+_wxAppService.DownLoadWxTempFile(serverId, savePath);
+                    var url = wxTempFilePath + "ServerRoom/"+_wxFileManager.DownLoadWxTempFile(serverId, savePath);
                     imgsPath.Add(url);
                 }
                 serverRoomPatrol.ImgsPath = string.Join("^", imgsPath.ToArray());

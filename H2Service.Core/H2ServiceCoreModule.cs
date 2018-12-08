@@ -9,7 +9,7 @@ using Abp.Authorization;
 
 namespace H2Service
 {
-
+    [DependsOn(typeof(H2ServiceWxWorkModule))]
     public class H2ServiceCoreModule : AbpModule
     {
         public override void Initialize()

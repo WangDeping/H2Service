@@ -4,20 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace H2Service.WeChatWork.Entities
+namespace H2Service.WxWork.Entities
 {
-    /// <summary>
-    /// 微信用户信息
-    /// </summary>
- public   class WxUserInfo
+public    class WxGetUserInfo:WxRetBase
     {
         public string userid { get; set; }
+
         public string name { get; set; }
+
         public string mobile { get; set; }
-        public string gender { get; set; }
+
+        public Array department { get; set; }
+
+        public int gender { get; set; }
+
         public string email { get; set; }
-        public string avatar_mediaid { get; set; }
-        public int department { get; set; }
+
+        public string avatar { get; set; }
+
+        public string telephone { get; set; }
+
+        public int status { get; set; }
+
         public string qr_code { get; set; }
     }
 }

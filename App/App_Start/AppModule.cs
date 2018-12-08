@@ -25,7 +25,7 @@ namespace App.App_Start
         typeof(AbpRedisCacheModule)
         )]
 
- public class AppModule:AbpModule
+ public class AbpModule: Abp.Modules.AbpModule
     {
         public override void PreInitialize() {
            Configuration.Modules.AbpWeb().AntiForgery.IsEnabled = false;

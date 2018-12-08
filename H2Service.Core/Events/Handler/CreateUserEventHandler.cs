@@ -1,8 +1,8 @@
 ﻿using Abp.Dependency;
 using Abp.Events.Bus.Handlers;
 using Castle.Core.Logging;
-using H2Service.WeChatWork;
-using H2Service.WeChatWork.Entities;
+using H2Service.WxWork;
+using H2Service.WxWork.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +23,11 @@ namespace H2Service.Events.Handler
         }
         public void HandleEvent(CreateUserEventData eventData)
         {
-            var wxUser = new WxUserInfo
+            var wxUser = new WxCreateUserInfo
             {
                 avatar_mediaid = eventData.AvatarUrl,
-                department = eventData.DepartmentId,
-                gender = eventData.Gender.ToString(),
+                department =new int[]{ eventData.DepartmentId },
+                gender = eventData.Gender,
                 mobile = eventData.TelPhone,
                 name = eventData.UserName,
                 userid = eventData.UserNumber

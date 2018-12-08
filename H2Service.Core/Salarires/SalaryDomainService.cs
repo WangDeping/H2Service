@@ -4,7 +4,7 @@ using Abp.Domain.Uow;
 using Abp.Events.Bus;
 using Castle.Core.Logging;
 using H2Service.Events;
-using H2Service.WeChatWork;
+using H2Service.WxWork;
 using System.Collections.Generic;
 using System.Linq;
 

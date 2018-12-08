@@ -11,9 +11,9 @@ using H2Service.Hangfire.Jobs.DailyServerRoomPatrol.Dto;
 using H2Service.Log4;
 using H2Service.ServerRooms;
 using H2Service.ServerRooms.Dto;
-using H2Service.WeChatWork;
-using H2Service.WeChatWork.Dto;
-using H2Service.WeChatWork.Entities;
+using H2Service.WxWork;
+using H2Service.WxWork.Dto;
+using H2Service.WxWork.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,26 +25,29 @@ namespace H2Service.Hangfire.Jobs.DailyServerRoomPatrol
 {
     public class DailyServerRoomPatrolJob : HangfireJobBase<DailyServerRoomPatrolJobArgs>
     {
-        private IWxAppService _wxAppService;
+    
        
         private IRepository<ServerRoom> _serverRoomRepository;
         private readonly IRepository<ServerRoomPatrol> _serverRoomPartrolRepository;
         private IRepository<Department> _departmentRepository;
         private IRepository<DepartmentRelateModule> _departmentRelateModuleRepository;
+        private readonly WxSender _wxSender;
         private ILogAppService _logAppservice;
-        public DailyServerRoomPatrolJob(IWxAppService wxAppService,          
+        public DailyServerRoomPatrolJob(    
             IRepository<ServerRoom> serverRoomRepository,
             IRepository<ServerRoomPatrol> serverRoomPartrolRepository,
              IRepository<Department> departmentRepository,
              IRepository<DepartmentRelateModule> departmentRelateModuleRepository,
+             WxSender wxSender,
              ILogAppService logAppservice)
         {
-            _wxAppService = wxAppService;            
+           
             _serverRoomRepository = serverRoomRepository;
             _serverRoomPartrolRepository = serverRoomPartrolRepository;
             _departmentRepository = departmentRepository;
             _departmentRelateModuleRepository =departmentRelateModuleRepository;
             _logAppservice = logAppservice;
+            _wxSender = wxSender;
         }
         [UnitOfWork]
         public override void ExecuteJob(DailyServerRoomPatrolJobArgs aParams)
@@ -85,13 +88,9 @@ namespace H2Service.Hangfire.Jobs.DailyServerRoomPatrol
                         unPatrolRoomNames += room.RoomName+"|";
                     }
                     var sentContent = string.Format("截止到{0},{1}没有去巡视,请尽快前去巡视并做好记录", DateTime.Now, unPatrolRoomNames);
-                    var msg = new WxSendTextMsgDto()
-                    {
-                        agentid = WebConfigurationManager.AppSettings["assistantAppid"],
-                        touser = dep.Department.Users.Select(T => T.UserNumber).JoinAsString("|")
-                    };
-                    msg.text = new WxTextMsgContent { content = sentContent };
-                    _wxAppService.SendMsg(msg);
+                  
+                    var msg = new WxSendTextMsg(sentContent, dep.Department.Users.Select(T => T.UserNumber).JoinAsString("|"));
+                    _wxSender.SendMsg(msg);
                 }
             }
         }

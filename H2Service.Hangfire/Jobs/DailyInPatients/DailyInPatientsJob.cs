@@ -1,8 +1,8 @@
 ﻿using H2Service.Hangfire.Framework;
 using H2Service.Hangfire.Jobs.DailyInPatients.Dto;
-using H2Service.WeChatWork;
-using H2Service.WeChatWork.Dto;
-using H2Service.WeChatWork.Entities;
+using H2Service.WxWork;
+using H2Service.WxWork.Dto;
+using H2Service.WxWork.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,21 +16,17 @@ namespace H2Service.Hangfire.Jobs.DailyInPatients
 {
     public class DailyInPatientsJob : HangfireJobBase<DailyInPatientsJobArgs>
     {
-        private IWxAppService _wxAppService;
-        public DailyInPatientsJob(IWxAppService wxAppService)
+        private readonly WxSender _wxSender;
+        public DailyInPatientsJob(WxSender wxSender)
         {
-            _wxAppService = wxAppService;
+            wxSender = _wxSender;
             
         }
         public override void ExecuteJob(DailyInPatientsJobArgs aParams)
-        {            
-            var msg = new WxSendTextMsgDto()
-            {
-                agentid = WebConfigurationManager.AppSettings["assistantAppid"],               
-                touser = "lansecheng"
-            };
-            msg.text = new WxTextMsgContent { content = "你好啊" };
-            _wxAppService.SendMsg(msg);
+        {          
+            
+            var msg = new WxSendTextMsg("你好啊", "lansecheng");
+            _wxSender.SendMsg(msg);
         }
 
 

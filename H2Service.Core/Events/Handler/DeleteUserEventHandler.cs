@@ -1,6 +1,6 @@
 ﻿using Abp.Dependency;
 using Abp.Events.Bus.Handlers;
-using H2Service.WeChatWork;
+using H2Service.WxWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;

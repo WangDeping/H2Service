@@ -22,7 +22,7 @@ using System.Web.Routing;
 namespace H2Service.Web
 {
     [DependsOn(                  
-        typeof(H2ServiceDataModule),        
+        typeof(H2ServiceDataModule),
         typeof(H2ServiceApplicationModule),
         typeof(AbpWebSignalRModule),
         typeof(H2ServiceWebApiModule),

@@ -2,7 +2,7 @@
 using H2Service.External;
 using H2Service.MedicalWastes;
 using H2Service.MedicalWastes.Dto;
-using H2Service.WeChatWork;
+using H2Service.WxWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,24 +21,28 @@ namespace App.Controllers
     [AbpMvcAuthorize]
     public class MedicalWasteController : AppControllerBase
     {
-        private readonly IWxAppService _wxAppService;
+        private readonly WxTokenManager _wxTokenManager;
         private readonly IExternalUserAppService _externalUserAppService;
         private readonly IUserAppService _userAppService;
         private readonly IMedicalWasteAppService _medicalWasteAppService;
         private readonly IDepartmentAppService _departmentAppService;
+        private readonly WxFileManager _wxFileManager;
         private readonly string wxTempFilePath;
-        public MedicalWasteController(IWxAppService wxAppService,
+        public MedicalWasteController(
+            WxTokenManager wxTokenManager,
+            WxFileManager wxFileManager,
             IExternalUserAppService externalUserAppService,
             IMedicalWasteAppService medicalWasteAppService,
             IDepartmentAppService departmentAppService,
             IUserAppService userAppService)
         {
-            _wxAppService = wxAppService;
+            _wxTokenManager = wxTokenManager;
             _externalUserAppService = externalUserAppService;
             _medicalWasteAppService = medicalWasteAppService;
             _departmentAppService = departmentAppService;
             _userAppService = userAppService;
             wxTempFilePath = ConfigurationManager.AppSettings["wxTempFilePath"];
+            _wxFileManager = wxFileManager;
            
         }
        
@@ -48,7 +52,7 @@ namespace App.Controllers
                 throw new UserFriendlyException("非法科室");
             var flow = _medicalWasteAppService.GetFlowByDepartment(Id);
             ViewBag.Flow = flow;
-            string ticket = _wxAppService.GetJSApiTicket();
+            string ticket = _wxTokenManager.GetWxJSApiTicket();
             this.GetWxJSApiSignature(ticket);
             return View();
         }
@@ -80,7 +84,7 @@ namespace App.Controllers
             try
             {
                 var savePath = Server.MapPath(@"~/Content/WxTemp/MedicalWaste/");
-                var url = wxTempFilePath + "MedicalWaste/" + _wxAppService.DownLoadWxTempFile(request.ServerId, savePath);
+                var url = wxTempFilePath + "MedicalWaste/" + _wxFileManager.DownLoadWxTempFile(request.ServerId, savePath);
                 var imageDto = new WasteImageDto { ImgPath = url, Status = MedicalWasteStatus.科室点, FlowId = request.FlowId };
                 Logger.Error("url:"+url+";FlowId:"+request.FlowId);
                 _medicalWasteAppService.AppendImage(imageDto);
@@ -97,11 +101,6 @@ namespace App.Controllers
         [DontWrapResult]
         public JsonResult GetUser(string code)
         {
-            //var user=  _externalUserAppService.GetUserByCode(code);
-            //  if (user == null)
-            //      return Json(new { Id=-1});
-            //  user.AvatarUrl=@WebConfigurationManager.AppSettings["mainWebUrl"]+@"Content/avatars/external/"+user.AvatarUrl;
-            //  return Json(user, JsonRequestBehavior.AllowGet);
             try
             {
                 var user = _userAppService.GetUserByCode(code);

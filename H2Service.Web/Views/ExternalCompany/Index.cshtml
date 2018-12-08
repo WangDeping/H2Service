@@ -182,42 +182,6 @@
         </div>
     </div>
     <!--Qrcode-->
-    <!--Avatar-->
-    @*<div class="modal fade" id="avatarModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog " role="document" style="width:350px">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        电子照片
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            &times;
-                        </span>
-                    </button>
-                </div>
-                <div class="modal-body align-content-center">
-                    <img  id="AvatarImg" src="" />
-                    @*<div class="m-dropzone dropzone  m-dropzone--success" id="m-dropzone">
-                        <div class="m-dropzone__msg dz-message needsclick">
-                            <h3 class="m-dropzone__msg-title">
-                                点击或者拖拽图片
-                            </h3>
-                            <span class="m-dropzone__msg-desc">
-                                仅支持JPG,JPEG,PNG格式
-                            </span>
-                        </div>
-                    </div>*@
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>*@
-    <!--Avatar-->
 </div>
 
 <script>    
@@ -251,7 +215,7 @@
     function actionFormatter2(value, row, index) {
         return '\	<a href="#" onclick=\'showQrcode("' + row.Code + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="查看条码">\
 							            <i class="la la-barcode"></i>\
-						</a>\ 
+						</a>\
 						<a href="#"  onclick=\'removeUser("' + value + '")\' class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="删除">\
 							<i class="la la-trash"></i>\
 						</a>\

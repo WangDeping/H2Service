@@ -367,12 +367,9 @@
     <Compile Include="Account\IUserAppService.cs" />
     <Compile Include="Account\UserAppService.cs" />
     <Compile Include="WeChatWork\Dto\RetDto.cs" />
-    <Compile Include="WeChatWork\Dto\WxSendTextMsgDto.cs" />
     <Compile Include="WeChatWork\Dto\WxUserInfoBaseDto.cs" />
     <Compile Include="WeChatWork\Dto\WxUserInfoDetailDto.cs" />
     <Compile Include="WeChatWork\Dto\WxUserInfoDetailListDto.cs" />
-    <Compile Include="WeChatWork\IWxAppService.cs" />
-    <Compile Include="WeChatWork\WxAppService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -382,6 +379,10 @@
     <ProjectReference Include="..\H2Service.Core\H2Service.Core.csproj">
       <Project>{17298ea0-af73-4f30-b6f1-2066100d7d74}</Project>
       <Name>H2Service.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\H2Service.WxWork\H2Service.WxWork.csproj">
+      <Project>{9f97d9f1-fea5-4bf2-9f45-4a9a8d6fe4a6}</Project>
+      <Name>H2Service.WxWork</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -5,7 +5,7 @@ using System;
 using Abp.Castle.Logging.Log4Net;
 namespace App
 {
-    public class MvcApplication : AbpWebApplication<AppModule>
+    public class MvcApplication : AbpWebApplication<AbpModule>
     {
         protected override void Application_Start(object sender, EventArgs e)
         {

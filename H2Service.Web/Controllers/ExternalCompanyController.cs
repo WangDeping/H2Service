@@ -16,7 +16,7 @@ using System.Web.Configuration;
 using H2Service.Users;
 using H2Service.Web.Models.Users;
 using H2Service.Users.Dto;
-using H2Service.WeChatWork;
+using H2Service.WxWork;
 
 namespace H2Service.Web.Controllers
 {
@@ -50,8 +50,7 @@ namespace H2Service.Web.Controllers
         public JsonResult CompaniesGrid(PagedInputDto request)
         {
             var rootCompanyId =int.Parse(WebConfigurationManager.AppSettings["externalLocalDepartmentRootId"]);
-            var result = _departmentAppService.DepartmentWithDescendants(rootCompanyId).Where(T => T.Id != rootCompanyId);
-           // var result = _externalCompanyAppService.GetPagedExternalCompanies(request);
+            var result = _departmentAppService.DepartmentWithDescendants(rootCompanyId).Where(T => T.Id != rootCompanyId);           
             return Json(new { total = result.Count(), rows = result }, JsonRequestBehavior.AllowGet);
         }
 

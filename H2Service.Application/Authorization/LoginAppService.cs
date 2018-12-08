@@ -4,8 +4,8 @@ using H2Service.Account.Dto;
 using H2Service.Authorization.Dto;
 using H2Service.Extensions;
 using H2Service.Users;
-using H2Service.WeChatWork;
-using H2Service.WeChatWork.Entities;
+using H2Service.WxWork;
+using H2Service.WxWork.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System;
@@ -65,13 +65,9 @@ namespace H2Service.Authorization
 
         public void SendValidateCode(string userNumber,string validateCode)
         {
-            var user = _userAppService.GetUserByNumber(userNumber);    
-            var sendMsg = new WxSendTextMsg {
-                text =new WxTextMsgContent {
-                    content =string.Format("验证码为:{0},请勿告诉他人，验证码有效期5分钟",validateCode)
-                },
-                touser = userNumber
-            };
+            var user = _userAppService.GetUserByNumber(userNumber);
+            var content = string.Format("验证码为:{0},请勿告诉他人，验证码有效期5分钟", validateCode);         
+            var sendMsg = new WxSendTextMsg(content,user.UserNumber);
             _wxSender.SendMsg(sendMsg);
         }
     }

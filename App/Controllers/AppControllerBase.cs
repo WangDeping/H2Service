@@ -3,7 +3,7 @@ using Abp.Web.Mvc.Controllers;
 using App.Helper;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using H2Service.WeChatWork;
+using H2Service.WxWork;
 using System.Collections;
 
 using System.Web.Mvc;

@@ -4,7 +4,7 @@ using Abp.Web.Mvc.Controllers;
 using H2Service.Extensions;
 using H2Service.Salaries;
 using H2Service.Salaries.Dto;
-using H2Service.WeChatWork;
+using H2Service.WxWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +16,16 @@ namespace App.Controllers
     public class SalaryController : AppControllerBase
     {
         private ISalaryAppService _salaryAppService;
-        private readonly IWxAppService _wxAppService;
+        private readonly WxTokenManager _wxTokenManager;
         public SalaryController(ISalaryAppService salaryAppService,
-            IWxAppService wxAppService) {
+            WxTokenManager wxTokenManager) {
             _salaryAppService = salaryAppService;
-            _wxAppService = wxAppService;
+            _wxTokenManager = wxTokenManager;
 
         }
         [Authorize]
         public ActionResult PersonalSalary(int Id) {
-            string ticket = _wxAppService.GetJSApiTicket();
+            string ticket = _wxTokenManager.GetWxJSApiTicket();
             this.GetWxJSApiSignature(ticket);
             var output = _salaryAppService.GetPersonSalary(new PersonalSalaryInput { PeriodId = Id,
             UserNumber = AbpSession.GetUserNumber() });           

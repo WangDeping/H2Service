@@ -1,6 +1,6 @@
 ﻿using Abp.Dependency;
 using Castle.Core.Logging;
-using H2Service.WeChatWork.Entities;
+using H2Service.WxWork.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Configuration;
 
-namespace H2Service.WeChatWork
+namespace H2Service.WxWork
 {
  public   class WxFileManager: ITransientDependency
     {

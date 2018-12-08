@@ -1,6 +1,6 @@
 ﻿using H2Service.Hangfire.Framework;
 using H2Service.Users;
-using H2Service.WeChatWork;
+using H2Service.WxWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;

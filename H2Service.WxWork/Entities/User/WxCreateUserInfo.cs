@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace H2Service.WxWork.Dto
+namespace H2Service.WxWork.Entities
 {
-    public class WxUserInfoDetailDto : RetDto
+    /// <summary>
+    /// 微信用户信息
+    /// </summary>
+ public   class WxCreateUserInfo
     {
         public string userid { get; set; }
 
@@ -20,12 +23,8 @@ namespace H2Service.WxWork.Dto
 
         public string email { get; set; }
 
-        public string avatar { get; set; }
-
         public string telephone { get; set; }
 
-        public int status { get; set; }
-
-        public string qr_code { get; set; }
+        public string avatar_mediaid { get; set; }
     }
 }

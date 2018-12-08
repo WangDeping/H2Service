@@ -1,4 +1,4 @@
-﻿using H2Service.WeChatWork;
+﻿using H2Service.WxWork;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,10 +13,10 @@ namespace App.Helper
 {
     public class WxJsSignatureHelper
     {
-        private readonly IWxAppService _wxAppService;
-        public WxJsSignatureHelper(IWxAppService wxAppService)
+      
+        public WxJsSignatureHelper()
         {
-            _wxAppService = wxAppService;
+        
 
         }
 

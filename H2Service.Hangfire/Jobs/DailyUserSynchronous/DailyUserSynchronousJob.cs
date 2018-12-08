@@ -9,7 +9,7 @@ using H2Service.Helpers;
 using H2Service.Log4;
 using H2Service.Users;
 using H2Service.Users.Dto;
-using H2Service.WeChatWork;
+using H2Service.WxWork;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,29 +20,30 @@ namespace H2Service.Hangfire.Jobs.DailyUserSsynchronous
     /// </summary>
     public class DailyUserSynchronousJob : HangfireJobBase<DailyUserSynchronousJobArgs>
     {
-        private IWxAppService _wxAppService;
-        //private IUserAppService _userAppService;
+       
         private IRepository<User,long> _userRepository;
         private IUnitOfWorkManager _unitOfWorkManager;
         private ILogAppService _logAppservice;
+        private readonly WxUserManager _wxUserManager;
         private const string _defaultPassword = "123456";
 
-        public DailyUserSynchronousJob(IWxAppService wxAppService,
-         //  IUserAppService userAppService,
+        public DailyUserSynchronousJob(
+      
           IRepository<User, long> userRepository,
           IUnitOfWorkManager unitOfWorkManager,
+          WxUserManager wxUserManager,
           ILogAppService logAppservice)
         {
-            _wxAppService = wxAppService;
-            //_userAppService = userAppService;
+          
             _userRepository = userRepository;
             _unitOfWorkManager = unitOfWorkManager;
             _logAppservice = logAppservice;
+            _wxUserManager = wxUserManager;
         }
         [UnitOfWork]
         public override void ExecuteJob(DailyUserSynchronousJobArgs aParams)
         {
-            var wxUserList = _wxAppService.GetWxUserInfoListByDeptId();//企业微信所有人          
+            var wxUserList = _wxUserManager.GetWxUsersByDeptId();          
             var usersDto = wxUserList.MapTo<List<CreateUserDto>>();
             usersDto.RemoveAll(t=>Filter(t));//过滤非本院职工
         

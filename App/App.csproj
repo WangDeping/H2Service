@@ -1674,6 +1674,10 @@
       <Project>{5eb52d3d-09fd-463a-b02a-8d9856bd3724}</Project>
       <Name>H2Service.WebApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\H2Service.WxWork\H2Service.WxWork.csproj">
+      <Project>{9f97d9f1-fea5-4bf2-9f45-4a9a8d6fe4a6}</Project>
+      <Name>H2Service.WxWork</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

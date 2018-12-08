@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace H2Service.WeChatWork.Entities
+namespace H2Service.WxWork.Entities
 {
-    public class WxNewsMsgArticle
+    internal class WxNewsMsgArticle
     {
         public string title { get; set; }
 

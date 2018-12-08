@@ -1,8 +1,8 @@
 ﻿using Abp.Dependency;
 using Abp.Events.Bus.Handlers;
 using Castle.Core.Logging;
-using H2Service.WeChatWork;
-using H2Service.WeChatWork.Entities;
+using H2Service.WxWork;
+using H2Service.WxWork.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,22 +23,15 @@ namespace H2Service.Events.Handler
         }
         public void HandleEvent(SalaryCreateEventData eventData)
         {           
-            string userNumber =string.Join("|", eventData.UserNumberList.ToArray()) ;          
-            //封装图文微信消息
-            var newsArticles = new List<WxNewsMsgArticle>() { new WxNewsMsgArticle {
-             description =eventData.Period.Period+"工资条",
-             picurl=WebConfigurationManager.AppSettings["salaryWxNotifPic"],
-             title="发钱啦",
-             url=string.Format(WebConfigurationManager.AppSettings["salaryWxNotifUrl"], eventData.Period.Id)
-            }
-            };           
-         
-            var  wxArticles = new WxNewsMsgArticleCollection();
-            wxArticles.articles = newsArticles;
-            var retMsg = _wxSender.SendMsg(new WxSendNewsMsg {
-                 touser=userNumber,
-                 news=wxArticles
-            });
+            string tousers=string.Join("|", eventData.UserNumberList.ToArray()) ;  
+            var newsMsg = new WxSendNewsMsg(
+                eventData.Period.Period + "工资条",
+                WebConfigurationManager.AppSettings["salaryWxNotifPic"],
+                "发钱啦",
+                string.Format(WebConfigurationManager.AppSettings["salaryWxNotifUrl"], eventData.Period.Id),
+                tousers
+                );            
+            var retMsg = _wxSender.SendMsg(newsMsg);
             _logger.Error("工资通知失效人员:" + retMsg.invaliduser);           
         }
     }

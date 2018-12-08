@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace H2Service.WeChatWork.Entities
+namespace H2Service.WxWork.Entities
 {
- public   class WxAccessToken:WxRetBase
+ public   class WxJSApiTicket: WxRetBase
     {
-        public string access_token { get; set; }
+        public string ticket { get; set; }
 
         public int expires_in { get; set; }
     }

@@ -1,8 +1,9 @@
-﻿using Abp.Domain.Services;
+﻿using Abp.Dependency;
+using Abp.Domain.Services;
 using Abp.Runtime.Caching;
 using Abp.UI;
 using Castle.Core.Logging;
-using H2Service.WeChatWork.Entities;
+using H2Service.WxWork.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,9 @@ using System.Web;
 using System.Web.Configuration;
 using System.Xml.Linq;
 
-namespace H2Service.WeChatWork
+namespace H2Service.WxWork
 {
- public   class WxTokenManager:IDomainService
+ public  class WxTokenManager: ITransientDependency
     {
         private readonly string tokenPath;
         private readonly string jsApiTicketPath;
@@ -45,11 +46,11 @@ namespace H2Service.WeChatWork
 
         }
         /// <summary>
-        /// 获取某个微信企业应用的accesstoken,所有token都保存到xml里，防止频率限制
+        /// 获取某个微信企业应用的accesstoken,所有token都保存到cache里，防止频率限制
         /// </summary>
         /// <param name="agentid">企业应用id</param>
         /// <returns></returns>
-        public string GetWxToken(string agentid)
+        internal string GetWxToken(string agentid)
         {
 
             XDocument xdocument = XDocument.Load(tokenPath);
