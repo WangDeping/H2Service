@@ -18,8 +18,7 @@ namespace H2Service.Web.Controllers
 
         [DontWrapResult]
         public ActionResult GetQrCode(string content)
-        {
-            Logger.Error("内容是"+content);
+        {         
             var stream = QrCodeHelper.CommonQrCode(content);
             return File(stream.ToArray(), "image/jpeg");
 

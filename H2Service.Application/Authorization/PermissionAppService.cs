@@ -41,13 +41,11 @@ namespace H2Service.Authorization
              permissions = _permissionDomainService.GetPermissionByRole((int)input.RoleId); 
             else if (input.DepartmentId != null)
                 permissions = _permissionDomainService.GetPermissionByDepartment((int)input.DepartmentId);
-            var ret_List = new List<PermissionTreeOutput>(this.PermissionTreeList);
-            Logger.Error("input.RoleId:"+ input.RoleId + "ret_List列表的数量" +ret_List.Count.ToString());
+            var ret_List = new List<PermissionTreeOutput>(this.PermissionTreeList);         
             foreach (var p in permissions)
             {
                 if (ret_List.Any(P =>P.parent==p.PermissionName))
-                    continue;
-                Logger.Error("权限名称:" +p.PermissionName);
+                    continue;              
                 var update_permission = ret_List.First(T=>T.id==p.PermissionName);
                 var remove_index=ret_List.IndexOf(update_permission);
                 ret_List.Remove(update_permission);

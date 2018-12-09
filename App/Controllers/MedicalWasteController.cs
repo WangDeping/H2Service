@@ -86,7 +86,7 @@ namespace App.Controllers
                 var savePath = Server.MapPath(@"~/Content/WxTemp/MedicalWaste/");
                 var url = wxTempFilePath + "MedicalWaste/" + _wxFileManager.DownLoadWxTempFile(request.ServerId, savePath);
                 var imageDto = new WasteImageDto { ImgPath = url, Status = MedicalWasteStatus.科室点, FlowId = request.FlowId };
-                Logger.Error("url:"+url+";FlowId:"+request.FlowId);
+               
                 _medicalWasteAppService.AppendImage(imageDto);
                 return Json(new ErrorInfo(0, "成功"));
             }

@@ -39,8 +39,7 @@ namespace H2Service.WxWork
             var concatId = WebConfigurationManager.AppSettings["contactsAppid"];
             var accessToken =_tokenManager.GetWxToken(concatId);
             string url = string.Format(UPLOADFILE_URL, accessToken,type);
-            var responseJson = HttpUpload(url, path, bf);
-            _logger.Error("上传临时素材返回" + responseJson);
+            var responseJson = HttpUpload(url, path, bf);         
             return JsonConvert.DeserializeObject<WxRetTempFile>(responseJson);
         }
         /// <summary>
@@ -54,8 +53,7 @@ namespace H2Service.WxWork
             var concatId = WebConfigurationManager.AppSettings["contactsAppid"];
             var accessToken = _tokenManager.GetWxToken(concatId);
             string url = string.Format(UPLOADIMG_URL, accessToken);
-           var responseJson = HttpUpload(url, path, bf);
-            _logger.Error("上传永久图片返回"+responseJson);
+           var responseJson = HttpUpload(url, path, bf);          
             return JsonConvert.DeserializeObject<WxRetImg>(responseJson);
         }
 

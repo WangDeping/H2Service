@@ -18,7 +18,6 @@ using H2Service.Salarires;
 using H2Service.ServerRooms;
 using H2Service.ServerRooms.Dto;
 using H2Service.Users.Dto;
-using H2Service.WxWork.Dto;
 using H2Service.WxWork.Entities;
 using System;
 using System.Linq;

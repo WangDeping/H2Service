@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace H2Service.WxWork.Entities
 {
     public class WxSendTextMsg : WxSendMsg
     {
+        [JsonProperty]
         internal WxTextMsgContent text { get; set; }
         private WxSendTextMsg()
         {

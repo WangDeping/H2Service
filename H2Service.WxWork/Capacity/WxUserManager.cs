@@ -23,13 +23,15 @@ namespace H2Service.WxWork
 
         private WxTokenManager _tokenManager;
         private ILogger _logger;
-        private string token;
+        private string token="";
         public WxUserManager(ILogger logger,
             WxTokenManager wxTokenManager)
         {
             _tokenManager = wxTokenManager;
             _logger = logger;
-            token = _tokenManager.GetWxToken(WebConfigurationManager.AppSettings["contactsAppid"]);
+            var concatId = WebConfigurationManager.AppSettings["contactsAppid"];
+            token = this._tokenManager.GetWxToken(concatId);
+
         }
        
         /// <summary>
@@ -48,34 +50,6 @@ namespace H2Service.WxWork
         }
 
         /// <summary>
-        /// 获取验证url
-        /// </summary>
-        /// <param name="scope"></param>
-        /// <returns></returns>
-        public string GetWxAuthUrl(string scope = "snsapi_base")
-        {
-            string wxUrl = "";
-            string appid = WebConfigurationManager.AppSettings["corpid"];
-            var authAppid = WebConfigurationManager.AppSettings["authAppid"];
-            string authUrl = WebConfigurationManager.AppSettings["authUrl"];
-            wxUrl = string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&" +
-                    "redirect_uri={1}&response_type=code&scope={2}&" +
-                    "agentid={3}&state=STATE&connect_redirect=1#wechat_redirect", appid, authUrl, scope, authAppid);
-
-            return wxUrl;
-        }
-        /// <summary>
-        /// 获取根据code验证用户是否为本单位用户
-        /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
-        public WxAuthUserInfo GetWxAuthUserInfo(string code)
-        {         
-            string wxUrl = string.Format(GETAUTHUSER_URL, token, code);
-            return GetFromWxUrl<WxAuthUserInfo>(wxUrl);
-        }
-
-        /// <summary>
         /// 获取部门下所有成员详情
         /// </summary>
         /// <param name="deptId">部门Id，1代表全院</param>
@@ -88,11 +62,8 @@ namespace H2Service.WxWork
         }
 
         public void Create(WxCreateUserInfo user)
-        {
-            var concatId = WebConfigurationManager.AppSettings["contactsAppid"];
-            var access_token = this._tokenManager.GetWxToken(concatId);
-            var postUrl = string.Format(CREATE_URL, access_token);
-
+        {           
+            var postUrl = string.Format(CREATE_URL,token);
             using (var client = new HttpClient())
             {
                 var postUser = new StringContent(JsonConvert.SerializeObject(user));

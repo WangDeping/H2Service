@@ -12,6 +12,9 @@ using Castle.Core.Logging;
 
 namespace H2Service.WxWork
 {
+    /// <summary>
+    /// 发送消息
+    /// </summary>
     public class WxSender : ITransientDependency
     {
         private WxTokenManager _tokenManager;
@@ -31,12 +34,9 @@ namespace H2Service.WxWork
 
             using (var client = new HttpClient())
             {
-                var postContent = new StringContent(JsonConvert.SerializeObject(msg));
-                _logger.Error("SendMsg发送消息数据:" + JsonConvert.SerializeObject(msg));
+                var postContent = new StringContent(JsonConvert.SerializeObject(msg));             
                 var result = client.PostAsync(postUrl, postContent);               
-                var responseJson = result.Result.Content.ReadAsStringAsync().Result;
-
-                _logger.Error("SendMsg消息返回值:"+responseJson);
+                var responseJson = result.Result.Content.ReadAsStringAsync().Result;             
                 return JsonConvert.DeserializeObject<WxRetMsg>(responseJson);
 
             }

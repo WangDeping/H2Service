@@ -48,8 +48,7 @@ namespace H2Service.Salarires
                 _salaryDetailRepository.Insert(detail);                
             }
             _unitOfWorkManager.Current.SaveChanges();
-           _eventsBus.Trigger(new SalaryCreateEventData {  Period=salaryperiod, UserNumberList=detailsList.Select(d=>d.UserNumber)});
-          //  _logger.Error("事件触发后，期数"+salaryperiod.Period+"工号"+ string.Join("|", detailsList.Select(d => d.UserNumber).ToArray()));
+           _eventsBus.Trigger(new SalaryCreateEventData {  Period=salaryperiod, UserNumberList=detailsList.Select(d=>d.UserNumber)});       
 
         }
      

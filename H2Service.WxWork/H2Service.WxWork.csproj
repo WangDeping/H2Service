@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Capacity\WxAuthManager.cs" />
     <Compile Include="Cryptography.cs" />
     <Compile Include="Entities\File\WxRetImg.cs" />
     <Compile Include="Entities\File\WxRetTepmFile.cs" />

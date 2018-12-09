@@ -22,16 +22,16 @@ namespace H2Service.WxWork
     {
         private readonly string tokenPath;
         private readonly string jsApiTicketPath;
-        private  ILogger logger;
+        private readonly  ILogger _logger;
         private readonly ICacheManager _cacheManager;
         private string sToken = "kDncXp8dPVNvbALV";
         private string sCorpID = "wxbf27fd9188f6ef48";
         private string sEncodingAESKey = "uSyVcn9Fc3BqUCM6PLjrjrwHl36smHObrszD2k9XukG";
 
-        public WxTokenManager(ICacheManager cacheManager)
+        public WxTokenManager(ICacheManager cacheManager, ILogger logger)
         {
             _cacheManager = cacheManager;
-            logger = NullLogger.Instance;
+            _logger =logger;
             if (HttpContext.Current != null)
             {
                 tokenPath = HttpContext.Current.Server.MapPath(@"~/access_token.config");
@@ -50,9 +50,8 @@ namespace H2Service.WxWork
         /// </summary>
         /// <param name="agentid">企业应用id</param>
         /// <returns></returns>
-        internal string GetWxToken(string agentid)
-        {
-
+        public string GetWxToken(string agentid)
+        {            
             XDocument xdocument = XDocument.Load(tokenPath);
             var app = xdocument.Root.Elements("app").Where(T => T.Element("agentid").Value == agentid).First();
             if (app == null)
@@ -60,9 +59,10 @@ namespace H2Service.WxWork
            return _cacheManager.GetCache("WxTokenCache").Get(agentid, () =>
             {
                 using (var client = new HttpClient())
-                {
+                {                   
                     var result = client.GetStringAsync(string.Format("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={0}&corpsecret={1}", this.sCorpID, app.Element("secret").Value));
                     result.Wait();
+                   
                    var token = JsonConvert.DeserializeObject<WxAccessToken>(result.Result);               
                     return token.access_token;
                 }
@@ -80,8 +80,8 @@ namespace H2Service.WxWork
             XDocument xdocument = XDocument.Load(tokenPath);
             var app = xdocument.Root.Elements("app").Where(T => T.Element("agentid").Value == agentid).First();
             if (app == null) {
-                logger.Error("应用agentid找不到");
-                throw new UserFriendlyException("应用id找不到");
+                _logger.Error("应用agentid找不到");
+                throw new Exception("应用id找不到");
             }
                 
            
@@ -156,11 +156,11 @@ namespace H2Service.WxWork
 
             if (ret != 0)
             {
-                logger.Error("微信验证出错");
+                _logger.Error("微信验证出错");
             }
             //ret==0表示验证成功，sEchoStr参数表示明文，用户需要将sEchoStr作为get请求的返回参数，返回给企业微信。
             // HttpUtils.SetResponse(sEchoStr);
-            logger.Info("微信验证成功");
+            _logger.Info("微信验证成功");
             return sEchoStr;
         }
     }

@@ -5,7 +5,6 @@ using H2Service.Authorization.Dto;
 using H2Service.Extensions;
 using H2Service.Users;
 using H2Service.WxWork;
-using H2Service.WxWork.Dto;
 using System;
 using System.Web.Mvc;
 
@@ -15,16 +14,16 @@ namespace App.Controllers
     {
         
 
-        private readonly WxUserManager _wxUserManager;
+        private readonly WxAuthManager _wxAuthManager;
         private readonly IUserAppService _userAppService;
         private readonly ILoginAppService _loginAppService;
         private readonly IAuthorizationManager _authorizationManager;
 
-        public AuthController(WxUserManager wxUserManager,
+        public AuthController(WxAuthManager wxAuthManager,
             IUserAppService userAppService,
             ILoginAppService loginAppService,
             IAuthorizationManager authorizationManager) {
-            _wxUserManager = wxUserManager;
+            _wxAuthManager = wxAuthManager;
             _userAppService = userAppService;
             _loginAppService = loginAppService;
             _authorizationManager = authorizationManager;
@@ -33,7 +32,7 @@ namespace App.Controllers
         public ActionResult Index()
         {          
             Session["retUrl"] = Request.QueryString["ReturnUrl"];  
-            string authUrl = _wxUserManager.GetWxAuthUrl();           
+            string authUrl = _wxAuthManager.GetWxAuthUrl();           
             Response.StatusCode = 301;
             Response.Status = "301 Moved Permanently";
             Response.AppendHeader("Location", authUrl);
@@ -44,7 +43,7 @@ namespace App.Controllers
        
         public ActionResult GetWxCode() {
             var code = Request.QueryString["code"];
-            var authUserInfo = _wxUserManager.GetWxAuthUserInfo(code);
+            var authUserInfo = _wxAuthManager.GetWxAuthUserInfo(code);
             //属于企业微信内部人员
             if (authUserInfo.errcode == 0) {                
                 if (!string.IsNullOrEmpty(authUserInfo.OpenId)) { 

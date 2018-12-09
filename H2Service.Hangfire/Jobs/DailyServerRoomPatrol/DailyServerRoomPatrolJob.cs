@@ -2,23 +2,18 @@
 using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
-using AutoMapper;
 using H2Service.Authorization;
 using H2Service.Authorization.Departments;
 using H2Service.Hangfire.Framework;
-using H2Service.Hangfire.Jobs.DailyInPatients.Dto;
 using H2Service.Hangfire.Jobs.DailyServerRoomPatrol.Dto;
 using H2Service.Log4;
 using H2Service.ServerRooms;
 using H2Service.ServerRooms.Dto;
 using H2Service.WxWork;
-using H2Service.WxWork.Dto;
 using H2Service.WxWork.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Configuration;
 
 namespace H2Service.Hangfire.Jobs.DailyServerRoomPatrol

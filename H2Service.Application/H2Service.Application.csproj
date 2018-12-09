@@ -366,10 +366,6 @@
     <Compile Include="Account\Dto\UserDto.cs" />
     <Compile Include="Account\IUserAppService.cs" />
     <Compile Include="Account\UserAppService.cs" />
-    <Compile Include="WeChatWork\Dto\RetDto.cs" />
-    <Compile Include="WeChatWork\Dto\WxUserInfoBaseDto.cs" />
-    <Compile Include="WeChatWork\Dto\WxUserInfoDetailDto.cs" />
-    <Compile Include="WeChatWork\Dto\WxUserInfoDetailListDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

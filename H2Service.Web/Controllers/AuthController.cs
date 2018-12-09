@@ -1,24 +1,16 @@
-﻿using Abp.Web.Mvc.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Net;
-using System.Web.Configuration;
-using H2Service.WxWork.Dto;
-using H2Service.WxWork;
-using H2Service.Users;
+﻿using Abp.Runtime.Caching;
+using Abp.Web.Models;
+using Abp.Web.Mvc.Controllers;
 using H2Service.Authorization;
 using H2Service.Authorization.Dto;
 using H2Service.Extensions;
-using Abp.Runtime.Session;
+using H2Service.Users;
 using H2Service.Web.Models.Users;
-using Abp.Authorization;
-using Abp.Web.Models;
-using Abp.UI;
+using H2Service.WxWork;
+using System;
 using System.Threading;
-using Abp.Runtime.Caching;
+using System.Web.Configuration;
+using System.Web.Mvc;
 
 namespace H2Service.Web.Controllers
 {
@@ -31,8 +23,8 @@ namespace H2Service.Web.Controllers
         private readonly IRoleAppService _roleAppService;
         private readonly ICacheManager _cacheManager;
         private readonly IAuthorizationManager _authorizationManager;
-        private readonly WxUserManager _wxUserManager;
-        public AuthController(WxUserManager wxUserManager,
+        private readonly WxAuthManager _wxAuthManager;
+        public AuthController(WxAuthManager wxAuthManager,
             IUserAppService userAppService,
             ILoginAppService loginAppService,
             IPermissionAppService permissionAppService,
@@ -40,7 +32,7 @@ namespace H2Service.Web.Controllers
             ICacheManager cacheManager,
             IAuthorizationManager authorizationManager)
         {
-            _wxUserManager = wxUserManager;
+            _wxAuthManager = wxAuthManager;
             _userAppService = userAppService;
             _loginAppService = loginAppService;
             _permissionAppService = permissionAppService;
@@ -121,7 +113,7 @@ namespace H2Service.Web.Controllers
         {
             var code = Request.QueryString["code"];
 
-            var userAuthInfo = _wxUserManager.GetWxAuthUserInfo(code);
+            var userAuthInfo = _wxAuthManager.GetWxAuthUserInfo(code);
             //属于企业微信内部人员
             if (userAuthInfo.errcode == 0)
             {
