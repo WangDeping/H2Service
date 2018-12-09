@@ -25,13 +25,14 @@ namespace H2Service.WxWork
         private readonly  ILogger _logger;
         private readonly ICacheManager _cacheManager;
         private string sToken = "kDncXp8dPVNvbALV";
-        private string sCorpID = "wxbf27fd9188f6ef48";
+        private readonly  string corpID = "";
         private string sEncodingAESKey = "uSyVcn9Fc3BqUCM6PLjrjrwHl36smHObrszD2k9XukG";
 
         public WxTokenManager(ICacheManager cacheManager, ILogger logger)
         {
             _cacheManager = cacheManager;
             _logger =logger;
+            corpID = WebConfigurationManager.AppSettings["corpid"];
             if (HttpContext.Current != null)
             {
                 tokenPath = HttpContext.Current.Server.MapPath(@"~/access_token.config");
@@ -60,7 +61,7 @@ namespace H2Service.WxWork
             {
                 using (var client = new HttpClient())
                 {                   
-                    var result = client.GetStringAsync(string.Format("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={0}&corpsecret={1}", this.sCorpID, app.Element("secret").Value));
+                    var result = client.GetStringAsync(string.Format("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={0}&corpsecret={1}", this.corpID, app.Element("secret").Value));
                     result.Wait();
                    
                    var token = JsonConvert.DeserializeObject<WxAccessToken>(result.Result);               
@@ -88,7 +89,7 @@ namespace H2Service.WxWork
             var appsecret = app.Element("secret").Value;
             using (var client = new HttpClient())
             {
-                var result = client.GetStringAsync(string.Format("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={0}&corpsecret={1}",this.sCorpID, appsecret));
+                var result = client.GetStringAsync(string.Format("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={0}&corpsecret={1}",this.corpID, appsecret));
                 result.Wait();
                 var token = JsonConvert.DeserializeObject<WxAccessToken>(result.Result);
                 if (token.errcode == 0)
@@ -144,7 +145,7 @@ namespace H2Service.WxWork
         {
 
 
-            Tencent.WXBizMsgCrypt wxcpt = new Tencent.WXBizMsgCrypt(sToken, sEncodingAESKey, sCorpID);
+            Tencent.WXBizMsgCrypt wxcpt = new Tencent.WXBizMsgCrypt(sToken, sEncodingAESKey, corpID);
             string sVerifyMsgSig = msg_signature;
             string sVerifyTimeStamp = timestamp;
             string sVerifyNonce = nonce;
