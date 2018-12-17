@@ -95,7 +95,7 @@ namespace H2Service.WxWork
         {
             var result = Helper.GetURLResultByUTF8(wxUrl);
             var retAuthUser = Helper.JsonDeserialize<T>(result);
-            if (retAuthUser.errcode != 0 && retAuthUser.errcode != 40029)
+            if (retAuthUser.errcode != 0 && retAuthUser.errcode != 40029&&retAuthUser.errcode!=60111)
             {               
                 _logger.Error(result);
                 throw new Exception("微信错误代码:" + result);

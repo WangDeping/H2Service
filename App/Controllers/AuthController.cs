@@ -3,6 +3,7 @@ using Abp.Web.Models;
 using H2Service.Authorization;
 using H2Service.Authorization.Dto;
 using H2Service.Extensions;
+using H2Service.Log4;
 using H2Service.Users;
 using H2Service.WxWork;
 using System;
@@ -17,12 +18,12 @@ namespace App.Controllers
         private readonly WxAuthManager _wxAuthManager;
         private readonly IUserAppService _userAppService;
         private readonly ILoginAppService _loginAppService;
-        private readonly IAuthorizationManager _authorizationManager;
-
+        private readonly IAuthorizationManager _authorizationManager;       
         public AuthController(WxAuthManager wxAuthManager,
             IUserAppService userAppService,
             ILoginAppService loginAppService,
-            IAuthorizationManager authorizationManager) {
+            IAuthorizationManager authorizationManager
+           ) {
             _wxAuthManager = wxAuthManager;
             _userAppService = userAppService;
             _loginAppService = loginAppService;
@@ -50,16 +51,17 @@ namespace App.Controllers
                     Logger.Error(string.Format("未注册用户登录失败{0},设备{1}", authUserInfo.OpenId, authUserInfo.DeviceId));
                     return View("Denied", new ErrorInfo{  Details="非本院职工不能访问本系统"});
                 }
-                var user= _userAppService.GetUserByNumber(authUserInfo.UserId);
-                Logger.Error("用户登录："+user.UserNumber);
+                var user= _userAppService.GetUserByNumber(authUserInfo.UserId);              
                 //登入
                 if (user != null)
                 {
-                    var userInput = ObjectMapper.Map<SignInInput>(user);  
-                    _loginAppService.SignIn(userInput);
+                    var userInput = ObjectMapper.Map<SignInInput>(user);
+                    _loginAppService.MobileLoginLog(authUserInfo.UserId, authUserInfo.DeviceId);
+                    _loginAppService.SignIn(userInput);                   
                 }
-            }
-            ViewBag.UserName = AbpSession.GetUserName();
+                else
+                    return View("Denied", new ErrorInfo { Details = "非本院职工不能访问本系统" });
+            }         
             if(!string.IsNullOrEmpty(Session["retUrl"]?.ToString()))           
                 Response.Redirect(Session["retUrl"].ToString());
             return View();            

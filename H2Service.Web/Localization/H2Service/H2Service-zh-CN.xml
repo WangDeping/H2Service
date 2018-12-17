@@ -34,8 +34,8 @@
     <text name="院感管理" value="院感管理" />  
     <text name="医疗废物交接记录" value="医疗废物交接记录" />
     <text name="医疗废物统计" value="医疗废物统计" />
-    <text name="医疗废物暂存点" value="医疗废物暂存点" />
-    <text name="医疗废物专职人员" value="医疗废物专职人员" />
+    <text name="医疗废物暂存点" value="医疗废物暂存点" />  
+    <text name="医疗废物出库史" value="医疗废物出库史" />
     <text name="医疗废物预警" value="医疗废物预警" />
     <text name="医疗废物二维码入口" value="医疗废物二维码入口" />
     <text name="外部人员" value="外部人员" />

@@ -1,0 +1,18 @@
+﻿@model App.Models.PagedDeliveryHistoryRequestModel
+
+@foreach (var w in Model.rows)
+{
+<div class="weui-panel">
+    <div class="weui-panel__hd">@w.CreationTime</div>
+    <div class="weui-panel__bd">
+        <div class="weui-media-box weui-media-box_text">
+            <h4 class="weui-media-box__title">出库人：@w.CreatorUserName</h4>
+            @{ var infoArrary = w.Summary.Split(';').Where(T=>!string.IsNullOrEmpty(T));}
+            @foreach (var info in infoArrary) {
+
+            <h4 class="weui-media-box__title">@info</h4>
+            }
+        </div>
+    </div>
+</div>
+}

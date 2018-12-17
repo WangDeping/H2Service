@@ -99,11 +99,11 @@ namespace H2Service.Web
                          requiredPermissionName: PermissionNames.Pages_Infection_MedicalWasteStatistics
                          )
                     ).AddItem(new MenuItemDefinition(
-                         "医疗废物暂存点",
-                         new LocalizableString("医疗废物暂存点", H2ServiceConsts.LocalizationSourceName),
-                         url: "District/DistrictWithMedicalWaste",
+                         "医疗废物出库史",
+                         new LocalizableString("医疗废物出库史", H2ServiceConsts.LocalizationSourceName),
+                         url: "MedicalWaste/DeliveryHistroyIndex",
                          icon: "flaticon-signs",
-                         requiredPermissionName: PermissionNames.Pages_Infection_MedicalWasteWorker
+                         requiredPermissionName: PermissionNames.Pages_Infection_MedicalWasteWarning
                          )
                     ).AddItem(new MenuItemDefinition(
                          "医疗废物预警",

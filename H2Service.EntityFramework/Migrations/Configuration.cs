@@ -1,11 +1,12 @@
 namespace H2Service.Migrations
 {
+    using H2Service.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<H2Service.EntityFramework.H2ServiceDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<H2ServiceDbContext>
     {
         public Configuration()
         {

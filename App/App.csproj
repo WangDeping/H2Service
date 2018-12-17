@@ -366,6 +366,7 @@
     <Compile Include="Controllers\AppControllerBase.cs" />
     <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicalWasteController.cs" />
     <Compile Include="Controllers\MeritPayController.cs" />
@@ -377,6 +378,7 @@
     </Compile>
     <Compile Include="Helper\WxJsSignatureHelper.cs" />
     <Compile Include="Models\AppendWasteImageModel.cs" />
+    <Compile Include="Models\PagedDeliveryHistorytModel.cs" />
     <Compile Include="Models\SetCollectUserModel.cs" />
     <Compile Include="Models\WasteListRequestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1638,6 +1640,10 @@
     <Content Include="Views\Auth\Denied.cshtml" />
     <Content Include="Views\Attendance\Index.cshtml" />
     <Content Include="Views\User\SetDepartment.cshtml" />
+    <Content Include="Views\MedicalWaste\MedicalWasteTemporaryStorage.cshtml" />
+    <Content Include="Views\MedicalWaste\DeliveryHistory.cshtml" />
+    <Content Include="Views\MedicalWaste\_GetPagedDeliveryHistory.cshtml" />
+    <Content Include="Views\Error\Error403.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

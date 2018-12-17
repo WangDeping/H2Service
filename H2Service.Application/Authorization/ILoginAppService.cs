@@ -11,5 +11,7 @@ namespace H2Service.Authorization
      void SignOut();
 
      void   SendValidateCode(string userNumber,string validateCode);
+
+        void MobileLoginLog(string userNumber, string device);
     }
 }

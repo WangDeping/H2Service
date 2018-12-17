@@ -22,9 +22,9 @@ namespace H2Service.MedicalWastes
 
         IEnumerable<WasteStatisticOutput> WasteStatistic(WasteStatisticInput input);
 
-        IEnumerable<WasteStatisticOutput> GetUnDeliveryCollection(int districtId);
+        IEnumerable<WasteStatisticOutput> GetUnDeliveryCollection(int districtId);      
 
-        IList<WasteDeliveryDto> GetDeliveryHistory(int districtId);
+        PagedResultDto<WasteDeliveryDto> GetPagedDeliveryHistory(GetPagedDeliveryInput input);
 
         void DeliveryCollection(int districtId);
 

@@ -39,6 +39,7 @@ namespace H2Service.Authorization
             infectionPermission.CreateChildPermission(PermissionNames.Pages_Infection_MedicalWasteManage, L("医疗废物交接记录"));
             infectionPermission.CreateChildPermission(PermissionNames.Pages_Infection_MedicalWasteWorker, L("医疗废物专职人员"));
             infectionPermission.CreateChildPermission(PermissionNames.Pages_Infection_MedicalWasteWarning, L("医疗废物预警"));
+            infectionPermission.CreateChildPermission(PermissionNames.Pages_Infection_MedicalWasteDeliveryHistory,L("医疗废物出库史"));
         }
         private static ILocalizableString L(string name)
         {

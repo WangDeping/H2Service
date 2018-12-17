@@ -1,16 +1,14 @@
-﻿using System.Data.Common;
-using Abp.EntityFramework;
-using System.Data.Entity;
-using H2Service.Salarires;
+﻿using Abp.EntityFramework;
 using H2Service.Authorization;
-using H2Service.ServerRooms;
-using H2Service.QC;
-using H2Service.MedicalWastes;
-using Abp.Domain.Uow;
-using EntityFramework.DynamicFilters;
-using Abp.Domain.Entities;
-using H2Service.MeritPays;
 using H2Service.Authorization.Departments;
+using H2Service.H2Log;
+using H2Service.MedicalWastes;
+using H2Service.MeritPays;
+using H2Service.QC;
+using H2Service.Salarires;
+using H2Service.ServerRooms;
+using System.Data.Common;
+using System.Data.Entity;
 
 namespace H2Service.EntityFramework
 {
@@ -46,6 +44,7 @@ namespace H2Service.EntityFramework
         public virtual IDbSet<MeritPayPeriod> MeritPayPeriods { get; set; }
         public virtual IDbSet<MeritPayDetail> MeritPayDetail { get; set; }
         public virtual IDbSet<DepartmentRelateModule> DepartmentRelateModules { get; set; }
+        public virtual IDbSet<LoginLog> LoginLogs { get; set; }
 
 
         /* NOTE: 

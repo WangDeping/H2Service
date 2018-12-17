@@ -17,11 +17,13 @@ namespace H2Service.WxWork
     {
         private WxTokenManager _tokenManager;
         private ILogger _logger;
+        private readonly string token;
         public WxFileManager(WxTokenManager tokenManager,
             ILogger logger )
         {
             _tokenManager = tokenManager;
             _logger = logger;
+            token = _tokenManager.GetWxToken();
         }
 
         private const string UPLOADFILE_URL = "https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}";
@@ -35,10 +37,8 @@ namespace H2Service.WxWork
         /// <param name="type">媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件（file）</param>
         /// <returns></returns>
         public WxRetTempFile UploadTempFile(string path, byte[] bf,string type)
-        {
-            var concatId = WebConfigurationManager.AppSettings["contactsAppid"];
-            var accessToken =_tokenManager.GetWxToken(concatId);
-            string url = string.Format(UPLOADFILE_URL, accessToken,type);
+        {          
+            string url = string.Format(UPLOADFILE_URL, token,type);
             var responseJson = HttpUpload(url, path, bf);         
             return JsonConvert.DeserializeObject<WxRetTempFile>(responseJson);
         }
@@ -49,10 +49,8 @@ namespace H2Service.WxWork
         /// <param name="bf"></param>
         /// <returns></returns>
         public WxRetImg UploadImg(string path, byte[] bf)
-        {
-            var concatId = WebConfigurationManager.AppSettings["contactsAppid"];
-            var accessToken = _tokenManager.GetWxToken(concatId);
-            string url = string.Format(UPLOADIMG_URL, accessToken);
+        {        
+            string url = string.Format(UPLOADIMG_URL, token);
            var responseJson = HttpUpload(url, path, bf);          
             return JsonConvert.DeserializeObject<WxRetImg>(responseJson);
         }
@@ -93,9 +91,7 @@ namespace H2Service.WxWork
         /// <param name="media_id"></param>
         /// <returns></returns>
         public string DownLoadWxTempFile(string media_id, string path)
-        {
-            var concatId = WebConfigurationManager.AppSettings["contactsAppid"];
-            string token = _tokenManager.GetWxToken(concatId);
+        {          
             string wxUrl = string.Format(DOWNLOAD_URL, token, media_id);
             HttpWebRequest request = HttpWebRequest.Create(wxUrl) as HttpWebRequest;
             request.Method = "GET";

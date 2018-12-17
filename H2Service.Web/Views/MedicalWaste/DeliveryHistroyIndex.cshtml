@@ -5,11 +5,11 @@
 }
 
 @section subheader_title{
-    待出库医疗废物汇总
+   医疗废物出库历史
 }
 @{ var counts = 0;}
 <div class=" row">
-    @foreach (var d in Model)
+    @*@foreach (var d in Model)
     {
         counts += d.PackageCount;
         <div class="col-lg-4">
@@ -39,7 +39,7 @@
 
         </div>
        
-    </div>
+    </div>*@
     
 
     <div class="col-lg-12">
@@ -78,14 +78,13 @@
     </div>
     </div>  
 
-<script>
-      var districtId =@ViewBag.DistrictId;
+<script>   
     $('#deliveries_grid').bootstrapTable({
         queryParams: function (params) {
             return {
                 MaxResultCount: params.limit,
                 PageNumber: (params.offset / params.limit),
-                DistrictId: districtId
+                DistrictId:0
             }
         }
     })

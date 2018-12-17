@@ -12,5 +12,7 @@ namespace H2Service.Log4
         void LogError(string errorInfo);
 
         void LogWarn(string warnInfo);
+
+       
     }
 }

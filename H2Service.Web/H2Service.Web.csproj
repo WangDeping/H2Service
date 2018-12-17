@@ -1704,7 +1704,7 @@
     <Content Include="Views\MedicalWaste\FlowStatusSelect.cshtml" />
     <Content Include="Views\District\_DistrictSelect.cshtml" />
     <Content Include="Views\District\DistrictWithMedicalWaste.cshtml" />
-    <Content Include="Views\MedicalWaste\GetUnDeliveryCollection.cshtml" />
+    <Content Include="Views\MedicalWaste\DeliveryHistroyIndex.cshtml" />
     <Content Include="Views\MeritPay\HeaderIndex.cshtml" />
     <Content Include="Views\MeritPay\_HeaderDetail.cshtml" />
     <Content Include="Views\MedicalWaste\Warning.cshtml" />

@@ -15,6 +15,8 @@ using App.Models;
 using System.Configuration;
 using Abp.UI;
 using H2Service.Users;
+using H2Service.Extensions;
+using H2Service.Authorization;
 
 namespace App.Controllers
 {
@@ -22,7 +24,7 @@ namespace App.Controllers
     public class MedicalWasteController : AppControllerBase
     {
         private readonly WxTokenManager _wxTokenManager;
-        private readonly IExternalUserAppService _externalUserAppService;
+        private readonly IDistrictAppService _districtAppService;
         private readonly IUserAppService _userAppService;
         private readonly IMedicalWasteAppService _medicalWasteAppService;
         private readonly IDepartmentAppService _departmentAppService;
@@ -31,13 +33,13 @@ namespace App.Controllers
         public MedicalWasteController(
             WxTokenManager wxTokenManager,
             WxFileManager wxFileManager,
-            IExternalUserAppService externalUserAppService,
+            IDistrictAppService districtAppService,
             IMedicalWasteAppService medicalWasteAppService,
             IDepartmentAppService departmentAppService,
             IUserAppService userAppService)
         {
             _wxTokenManager = wxTokenManager;
-            _externalUserAppService = externalUserAppService;
+            _districtAppService = districtAppService;
             _medicalWasteAppService = medicalWasteAppService;
             _departmentAppService = departmentAppService;
             _userAppService = userAppService;
@@ -83,10 +85,9 @@ namespace App.Controllers
         {
             try
             {
-                var savePath = Server.MapPath(@"~/Content/WxTemp/MedicalWaste/");
+                var savePath = Server.MapPath(@"~/Content/WxTemp/MedicalWaste/");               
                 var url = wxTempFilePath + "MedicalWaste/" + _wxFileManager.DownLoadWxTempFile(request.ServerId, savePath);
-                var imageDto = new WasteImageDto { ImgPath = url, Status = MedicalWasteStatus.科室点, FlowId = request.FlowId };
-               
+                var imageDto = new WasteImageDto { ImgPath = url, Status = MedicalWasteStatus.科室点, FlowId = request.FlowId };               
                 _medicalWasteAppService.AppendImage(imageDto);
                 return Json(new ErrorInfo(0, "成功"));
             }
@@ -112,7 +113,6 @@ namespace App.Controllers
                 return Json(new ErrorInfo {  Code=-1, Message=ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        
        
         public ActionResult PreviewFlow (SetCollectUserModel request)
         {           
@@ -149,6 +149,60 @@ namespace App.Controllers
                 return Json(new ErrorInfo { Code =- 1, Message=ex.Message });
             }
            
+        }
+
+        /// <summary>
+        /// 获取未出库的医疗废物
+        /// </summary>
+        /// <param name="districtId">医疗废物存储位置</param>
+        /// <returns></returns>
+        [AbpMvcAuthorize(PermissionNames.Pages_Infection_MedicalWasteWorker)]
+        public ActionResult GetUnDeliveryCollection(int Id)
+        {
+
+            var undeliveryList = _medicalWasteAppService.GetUnDeliveryCollection(Id);
+            ViewBag.DistrictId = Id;
+            ViewBag.DistrictName = _districtAppService.GetDistrictList().First(T => T.Id == Id).DistrictName;
+            ViewBag.UserName =AbpSession.GetUserName() ;
+            string ticket = _wxTokenManager.GetWxJSApiTicket();
+            this.GetWxJSApiSignature(ticket);
+            return View("MedicalWasteTemporaryStorage", undeliveryList);
+
+        }
+        [AbpMvcAuthorize(PermissionNames.Pages_Infection_MedicalWasteWorker)]
+        [DontWrapResult]
+        public JsonResult Delivery(int districtId)
+        {
+            try
+            {
+                _medicalWasteAppService.DeliveryCollection(districtId);
+                return Json(new ErrorInfo { Code = 1, Details = "成功", Message = "成功" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new ErrorInfo { Code = -1, Details = "操作失败", Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// 出库历史
+        /// </summary>
+        /// <param name="Id">废物暂存点Id</param>
+        /// <returns></returns>
+        [AbpMvcAuthorize(PermissionNames.Pages_Infection_MedicalWasteWorker)]
+        public ActionResult DeliveryHistory(int Id)
+        {
+            ViewBag.DistrictName = _districtAppService.GetDistrictList().First(T => T.Id == Id).DistrictName+"出库历史";
+            ViewBag.DistrictId = Id;
+            return View();
+        }
+
+        [AbpMvcAuthorize(PermissionNames.Pages_Infection_MedicalWasteWorker)]
+        [DontWrapResult]    
+        public PartialViewResult GetPagedDeliveryHistory(GetPagedDeliveryInput request)
+        {
+            var result = _medicalWasteAppService.GetPagedDeliveryHistory(request);          
+            return PartialView("_GetPagedDeliveryHistory",new PagedDeliveryHistoryRequestModel { total =result.TotalCount, rows = result.Items });
         }
     }
 }

@@ -1,0 +1,68 @@
+﻿@model List<H2Service.MedicalWastes.Dto.WasteStatisticOutput>
+@{
+    ViewBag.Title = "出库确认单";
+    Layout = "~/Views/Shared/_WxconfigLayout.cshtml";
+}
+@{ var counts = 0;}
+<header class='demos-header'>
+    <h1 class="demos-title">医疗废物暂存点</h1>
+</header>
+
+<div class="weui-form-preview">
+    <div class="weui-form-preview__hd">
+        <label class="weui-form-preview__label">出库暂存点</label>
+        <em class="weui-form-preview__value">@ViewBag.DistrictName</em>
+    </div>
+    <div class="weui-form-preview__hd">
+        <label class="weui-form-preview__label">出库人</label>
+        <em class="weui-form-preview__value">@ViewBag.UserName </em>
+    </div>    
+    <div class="weui-form-preview__hd">
+        <label class="weui-form-preview__label">出库时间</label>
+        <em class="weui-form-preview__value">@DateTime.Now.ToString("yyyy-MM-dd hh")</em>
+    </div>    
+   
+    <div class="weui-form-preview__bd">      
+        @foreach (var m in Model)
+        {
+            counts += m.PackageCount;
+            <div class="weui-form-preview__item">
+                <label class="weui-form-preview__label">@m.Kind</label>
+                <span class="weui-form-preview__value">@(m.PackageCount+ "包/" +m.Total+ "Kg")</span>
+            </div>
+
+        }
+    </div>
+    <div class="weui-form-preview__ft"> 
+        <a class="weui-form-preview__btn weui-form-preview__btn_default" href="@Url.Action("DeliveryHistory",new { Id=ViewBag.DistrictId})">历史</a>
+        <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary"  onclick="javascript:delivery()">出库</button>
+    </div>
+</div>
+
+<script>
+    function delivery() {  
+       
+        var counts =@counts;
+        if (counts == 0) {
+            $.toast("没有医疗废物", "cancel");
+            return;
+        }
+        $.post('/MedicalWaste/Delivery', {
+            districtId: '@ViewBag.DistrictId'
+        }, function (data) {
+            if (data.Code > 0)
+                $.toast("出库完毕", function () {
+                    WeixinJSBridge.invoke('closeWindow');
+                })
+            else
+                  $.toast("操作失败","cancel")
+            })
+    }
+
+</script>
+<style>
+    .weui-form-preview__bd {
+        font-size: 1.2em
+    }
+
+</style>

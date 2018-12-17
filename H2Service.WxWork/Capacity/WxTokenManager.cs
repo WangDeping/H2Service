@@ -49,9 +49,9 @@ namespace H2Service.WxWork
         /// <summary>
         /// 获取某个微信企业应用的accesstoken,所有token都保存到cache里，防止频率限制
         /// </summary>
-        /// <param name="agentid">企业应用id</param>
+        /// <param name="agentid">企业应用id,默认企业小助手</param>
         /// <returns></returns>
-        public string GetWxToken(string agentid)
+        public string GetWxToken(string agentid="0")
         {            
             XDocument xdocument = XDocument.Load(tokenPath);
             var app = xdocument.Root.Elements("app").Where(T => T.Element("agentid").Value == agentid).First();

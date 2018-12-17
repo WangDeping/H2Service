@@ -244,6 +244,7 @@
     <Compile Include="External\ExternalCompany.cs" />
     <Compile Include="External\ExternalUser.cs" />
     <Compile Include="Helper\UserNumberConversionHelper.cs" />
+    <Compile Include="Log\LoginLog.cs" />
     <Compile Include="MedicalWastes\IMedicalWasteDomainService.cs" />
     <Compile Include="MedicalWastes\MedicalWaste.cs" />
     <Compile Include="MedicalWastes\MedicalWasteDelivery.cs" />

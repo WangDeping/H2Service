@@ -42,6 +42,7 @@ namespace H2Service.Authorization
         public const string Pages_Infection_MedicalWasteStatistics = "Pages.Infection.MedicalWasteStatistics";
         public const string Pages_Infection_MedicalWasteManage = "Pages.Infection.MedicalWasteManage";
         public const string Pages_Infection_MedicalWasteWorker= "Pages.Infection.MedicalWasteWorker";
+        public const string Pages_Infection_MedicalWasteDeliveryHistory = "Pages.Infection.MedicalWasteDeliveryHistory";
         public const string Pages_Infection_MedicalWasteWarning = "Pages.Infection.MedicalWasteWarning";
 
     }

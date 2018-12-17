@@ -30,6 +30,7 @@ namespace App.App_Start
                     HttpContext.Current.User = principal;
                 }
             }*/
+            
             base.OnAuthorization(filterContext);
         }
     }

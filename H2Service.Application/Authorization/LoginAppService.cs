@@ -1,8 +1,10 @@
-﻿using Abp.UI;
+﻿using Abp.Domain.Repositories;
+using Abp.UI;
 using H2Service.Account;
 using H2Service.Account.Dto;
 using H2Service.Authorization.Dto;
 using H2Service.Extensions;
+using H2Service.H2Log;
 using H2Service.Users;
 using H2Service.WxWork;
 using H2Service.WxWork.Entities;
@@ -20,14 +22,17 @@ namespace H2Service.Authorization
         private IAuthenticationManager _authenticationManager;
         private IUserAppService _userAppService;
         private readonly WxSender _wxSender;
-       // private IAuthenticationManager _authenticationManager => HttpContext.Current.GetOwinContext().Authentication;
+        private readonly IRepository<LoginLog> _loginLogRepository;
+        // private IAuthenticationManager _authenticationManager => HttpContext.Current.GetOwinContext().Authentication;
         public LoginAppService(IAuthenticationManager authenticationManager,
             IUserAppService userAppService,
+            IRepository<LoginLog> loginLogRepository,
             WxSender wxSender)
         {
             _authenticationManager = authenticationManager;
             _userAppService = userAppService;
             _wxSender = wxSender;
+            _loginLogRepository = loginLogRepository;
         }
 
         /// <summary>
@@ -47,6 +52,7 @@ namespace H2Service.Authorization
                 identity = new ClaimsIdentity(DefaultAuthenticationTypes.ApplicationCookie);
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+                identity.AddClaim(new Claim("UserName", user.UserName));
                 identity.AddClaim(new Claim("UserNumber", user.UserNumber));
                 identity.AddClaim(new Claim("DepartmentId",department.Id.ToString()));
                 identity.AddClaim(new Claim("DepartmentName", department.DepartmentName));           
@@ -69,6 +75,14 @@ namespace H2Service.Authorization
             var content = string.Format("验证码为:{0},请勿告诉他人，验证码有效期5分钟", validateCode);         
             var sendMsg = new WxSendTextMsg(content,user.UserNumber);
             _wxSender.SendMsg(sendMsg);
+        }
+
+
+        public void MobileLoginLog(string userNumber, string device)
+        {            
+            var log = new LoginLog { Device = device, UserNumber = userNumber, LoginTime = DateTime.Now };
+
+            _loginLogRepository.Insert(log);
         }
     }
 }

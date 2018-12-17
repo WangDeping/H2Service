@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "出库历史";
+    Layout = "~/Views/Shared/_OnlyJqweuiLayout.cshtml";
+}
+<header class='demos-header'>
+    <h3 class="demos-title">@ViewBag.DistrictName</h3>
+</header>
+<div id="container">
+
+</div>
+<div class="weui-loadmore">
+    <i class="weui-loading"></i>
+    <span class="weui-loadmore__tips">正在加载</span>
+</div>
+@section Script{
+<script>
+    var loading = false;
+    var currentPageNumber = 0;
+    var loadHistory = function (pageNumber) {
+        $.post('/MedicalWaste/GetPagedDeliveryHistory', {
+            'MaxResultCount': 2,
+            'PageNumber': pageNumber,
+            'DistrictId': '@ViewBag.DistrictId'
+        }, function (data) {
+            loading = false
+            if (data != "") {
+                $('#container').append(data);
+                currentPageNumber++
+            }
+            else {
+                $(document.body).destroyInfinite()
+                $('.weui-loadmore').hide()
+                $.toast("到底了", "cancel");
+            }
+            
+        })
+    }
+
+    loadHistory(currentPageNumber)
+    $(document.body).infinite().on("infinite", function () {
+        if (loading)
+            return;
+        loading = true;
+        loadHistory(currentPageNumber)
+    });
+
+</script>
+}

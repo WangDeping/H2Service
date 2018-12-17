@@ -1,9 +1,12 @@
-﻿using Abp.Dependency;
+﻿using Abp.Authorization;
+using Abp.Dependency;
+using Abp.Runtime.Validation;
 using Abp.Web.Mvc.Controllers;
 using App.Helper;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using H2Service.WxWork;
+using System;
 using System.Collections;
 
 using System.Web.Mvc;
@@ -28,8 +31,17 @@ namespace App.Controllers
             ViewBag.appid = table["appid"];
             ViewBag.noncestr = table["noncestr"];
             ViewBag.timestamp = table["timestamp"];
-            ViewBag.signature = table["signature"];
-            
+            ViewBag.signature = table["signature"];            
+        }
+        protected override void OnException(ExceptionContext context)
+        {
+            if (!context.ExceptionHandled)
+            {
+                Logger.Error("abcdef");
+                context.ExceptionHandled = true;
+            }
+            base.OnException(context);
+           
         }
         public ActionResult Error()
         {

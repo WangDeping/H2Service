@@ -111,7 +111,7 @@ namespace H2Service
                 cfg.CreateMap<MedicalWasteDelivery, WasteDeliveryDto>()
                 .ForMember(d => d.CreatorUserName, opt => opt.MapFrom(s => s.CreatorUser.UserName))
                 .ForMember(d => d.DistrictName, opt => opt.MapFrom(s => s.District.DistrictName))
-                .ForMember(d => d.CreationTime, opt => opt.MapFrom(s => s.CreationTime.ToString("yyyy-MM-dd hh:mm")));
+                .ForMember(d => d.CreationTime, opt => opt.MapFrom(s => s.CreationTime.ToString("yyyy-MM-dd HH:mm")));
 
 
                 cfg.CreateMap<DepartmentRelateModule, DepartmentModulesRelationDto>()

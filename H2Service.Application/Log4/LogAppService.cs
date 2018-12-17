@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Abp.Domain.Repositories;
+using H2Service.H2Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 namespace H2Service.Log4
 {
     public class LogAppService : H2ServiceAppServiceBase, ILogAppService
-    {
+    {      
         public void LogError(string errorInfo)
         {
             Logger.Error(errorInfo);
@@ -17,5 +19,8 @@ namespace H2Service.Log4
         {
             Logger.Warn(warnInfo);
         }
+
+
+        
     }
 }

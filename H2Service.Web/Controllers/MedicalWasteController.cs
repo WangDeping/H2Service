@@ -141,26 +141,16 @@ namespace H2Service.Web.Controllers
             return Json(echartsline, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetUnDeliveryCollection(int districtId) {
-
-            var undeliveryList = _medicalWasteAppService.GetUnDeliveryCollection(districtId);
-            ViewBag.DistrictId = districtId;
-            return View(undeliveryList);
-
-        }
-        public JsonResult DeliveryWasteCollection(int districtId)
-        {
-            _medicalWasteAppService.DeliveryCollection(districtId);
-            return Json(new ErrorInfo {  Code=1, Details="成功", Message="成功"});
-        }
+        public ActionResult DeliveryHistroyIndex() {                       
+            return View();
+        }       
 
         [DontWrapResult]
         public JsonResult GetDeliveryHistoryGrid(GetPagedDeliveryInput request)
         {
-            var query = _medicalWasteAppService.GetDeliveryHistory(request.DistrictId).OrderByDescending(T=>T.Id);
-            var queryCount = query.Count();
-            var deliveryHistoryList = query.OrderByDescending(T => T.Id).Skip(request.SkipCount).Take(request.MaxResultCount).ToList();          
-            return Json(new { total = queryCount, rows = deliveryHistoryList }, JsonRequestBehavior.AllowGet);
+            request.DistrictId = 0;
+            var result = _medicalWasteAppService.GetPagedDeliveryHistory(request);          
+            return Json(new { total =result.TotalCount, rows =result.Items }, JsonRequestBehavior.AllowGet);
         }
 
 

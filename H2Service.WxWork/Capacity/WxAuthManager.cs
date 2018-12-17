@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Configuration;
 
 namespace H2Service.WxWork
@@ -15,7 +16,7 @@ namespace H2Service.WxWork
     {
 
         private const string GETAUTHUSER_URL = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}";
-
+        private const string GETAUTHURL_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope={2}&agentid={3}&state=STATE&connect_redirect=1#wechat_redirect";
 
         private WxTokenManager _tokenManager;
         private ILogger _logger;
@@ -29,7 +30,7 @@ namespace H2Service.WxWork
 
         }
         /// <summary>
-        /// 获取验证url
+        /// 构建验证url
         /// </summary>
         /// <param name="scope"></param>
         /// <returns></returns>
@@ -38,10 +39,8 @@ namespace H2Service.WxWork
             
             string appid = WebConfigurationManager.AppSettings["corpid"];
             var authAppid = WebConfigurationManager.AppSettings["authAppid"];
-            string authUrl = WebConfigurationManager.AppSettings["authUrl"];
-            var wxUrl = string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&" +
-                    "redirect_uri={1}&response_type=code&scope={2}&" +
-                    "agentid={3}&state=STATE&connect_redirect=1#wechat_redirect", appid, authUrl, scope, authAppid);
+            string authUrl =HttpUtility.UrlEncode(WebConfigurationManager.AppSettings["authUrl"]);
+            var wxUrl = string.Format(GETAUTHURL_URL, appid, authUrl, scope, authAppid);
 
             return wxUrl;
         }

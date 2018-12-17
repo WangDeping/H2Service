@@ -107,9 +107,10 @@ namespace H2Service.MedicalWastes
         {
                        
             var wasteStatisticOutput = _medicalWasteRepository.GetAll()
-                .WhereIf(input.Status==MedicalWasteStatus.科室点, T => T.CreationTime > input.Start && T.CreationTime < input.End&&T.Flow.Status==input.Status)
-                 .WhereIf(input.Status == MedicalWasteStatus.医院暂存点, T => T.Flow.CollectTime> input.Start && T.Flow.CollectTime < input.End &&T.Flow.Status == input.Status)
+               // .WhereIf(input.Status==MedicalWasteStatus.科室点, T => T.CreationTime > input.Start && T.CreationTime < input.End&&T.Flow.Status==input.Status)
+                 //.WhereIf(input.Status == MedicalWasteStatus.医院暂存点, T => T.Flow.CollectTime> input.Start && T.Flow.CollectTime < input.End &&T.Flow.Status == input.Status)
                  // .WhereIf(input.Status == MedicalWasteStatus.卫康公司, T => T.Flow.DeliveryTime> input.Start && T.Flow.DeliveryTime < input.End &&T.Flow.Status == input.Status)
+                 .Where(T => T.Flow.CollectTime > input.Start && T.Flow.CollectTime < input.End)
                 .WhereIf(input.DepartmentId > 0, T => T.Flow.DepartmentId == input.DepartmentId)
                // .Where(T=>T.Flow.Status==input.Status)
                 .GroupBy(T => T.Kind).Select(g => new WasteStatisticOutput { Kind = g.Key, Total = g.Sum(item => item.Weight),PackageCount=g.Count() })
@@ -150,13 +151,14 @@ namespace H2Service.MedicalWastes
                 summary +=w.Kind+":"+w.Total+"Kg"+","+w.PackageCount+"包;";
             _medicalWasteDomainService.Delivery(districtId,summary);
         }
-
-        public IList<WasteDeliveryDto> GetDeliveryHistory(int districtId)
+    
+        public PagedResultDto<WasteDeliveryDto> GetPagedDeliveryHistory(GetPagedDeliveryInput input)
         {
-            var list = _deliveryRepository.GetAll().Where(T => T.DistrictId == districtId);          
-            return list.MapTo<List<WasteDeliveryDto>>();
+            var query = _deliveryRepository.GetAll().WhereIf(input.DistrictId!=0,T=>T.DistrictId==input.DistrictId);          
+            var queryCount = query.Count();
+            var deliveryHistoryList = query.OrderByDescending(T => T.Id).Skip(input.SkipCount).Take(input.MaxResultCount).ToList();
+            return new PagedResultDto<WasteDeliveryDto> { Items = deliveryHistoryList.MapTo<List<WasteDeliveryDto>>(), TotalCount=queryCount };
         }
-
         public void AppendWaste(AppendWasteInput input)
         {
             if (input.Weight <= 0)
@@ -239,7 +241,7 @@ namespace H2Service.MedicalWastes
             var shouleHaveList = _departmentAppService.GetRelatedDepartments((int)H2Module.医疗废物).Select(T =>
                     new DepartmentDto { Id = T.DepartmentId, DepartmentName = T.DepartmentName }).ToList();
             var hasList = _flowRepository.GetAll()
-                .Where(T => T.Status == MedicalWasteStatus.医院暂存点)
+                .Where(T => T.CollectTime!=null)
                 .GroupBy(T => new { DepartmentId = T.DepartmentId, DepartmentName = T.Department.DepartmentName })
                 .Select(T => new 
                 {

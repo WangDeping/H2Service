@@ -39,17 +39,22 @@ namespace H2Service.Hangfire.Jobs.WeeklyUserDetailUpdate
             var users = _userRepository.GetAll().OrderBy(T=>T.Id);//.GetAllList();
             var helper = new DownLoadHelper();
             foreach (var user in users)
-            {
-                var wxDetail = _wxUserManager.GetWxUserBaseInfo(user.UserNumber);
-                if (wxDetail != null)
+            {             
+                try
                 {
-                    // _logAppservice.LogError(wxDetail.name+":"+wxDetail.avatar);
-                    Task.Run(()=> { helper.DownloadAvatar(wxDetail.avatar, user.UserNumber);  });
-                    
-                    user.AvatarUrl = wxDetail.avatar;
-                    user.Gender = (Gender)int.Parse(wxDetail.gender);
+                    var wxDetail = _wxUserManager.GetWxUserBaseInfo(user.UserNumber);
+                    if (wxDetail != null && wxDetail.errcode != 0)
+                    {
+                        Task.Run(() => { helper.DownloadAvatar(wxDetail.avatar, user.UserNumber); });
+                        user.AvatarUrl = wxDetail.avatar;
+                        user.Gender = (Gender)int.Parse(wxDetail.gender);
+                    }
                 }
-
+                catch (Exception ex)
+                {
+                    continue;
+                }
+               
             }
         }
     }
