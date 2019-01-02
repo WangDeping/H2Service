@@ -98,6 +98,7 @@ namespace H2Service.WxWork
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
             string fileName = response.Headers["Content-disposition"].Split('"')[1];//文件名
             string filePath = path + fileName;//物理路径
+            _logger.Error("微信临时文件保存路径地址:"+filePath);
             Stream stream = response.GetResponseStream();         
             FileStream fs = new FileStream(filePath, FileMode.Create);
             byte[] bArr = new byte[1024];

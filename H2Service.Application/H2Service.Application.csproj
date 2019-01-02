@@ -309,6 +309,13 @@
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Log4\ILogAppService.cs" />
     <Compile Include="Log4\LogAppService.cs" />
+    <Compile Include="Maintenances\Dto\CompleteOrderBaseInput.cs" />
+    <Compile Include="Maintenances\Dto\CompleteOrderInput.cs" />
+    <Compile Include="Maintenances\Dto\DispatchMaintenanceOrderInput.cs" />
+    <Compile Include="Maintenances\Dto\GetPagedMaintenanceOrdersInput.cs" />
+    <Compile Include="Maintenances\Dto\GetPagedMaintenanceOrdersOutput.cs" />
+    <Compile Include="Maintenances\IMaintenanceAppService.cs" />
+    <Compile Include="Maintenances\MaintenanceAppService.cs" />
     <Compile Include="MedicalWastes\Dto\AppendWasteInput.cs" />
     <Compile Include="MedicalWastes\Dto\DisplayWasteInDepartmentOutput.cs" />
     <Compile Include="MedicalWastes\Dto\GetPagedDeliveryInput.cs" />
@@ -341,6 +348,8 @@
     <Compile Include="Salaries\Dto\SalaryPeriodDto.cs" />
     <Compile Include="Salaries\ISalaryAppService.cs" />
     <Compile Include="Salaries\SalaryAppService.cs" />
+    <Compile Include="Scheduling\ISchedulingAppService.cs" />
+    <Compile Include="Scheduling\SchedulingAppService.cs" />
     <Compile Include="ServerRooms\Dto\CreatePatrolInput.cs" />
     <Compile Include="ServerRooms\Dto\CreateServerRoomEventInput.cs" />
     <Compile Include="ServerRooms\Dto\CreateServerRoomInput.cs" />

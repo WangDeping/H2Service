@@ -30,6 +30,8 @@ namespace H2Service.MedicalWastes
 
         void AppendImage(WasteImageDto dto);
 
+        MedicalWasteDto GetWasteByCode(string code);
+
         List<WasteImageDto> GetImages(int flowId);
 
         void SetCollectUser(int flowId, long collectUserId);

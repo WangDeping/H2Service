@@ -76,9 +76,18 @@ namespace App.Controllers
         {
             _medicalWasteAppService.AppendWaste(input);
             var wasteGroup = _medicalWasteAppService.GetMedicalWasteByFlowId(input.FlowId);
-            return PartialView("_WasteGroupByDepartment", wasteGroup);
-         
+            return PartialView("_WasteGroupByDepartment", wasteGroup);         
 
+        }
+        /// <summary>
+        /// 根据条码号判断是否占用
+        /// </summary>
+        /// <param name="code">条码</param>
+        /// <returns>True代表占用，False代表未被占用</returns>
+        [DontWrapResult]
+        public bool IsExistWasteCode(string code) {
+            var medicalwaste = _medicalWasteAppService.GetWasteByCode(code);        
+            return medicalwaste!=null;
         }
         [DontWrapResult]
         public JsonResult AppendImage(AppendWasteImageModel request)

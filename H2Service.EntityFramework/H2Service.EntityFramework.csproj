@@ -343,6 +343,14 @@
     <Compile Include="Migrations\201812090325250_logs.Designer.cs">
       <DependentUpon>201812090325250_logs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812200704245_maintenance.cs" />
+    <Compile Include="Migrations\201812200704245_maintenance.Designer.cs">
+      <DependentUpon>201812200704245_maintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812270206128_scheduling.cs" />
+    <Compile Include="Migrations\201812270206128_scheduling.Designer.cs">
+      <DependentUpon>201812270206128_scheduling.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="H2ServiceDataModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -452,6 +460,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812090325250_logs.resx">
       <DependentUpon>201812090325250_logs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812200704245_maintenance.resx">
+      <DependentUpon>201812200704245_maintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812270206128_scheduling.resx">
+      <DependentUpon>201812270206128_scheduling.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -164,10 +164,19 @@ namespace H2Service.MedicalWastes
             if (input.Weight <= 0)
                 return;
             var waste = input.MapTo<MedicalWaste>();
-            var id = _medicalWasteRepository.InsertAndGetId(waste);
+            var id=_medicalWasteRepository.InsertAndGetId(waste);
+            if(string.IsNullOrEmpty(input.Code))
             waste.Code = id.ToString("D7")+new Random().Next(100,999);
         }
-
+        /// <summary>
+        /// 根据条码号获取医疗废物信息
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public MedicalWasteDto GetWasteByCode(string code) {
+            var waste = _medicalWasteRepository.FirstOrDefault(T=>T.Code==code);
+            return waste.MapTo<MedicalWasteDto>();
+        }
         public void AppendImage(WasteImageDto dto)
         {
             var flow = _flowRepository.Get(dto.FlowId);

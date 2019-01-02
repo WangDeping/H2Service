@@ -2,10 +2,10 @@
     var btnAdd = $(this);
     var target = btnAdd.parent().prev().children('input');
     var title = btnAdd.parents('.weui-cells_form').prev('.weui-cells__title').html()
-    var dialog = $.prompt({
-        title: title + '追加',
+    var dialog = $.prompt2({
+        title: title + '追加',      
         empty: false, // 是否允许为空        
-        onOK: function (input) {        
+        onOK: function (input,input2) {        
             if (input <= 0) {
                 $.toptip('输入正确称重', 'error');
                 $(".weui-dialog,.weui-mask").remove();
@@ -13,17 +13,10 @@
             }
             $.ajax({
                 url: APPEND_WASTE_URL,
-                data: { FlowId: btnAdd.attr('flowId'), Kind: btnAdd.attr('kind'), Weight: input },
+                data: { FlowId: btnAdd.attr('flowId'), Kind: btnAdd.attr('kind'), Weight: input,Code:input2 },
                 success: function (data) {
                     $.toast("操作成功");
-                    $('#waste_container').html(data);
-                    //var location = window.location.href
-                    //var sourceLocation=""
-                    //if (location.indexOf('?') > 0)
-                    //    sourceLocation = location.substring(0, location.indexOf('?'))
-                    //else
-                    //    sourceLocation = location;
-                    //history.pushState(null, null, sourceLocation + "?r=" + Math.random())
+                    $('#waste_container').html(data);                  
                 },
                 error: function (data) {
                     $.toast("出错了", "cancel");
@@ -38,6 +31,30 @@
     $('#weui-prompt-input').attr('type', 'number')
 
 })
+function scanWasteCode(codeInput) {
+    wx.scanQRCode({
+        desc: '医疗废物条码扫描',
+        needResult: 1, // 默认为0，扫描结果由企业微信处理，1则直接返回扫描结果，
+        scanType: ["barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+        success: function (res) {
+            var code = res.resultStr.replace('CODE_128,','')
+         
+            $.post(GET_ISEXISTSWASTE_CODE_URL, { code: code }, function (data) {
+                if (data=="True") {
+                    $.toast("条码号重复", "forbidden");
+                }
+                else if(data=="False")
+                    $('#weui-prompt-input2').val(code);
+            })
+        },
+        error: function (res) {
+            if (res.errMsg.indexOf('function_not_exist') > 0) {
+                $.alert('版本过低请升级')
+            }
+        }
+    });
+
+}
 function scan() {
     wx.scanQRCode({
         desc: 'scanQRCode desc',

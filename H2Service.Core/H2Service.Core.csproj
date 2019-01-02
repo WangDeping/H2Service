@@ -245,6 +245,8 @@
     <Compile Include="External\ExternalUser.cs" />
     <Compile Include="Helper\UserNumberConversionHelper.cs" />
     <Compile Include="Log\LoginLog.cs" />
+    <Compile Include="Maintenances\MaintenanceOrder.cs" />
+    <Compile Include="Maintenances\MaintenanceTrace.cs" />
     <Compile Include="MedicalWastes\IMedicalWasteDomainService.cs" />
     <Compile Include="MedicalWastes\MedicalWaste.cs" />
     <Compile Include="MedicalWastes\MedicalWasteDelivery.cs" />
@@ -263,6 +265,9 @@
     <Compile Include="Salarires\SalaryDomainService.cs" />
     <Compile Include="Salarires\SalaryPeriod.cs" />
     <Compile Include="Salarires\SalaryType.cs" />
+    <Compile Include="Scheduling\SchedulingRecord.cs" />
+    <Compile Include="Scheduling\SchedulingGroup.cs" />
+    <Compile Include="Scheduling\SchedulingType.cs" />
     <Compile Include="ServerRooms\IServerWMICoreManger.cs" />
     <Compile Include="ServerRooms\ServerMonitoringInfo.cs" />
     <Compile Include="ServerRooms\ServerEquipment.cs" />

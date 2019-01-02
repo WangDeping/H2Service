@@ -15,6 +15,6 @@ namespace H2Service.Users.Dto
 
         public string DepartmentName { get; set; }
 
-        public int DepartmentId { get; set; }//20181019
+        public int DepartmentId { get; set; }
     }
 }

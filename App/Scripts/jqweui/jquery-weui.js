@@ -3397,6 +3397,65 @@ if (typeof define === 'function' && define.amd) {
     return modal;
   };
 
+    //如果参数过多，建议通过 config 对象进行配置，而不是传入多个参数。
+    $.prompt2 = function (text, title, onOK, onCancel, input,input2) {
+        var config;
+        if (typeof text === 'object') {
+            config = text;
+        } else {
+            if (typeof title === 'function') {
+                input2 = arguments[4];
+                input = arguments[3];
+                onCancel = arguments[2];
+                onOK = arguments[1];
+                title = undefined;
+            }
+            config = {
+                text: text,
+                title: title,
+                input: input,
+                input2: input2,
+                onOK: onOK,
+                onCancel: onCancel,
+                empty: false  //allow empty
+            }
+        }
+
+        var modal = $.modal({
+            text: '<p class="weui-prompt-text">' + (config.text || '') + '</p>'+
+                '<input type="text" placeholder="输入重量" class= "weui-input weui-prompt-input" id="weui-prompt-input" value="' + (config.input || '') + '" />' +
+                '<input type="text" readonly onclick="scanWasteCode('+this+')" placeholder="扫描条码(外一儿一用)" class="weui-input weui-prompt-input" id="weui-prompt-input2" value="' + (config.input2 || '') + '" />',
+            title: config.title,
+            autoClose: false,
+            buttons: [
+                {
+                    text: defaults.buttonCancel,
+                    className: "default",
+                    onClick: function () {
+                        $.closeModal();
+                        config.onCancel && config.onCancel.call(modal);
+                    }
+                },
+                {
+                    text: defaults.buttonOK,
+                    className: "primary",
+                    onClick: function () {
+                        var input = $("#weui-prompt-input").val();
+                        var input2 = $("#weui-prompt-input2").val();
+                        if (!config.empty && (input === "" || input === null)) {
+                            modal.find('.weui-prompt-input').focus()[0].select();
+                            return false;
+                        }
+                        $.closeModal();
+                        config.onOK && config.onOK.call(modal, input,input2);
+                    }
+                }]
+        }, function () {
+            this.find('.weui-prompt-input').focus()[0].select();
+        });
+
+        return modal;
+    };
   //如果参数过多，建议通过 config 对象进行配置，而不是传入多个参数。
   $.login = function(text, title, onOK, onCancel, username, password) {
     var config;

@@ -17,5 +17,6 @@ namespace H2Service.MedicalWastes.Dto
 
         public decimal Weight { get; set; }
         
+        public string Code { get; set; }
     }
 }

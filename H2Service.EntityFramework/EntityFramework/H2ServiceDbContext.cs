@@ -2,10 +2,12 @@
 using H2Service.Authorization;
 using H2Service.Authorization.Departments;
 using H2Service.H2Log;
+using H2Service.Maintenances;
 using H2Service.MedicalWastes;
 using H2Service.MeritPays;
 using H2Service.QC;
 using H2Service.Salarires;
+using H2Service.Scheduling;
 using H2Service.ServerRooms;
 using System.Data.Common;
 using System.Data.Entity;
@@ -45,6 +47,15 @@ namespace H2Service.EntityFramework
         public virtual IDbSet<MeritPayDetail> MeritPayDetail { get; set; }
         public virtual IDbSet<DepartmentRelateModule> DepartmentRelateModules { get; set; }
         public virtual IDbSet<LoginLog> LoginLogs { get; set; }
+        public virtual IDbSet<SchedulingGroup> SchedulingGroup { get; set; }
+        public virtual IDbSet<SchedulingType> SchedulingTypes{ get; set; }
+        public virtual IDbSet<SchedulingRecord> SchedulingRecords { get; set; }
+       
+        /// <summary>
+        /// 维修调度
+        /// </summary>
+        public virtual IDbSet<MaintenanceOrder> MaintenanceOrders { get; set; }     
+        public virtual IDbSet<MaintenanceTrace> MaintenanceTraces { get; set; }
 
 
         /* NOTE: 

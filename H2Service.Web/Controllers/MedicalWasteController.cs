@@ -28,7 +28,7 @@ namespace H2Service.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.QrcodeBaseUrl = ConfigurationManager.AppSettings["appBaseUrl"] + "MedicalWaste/Index/";
-            ViewBag.StartDate = DateTime.Now.AddDays(-7).ToString("YYYY-MM-dd");
+            ViewBag.StartDate = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
             return View();
         }
         [DontWrapResult]
