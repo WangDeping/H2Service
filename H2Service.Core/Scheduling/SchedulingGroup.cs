@@ -10,7 +10,7 @@ namespace H2Service.Scheduling
  public   class SchedulingGroup:Entity,ISoftDelete
     {
         /// <summary>
-        /// 班次分组
+        /// 班次类型分组
         /// </summary>
         public string SchedulingGroupName { get; set; }
         /// <summary>

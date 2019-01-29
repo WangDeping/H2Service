@@ -17,6 +17,7 @@ using H2Service.Salaries.Dto;
 using H2Service.Salarires;
 using H2Service.ServerRooms;
 using H2Service.ServerRooms.Dto;
+using H2Service.SMS;
 using H2Service.Users.Dto;
 using H2Service.WxWork.Entities;
 using System;
@@ -27,7 +28,8 @@ namespace H2Service
 {
     [DependsOn(typeof(H2ServiceCoreModule), 
         typeof(AbpAutoMapperModule),
-         typeof(H2ServiceWxWorkModule)
+         typeof(H2ServiceWxWorkModule),
+         typeof(H2ServiceSMSModule)
         )]
     public class H2ServiceApplicationModule : AbpModule
     {

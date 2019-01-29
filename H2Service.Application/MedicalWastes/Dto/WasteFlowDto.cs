@@ -24,6 +24,7 @@ namespace H2Service.MedicalWastes.Dto
 
         public string CollectTime { get; set; }
 
+        public int? MedicalWasteDeliveryId { get; set; }
 
     }
 }

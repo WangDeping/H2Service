@@ -1,0 +1,72 @@
+﻿@model H2Service.MedicalWastes.Dto.WasteTraceInfo
+
+@if (Model.Code != null)
+{
+<div class="m-portlet__body">
+    <div class="m-form__section m-form__section--first">
+        <h5>Code:@Model.Code</h5>
+        <h5>分类：@Model.Kind</h5>
+        <h5>重量：@Model.Weight Kg</h5>
+    </div>
+</div>
+
+<div class="m-portlet__foot">
+    <div class="col-lg-12 m--valign-middle">
+        <div class="m-demo" data-code-preview="true" data-code-html="true" data-code-js="false">
+            <div class="m-demo__preview">
+                <div class="m-list-timeline">
+                    <div class="m-list-timeline">
+                        <div class="m-list-timeline__items">
+
+                           
+                            @if (Model.Status == H2Service.MedicalWastes.MedicalWasteStatus.医院暂存点 || Model.Status == H2Service.MedicalWastes.MedicalWasteStatus.卫康公司)
+                            {
+                                
+                                <div class="m-list-timeline__item">
+                                <span class="m-list-timeline__badge"></span>
+                                <span class="m-list-timeline__badge m-list-timeline__badge--brand m-list-timeline__badge--success"></span>
+                                <span class="m-list-timeline__icon flaticon-share"></span>
+                                <span class="m-list-timeline__text">
+                                  @Model.DeliveryCreationTime  @Model.DeliveryCreatorName  交接离院
+                                </span>
+
+                            </div>
+
+                                <div class="m-list-timeline__item">
+                                <span class="m-list-timeline__badge"></span>
+                                <span class="m-list-timeline__badge m-list-timeline__badge--brand m-list-timeline__badge--danger"></span>
+                                <span class="m-list-timeline__icon flaticon-share"></span>
+                                <span class="m-list-timeline__text">
+                                    @Model.CollectTime   @Model.NurseName 与 @Model.CollectUserName  交接
+                                </span>
+
+                            </div>
+                            }
+
+                            <div class="m-list-timeline__item">
+                                <span class="m-list-timeline__badge"></span>
+                                <span class="m-list-timeline__badge m-list-timeline__badge--brand m-list-timeline__badge--primary"></span>
+                                <span class="m-list-timeline__icon flaticon-share"></span>
+                                <span class="m-list-timeline__text">
+                                    @Model.CreationTime @Model.DepartmentName @Model.CreatorUserName  称重
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+}
+
+else
+{
+    <div class="m-portlet__body">
+        <div class="m-form__section m-form__section--first">           
+            <h5>未检索到任何信息</h5>
+        </div>
+    </div>
+}

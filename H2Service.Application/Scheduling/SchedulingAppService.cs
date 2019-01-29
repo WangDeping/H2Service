@@ -22,5 +22,10 @@ namespace H2Service.Scheduling
         }
 
 
+        public void GetSchedulingTypeGroup() {
+
+
+        }
+
     }
 }

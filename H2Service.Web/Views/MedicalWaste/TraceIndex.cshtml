@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "TraceIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section subheader_title{
+   医疗废物追溯
+}
+
+<div class=" row">
+    <div class="col-lg-12">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="row">
+                        <div class="col-lg-3"><input type="text" class="m-input form-control" id="wasteCode" placeholder="输入条码号" /></div>
+                        <div class="col-lg-3"><button  class="btn btn-primary" onclick="trace()">Search</button></div>
+                    </div>
+                </div>
+            </div>
+
+          <!--查询结果-->
+           <div id="container">
+
+           </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function trace() {
+        if ($('#wasteCode').val() == "") {
+            abp.notify.error("输入正确条码号");
+            return;
+        }
+
+        $("#container").load("/MedicalWaste/GetTraceInfo",
+            { "code": $('#wasteCode').val()}, function () {
+
+            });
+    }
+</script>

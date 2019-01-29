@@ -93,7 +93,7 @@ namespace H2Service.Web.Controllers
         }
         public ActionResult StatisticsIndex()
         {
-            ViewBag.StartDate = DateTime.Now.AddDays(-6).ToString("YYYY-MM-dd");
+            ViewBag.StartDate = DateTime.Now.AddDays(-6).ToString("yyyy-MM-dd");
             return View();
 
         }
@@ -170,6 +170,17 @@ namespace H2Service.Web.Controllers
         {
             var list = _medicalWasteAppService.GetDepartmentsWhoDontHandoverWaste(days);
             return PartialView("_DontHaveWasteDepartments", list);
+        }
+
+
+        public ActionResult TraceIndex() {
+            return View();
+        }
+
+        public ActionResult GetTraceInfo(string code) {
+            var traceInfo = _medicalWasteAppService.GetTraceInfo(code);
+            return PartialView("_GetTraceInfo",traceInfo);
+
         }
     }
 }

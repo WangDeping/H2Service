@@ -180,6 +180,13 @@
       <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -209,6 +216,22 @@
       <HintPath>..\packages\System.Security.Claims.4.3.0\lib\net46\System.Security.Claims.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Security.Permissions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Permissions.4.5.0\lib\net461\System.Security.Permissions.dll</HintPath>
     </Reference>
@@ -229,6 +252,12 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -328,6 +357,7 @@
     <Compile Include="MedicalWastes\Dto\WasteImageDto.cs" />
     <Compile Include="MedicalWastes\Dto\WasteStatisticInput.cs" />
     <Compile Include="MedicalWastes\Dto\WasteStatisticOutput.cs" />
+    <Compile Include="MedicalWastes\Dto\WasteTraceInfo.cs" />
     <Compile Include="MedicalWastes\IMedicalWasteAppService.cs" />
     <Compile Include="MedicalWastes\MedicalWasteAppService.cs" />
     <Compile Include="MeritPays\Dto\CreateMeritPayPeriodInput.cs" />
@@ -348,6 +378,7 @@
     <Compile Include="Salaries\Dto\SalaryPeriodDto.cs" />
     <Compile Include="Salaries\ISalaryAppService.cs" />
     <Compile Include="Salaries\SalaryAppService.cs" />
+    <Compile Include="Scheduling\Dto\SchedulingTypeGroupDto.cs" />
     <Compile Include="Scheduling\ISchedulingAppService.cs" />
     <Compile Include="Scheduling\SchedulingAppService.cs" />
     <Compile Include="ServerRooms\Dto\CreatePatrolInput.cs" />
@@ -375,6 +406,8 @@
     <Compile Include="Account\Dto\UserDto.cs" />
     <Compile Include="Account\IUserAppService.cs" />
     <Compile Include="Account\UserAppService.cs" />
+    <Compile Include="SMS\ISMSManagerAppService.cs" />
+    <Compile Include="SMS\SMSManagerAppService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -384,6 +417,10 @@
     <ProjectReference Include="..\H2Service.Core\H2Service.Core.csproj">
       <Project>{17298ea0-af73-4f30-b6f1-2066100d7d74}</Project>
       <Name>H2Service.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\H2Service.SMS\H2Service.SMS.csproj">
+      <Project>{90557C00-4560-4A2A-8F8E-13A586133557}</Project>
+      <Name>H2Service.SMS</Name>
     </ProjectReference>
     <ProjectReference Include="..\H2Service.WxWork\H2Service.WxWork.csproj">
       <Project>{9f97d9f1-fea5-4bf2-9f45-4a9a8d6fe4a6}</Project>

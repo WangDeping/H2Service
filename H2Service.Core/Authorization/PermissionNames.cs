@@ -45,5 +45,11 @@ namespace H2Service.Authorization
         public const string Pages_Infection_MedicalWasteDeliveryHistory = "Pages.Infection.MedicalWasteDeliveryHistory";
         public const string Pages_Infection_MedicalWasteWarning = "Pages.Infection.MedicalWasteWarning";
 
+        public const string Pages_Scheduling = "Pages.Scheduling";
+        public const string Pages_Scheduling_Do = "Pages.Scheduling.Do";
+        public const string Pages_Scheduling_SchedulingTypeDefinition = "Pages.Scheduling.SchedulingTypeDefinition";
+        public const string Pages_Scheduling_SchedulingSetter = "Pages.Scheduling.SchedulingSetter";
+        public const string Pages_Scheduling_MyScheduling = "Pages.Scheduling.MyScheduling";
+
     }
 }

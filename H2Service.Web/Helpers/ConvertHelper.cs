@@ -16,6 +16,13 @@ namespace H2Service.Web.Helpers
             DataTable dt = new DataTable();
             foreach (var item in proInfos)
             {
+                if (item.PropertyType.IsGenericType && item.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                {
+                    Type[] typeArray = item.PropertyType.GetGenericArguments();
+                    Type baseType = typeArray[0];
+                    dt.Columns.Add(item.Name, baseType);
+                }
+                else
                 dt.Columns.Add(item.Name, item.PropertyType); //添加列明及对应类型
             }
             foreach (var item in list)

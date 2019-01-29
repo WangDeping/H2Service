@@ -3424,7 +3424,7 @@ if (typeof define === 'function' && define.amd) {
         var modal = $.modal({
             text: '<p class="weui-prompt-text">' + (config.text || '') + '</p>'+
                 '<input type="text" placeholder="输入重量" class= "weui-input weui-prompt-input" id="weui-prompt-input" value="' + (config.input || '') + '" />' +
-                '<input type="text" readonly onclick="scanWasteCode('+this+')" placeholder="扫描条码(外一儿一用)" class="weui-input weui-prompt-input" id="weui-prompt-input2" value="' + (config.input2 || '') + '" />',
+                '<input type="text" readonly onclick="scanWasteCode('+this+')" placeholder="扫描追溯条码" class="weui-input weui-prompt-input" id="weui-prompt-input2" value="' + (config.input2 || '') + '" />',
             title: config.title,
             autoClose: false,
             buttons: [

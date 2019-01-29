@@ -40,6 +40,12 @@ namespace H2Service.Authorization
             infectionPermission.CreateChildPermission(PermissionNames.Pages_Infection_MedicalWasteWorker, L("医疗废物专职人员"));
             infectionPermission.CreateChildPermission(PermissionNames.Pages_Infection_MedicalWasteWarning, L("医疗废物预警"));
             infectionPermission.CreateChildPermission(PermissionNames.Pages_Infection_MedicalWasteDeliveryHistory,L("医疗废物出库史"));
+
+            var schedulingPermission = allPages.CreateChildPermission(PermissionNames.Pages_Scheduling,L("排班管理"));
+            schedulingPermission.CreateChildPermission(PermissionNames.Pages_Scheduling_Do,L("排班"));
+            schedulingPermission.CreateChildPermission(PermissionNames.Pages_Scheduling_SchedulingTypeDefinition, L("班次类型定义"));
+            schedulingPermission.CreateChildPermission(PermissionNames.Pages_Scheduling_SchedulingSetter,L("排班对象维护"));
+            schedulingPermission.CreateChildPermission(PermissionNames.Pages_Scheduling_MyScheduling,L("我的排班表"));
         }
         private static ILocalizableString L(string name)
         {

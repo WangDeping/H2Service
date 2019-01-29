@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H2Service.Hangfire", "H2Ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H2Service.WxWork", "H2Service.WxWork\H2Service.WxWork.csproj", "{9F97D9F1-FEA5-4BF2-9F45-4A9A8D6FE4A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H2Service.SMS", "H2Service.SMS\H2Service.SMS.csproj", "{90557C00-4560-4A2A-8F8E-13A586133557}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{9F97D9F1-FEA5-4BF2-9F45-4A9A8D6FE4A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F97D9F1-FEA5-4BF2-9F45-4A9A8D6FE4A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F97D9F1-FEA5-4BF2-9F45-4A9A8D6FE4A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90557C00-4560-4A2A-8F8E-13A586133557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90557C00-4560-4A2A-8F8E-13A586133557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90557C00-4560-4A2A-8F8E-13A586133557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90557C00-4560-4A2A-8F8E-13A586133557}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

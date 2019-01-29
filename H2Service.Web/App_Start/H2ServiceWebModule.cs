@@ -10,6 +10,7 @@ using Abp.Web.Mvc;
 using Abp.Web.SignalR;
 using Castle.MicroKernel.Registration;
 using H2Service.Hangfire;
+using H2Service.MedicalWastes;
 using H2Service.MeritPays;
 using Microsoft.Owin.Security;
 using System;
@@ -64,8 +65,7 @@ namespace H2Service.Web
                         HttpContext.Current.Server.MapPath("~/Localization/H2Service")
                         )
                     )
-                );
-
+                );          
             //Configure navigation/menu
             Configuration.Navigation.Providers.Add<H2ServiceNavigationProvider>();
             Configuration.Modules.AbpWeb().AntiForgery.IsEnabled = false;    

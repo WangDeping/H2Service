@@ -10,6 +10,7 @@ using Abp.WebApi;
 using Abp.WebApi.Controllers.Dynamic.Builders;
 using System.Linq;
 using Swashbuckle.Application;
+using H2Service.MedicalWastes;
 
 namespace H2Service
 {
@@ -20,7 +21,7 @@ namespace H2Service
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
-          
+            Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<IMedicalWasteAppService>("system/medicalwaste").Build();
             //Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder
             //    .ForAll<IApplicationService>(typeof(H2ServiceApplicationModule).Assembly, "app")
             //    .Build();

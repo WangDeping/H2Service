@@ -81,7 +81,6 @@
     <Compile Include="Entities\WxRetBase.cs" />
     <Compile Include="Entities\User\WxCreateUserInfo.cs" />
     <Compile Include="H2ServiceWxWorkModule.cs" />
-    <Compile Include="IWxWorkService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WXBizMsgCrypt.cs" />
     <Compile Include="Capacity\WxFileManager.cs" />

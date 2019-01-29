@@ -51,7 +51,7 @@ namespace H2Service.MedicalWastes
             return _medicalWasteDomainService.InitOrGetDefaultFlow(departmentId).MapTo<WasteFlowDto>();          
 
         }
-
+        
         public DisplayWasteInDepartmentOutput GetMedicalWasteByFlowId(int flowId)
         {
             var ret = new DisplayWasteInDepartmentOutput();
@@ -142,7 +142,10 @@ namespace H2Service.MedicalWastes
             }
             return wasteStatisticOutput;
         }
-
+        /// <summary>
+        /// 按院区出库
+        /// </summary>
+        /// <param name="districtId"></param>
         public void DeliveryCollection(int districtId)
         {
             IEnumerable<WasteStatisticOutput> wasteCollection = this.GetUnDeliveryCollection(districtId);
@@ -177,6 +180,38 @@ namespace H2Service.MedicalWastes
             var waste = _medicalWasteRepository.FirstOrDefault(T=>T.Code==code);
             return waste.MapTo<MedicalWasteDto>();
         }
+        /// <summary>
+        /// 根据code追踪医疗废物信息
+        /// </summary>
+        /// <param name="code">code</param>
+        /// <returns></returns>
+        public WasteTraceInfo GetTraceInfo(string code) {
+            var waste = this.GetWasteByCode(code);
+            var traceInfo = new WasteTraceInfo();
+            if (waste != null) {
+                traceInfo.Code = code;
+                traceInfo.CreationTime = waste.CreationTime;
+                traceInfo.CreatorUserName = waste.CreatorUserName;
+                traceInfo.Kind = waste.Kind;
+                traceInfo.Weight = waste.Weight;
+
+                var flow = _flowRepository.Get(waste.FlowId);
+                var flowdto = flow.MapTo<WasteFlowDto>();
+                traceInfo.Status = flow.Status;
+                traceInfo.DepartmentName = flowdto.DepartmentName;
+                traceInfo.NurseName = flowdto.NurseName;
+                traceInfo.CollectTime = flowdto.CollectTime;
+                traceInfo.CollectUserName = flowdto.CollectUserName;
+                if (flow.MedicalWasteDeliveryId != null) {
+                    var delivery = _deliveryRepository.Get(flow.MedicalWasteDeliveryId.Value).MapTo<WasteDeliveryDto>();
+                    traceInfo.DeliveryCreatorName = delivery.CreatorUserName;
+                    traceInfo.DeliveryCreationTime = delivery.CreationTime;
+                }
+            }
+          
+            return traceInfo;
+        }
+
         public void AppendImage(WasteImageDto dto)
         {
             var flow = _flowRepository.Get(dto.FlowId);
