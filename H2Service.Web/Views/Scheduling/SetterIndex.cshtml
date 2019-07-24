@@ -1,0 +1,210 @@
+﻿@model List<H2Service.H2Modules.H2ModuleWithAuditingDto>
+@{
+    ViewBag.Title = "SetterIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section subheader_title{
+      排班科室与人员对应
+}
+<div class=" row">
+    <div class="col-lg-6">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                           我的常用维护职工
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+                <div class="m-form__group form-group">
+                    <label for="">
+                        排班科室( 若显示为空请联系职能科室)
+                    </label>
+                    <div class="m-radio-inline">                             
+                        @foreach (var dep in Model)
+                        {
+                            <label class="m-radio">
+                                <input type="radio" name="radio_schedulingDepartment" value="@dep.DepartmentId">
+                                @dep.DepartmentName
+                                <span></span>
+                            </label>
+
+                        }
+                    </div>
+                  
+                </div>
+                <table class="bootstrap-table" id="departmentUsers_grid" data-side-pagination="server"  data-url='@Url.Action("DepartmentUsersGrid","Scheduling")'
+                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                    <thead>
+                        <tr>                         
+                            <th data-field="Id" data-align="center">Id</th>
+                            <th data-field="UserNumber" data-align="center">工号</th>
+                            <th data-field="UserName" data-align="center">姓名</th>
+                            <th data-field="DepartmentName" data-align="center">排班隶属科室</th>
+                            <th data-field="Id" data-formatter="actionFormatter2" data-align="center"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>      
+    </div>
+    <div class="col-lg-6">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                           全院职工
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">     
+                <!--search 开始-->
+                <div class="m-form m-form--label-align-right  m--margin-bottom-30">
+                    <div class="row align-items-center">
+                        <div class="col-xl-10 order-2 order-xl-1">
+                            <div class="form-group m-form__group row align-items-center">                             
+                                <div class="col-md-10">
+                                    <div class="m-form__group m-form__group--inline col-12">
+                                        <div class="form__control ">
+                                            <input type="text" class="form-control m-input" placeholder="姓名" id="search_UserName" />
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>                         
+                                <div class="col-md-2">
+                                    <button onclick="search()" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                            <span>
+                                                查询
+                                            </span>
+                                        </span>
+                                    </button>
+                                    <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+                <!--search结束-->
+                <table class="bootstrap-table" id="users_grid"    data-side-pagination="server" data-page-list="[100]" data-pagination="true" data-url='@Url.Action("UserGrid","User")'
+                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                    <thead>
+                        <tr>            
+                            <th data-field="UserNumber" data-align="center">工号</th>
+                            <th data-field="UserName" data-align="center">姓名</th>
+                            <th data-field="DepartmentName" data-align="center">人事隶属科室</th>
+                            <th data-field="Id" data-formatter="actionFormatter" data-align="center"></th>
+                        </tr>
+                    </thead>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+   
+</div>
+<script>
+    $('#departmentUsers_grid').bootstrapTable({
+        queryParams: function (params) {
+            return {
+                departmentId: $("input[name='radio_schedulingDepartment']:checked").val()
+            }
+        }
+    })
+    function actionFormatter2(value, row, index) {        
+        return "\
+						<a href='javascript: removeUser("+ JSON.stringify(row) + ")'   class='m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill' title='移出'>\
+							<i class='flaticon-delete'></i>\
+						</a>\
+        ";
+    }
+    $("input:radio[name='radio_schedulingDepartment']").bind("change",function () {
+        var departmentId = $(this).val(); 
+        $('#departmentUsers_grid').bootstrapTable('refresh', { query:{departmentId: departmentId} })
+    });
+
+    function removeUser(departmentUser) {
+        var depUser = {
+            UserId: departmentUser.UserId,
+            DepartmentId: departmentUser.DepartmentId,
+            Mandatory: true
+        };
+        bootbox.confirm("确定要移出吗？", function (r) {
+                if (r) {
+                    abp.ajax({
+                        url: '/Scheduling/RemoveSchedulingDepartmentUser',
+                        data: JSON.stringify(depUser)
+                    }).done(function (data) {
+                        abp.notify.success(data.message);
+                        $('#departmentUsers_grid').bootstrapTable('refresh', { query: { departmentId: depUser.DepartmentId } })
+                    })
+                }
+
+            });        
+    }
+
+    $('#users_grid').bootstrapTable({       
+        queryParams: function (params) {
+            return {
+                MaxResultCount: params.limit,
+                PageNumber: (params.offset / params.limit),             
+                UserName: $('#search_UserName').val()           
+            }
+        }
+    })
+
+    function search() {
+        $('#users_grid').bootstrapTable('refresh', {         
+            UserName: $('#search_UserName').val()
+        })
+    }
+    function actionFormatter(value, row, index) {
+        return '\
+						<a href="#" onclick=\'pushUser("' + value + '")\'  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="加入">\
+							<i class="flaticon-user-add"></i>\
+						</a>\
+        ';
+    }
+    function pushUser(userId) {
+        var depId = $("input[name='radio_schedulingDepartment']:checked").val()     
+        if (depId > 0) {
+            var title = "确定要加入到" + $("input[name='radio_schedulingDepartment']:checked")[0].nextSibling.nodeValue + "吗";
+            bootbox.confirm(title, function (r) {
+                if (r) {
+                    abp.ajax({
+                        url: '/Scheduling/CreateSchedulingDepartmentUser',
+                        data: JSON.stringify({ UserId: userId, DepartmentId: depId, Mandatory: true })
+                    }).done(function (data) {
+                        abp.notify.success(data.message);
+                        $('#departmentUsers_grid').bootstrapTable('refresh', { departmentId: depId })
+                    })
+
+                }
+
+            });
+
+
+        }
+    }
+  
+</script>

@@ -3,6 +3,8 @@ using H2Service.Hangfire.Jobs.DailyServerRoomPatrol;
 using H2Service.Hangfire.Jobs.DailyServerRoomPatrol.Dto;
 using H2Service.Hangfire.Jobs.DailyUserSsynchronous;
 using H2Service.Hangfire.Jobs.DailyUserSsynchronous.Dto;
+using H2Service.Hangfire.Jobs.MinutelyHomePageSynchronous.Dto;
+using H2Service.Hangfire.Jobs.MonthlyHomePageSynchronous;
 using H2Service.Hangfire.Jobs.WeeklyUserDetailUpdate;
 using H2Service.Hangfire.Jobs.WeeklyUserDetailUpdate.Dto;
 using H2Service.Web;
@@ -13,8 +15,6 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System;
-using System.Linq;
-using System.Web;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -49,7 +49,7 @@ namespace H2Service.Web
         {
             GlobalConfiguration.Configuration.UseSqlServerStorage("Default");
             
-
+            
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -61,7 +61,9 @@ namespace H2Service.Web
             app.MapSignalR();
             BackgroundJobServerOptions serverOptions = new BackgroundJobServerOptions
             {
+                 WorkerCount= Math.Max(Environment.ProcessorCount, 20)
             };
+
             app.UseHangfireServer(serverOptions);
             //app.UseHangfireDashboard();
             var options = new DashboardOptions { Authorization = new[] { new HangfireAuthorizationFilter() } };          
@@ -71,6 +73,8 @@ namespace H2Service.Web
             RecurringJob.AddOrUpdate<DailyServerRoomPatrolJob>("机房日常巡视提醒", x => x.ExecuteJob(new DailyServerRoomPatrolJobArgs()), "00 10,16 * * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate<DailyUserSynchronousJob>("同步企业微信用户任务", x => x.ExecuteJob(new DailyUserSynchronousJobArgs()), Cron.Daily);
             RecurringJob.AddOrUpdate<WeeklyUserDetailUpdateJob>("用户性别/头像更新", X => X.ExecuteJob(new WeeklyUserDetailUpdateJobArgs()), Cron.Weekly);
+            RecurringJob.AddOrUpdate<MinutelyHomePageSynchronousJob>("病案首页同步(5分钟)",X=> X.ExecuteJob(new MinutelyHomePageSynchronousJobArgs()), "*/5 * * * * ");  
+            //RecurringJob.AddOrUpdate<MinutelyHomePageSynchronousJob>("病案首页同步(小时)", X => X.ExecuteJob(new MinutelyHomePageSynchronousJobArgs()), Cron.Daily);
         }
     }
 }

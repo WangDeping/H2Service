@@ -27,4 +27,12 @@ namespace H2Service.EntityFramework.Repositories
 
         //do not add any method here, add to the class above (since this inherits it)
     }
+
+//    public abstract class HomePageRepository<TEntity, TPrimaryKey> : EfRepositoryBase<MedicalDataContext, TEntity, TPrimaryKey>
+//where TEntity : class, IEntity<TPrimaryKey>
+//    {
+//        protected HomePageRepository(IDbContextProvider<MedicalDataContext> dbContextProvider) : base(dbContextProvider)
+//        {
+//        }
+//    }
 }

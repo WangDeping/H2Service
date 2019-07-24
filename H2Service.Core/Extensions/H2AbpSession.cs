@@ -50,7 +50,7 @@ namespace H2Service.Extensions
         {
             var claimsPrincipal = DefaultPrincipalAccessor.Instance.Principal;
             var departmentIdClaim = claimsPrincipal?.Claims.FirstOrDefault(c => c.Type == "DepartmentId");
-            return departmentIdClaim.Value;
+            return departmentIdClaim==null?null:departmentIdClaim.Value;
         }
     }
 }

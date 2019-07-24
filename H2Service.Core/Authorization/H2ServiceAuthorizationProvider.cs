@@ -33,6 +33,7 @@ namespace H2Service.Authorization
             var QCPermission = allPages.CreateChildPermission(PermissionNames.Pages_QC,L("质量控制"));
             QCPermission.CreateChildPermission(PermissionNames.Pages_QC_FunctionalDepartment, L("考核上报"));
             QCPermission.CreateChildPermission(PermissionNames.Pages_QC_PeriodCreate, L("发布考核"));
+            QCPermission.CreateChildPermission(PermissionNames.Pages_QC_HomPageAdministrator, L("首页管理员"));
 
             var infectionPermission = allPages.CreateChildPermission(PermissionNames.Pages_Infection,L("院感管理"));
             infectionPermission.CreateChildPermission(PermissionNames.Pages_Infection_MedicalWasteStatistics, L("医疗废物统计"));
@@ -45,7 +46,8 @@ namespace H2Service.Authorization
             schedulingPermission.CreateChildPermission(PermissionNames.Pages_Scheduling_Do,L("排班"));
             schedulingPermission.CreateChildPermission(PermissionNames.Pages_Scheduling_SchedulingTypeDefinition, L("班次类型定义"));
             schedulingPermission.CreateChildPermission(PermissionNames.Pages_Scheduling_SchedulingSetter,L("排班对象维护"));
-            schedulingPermission.CreateChildPermission(PermissionNames.Pages_Scheduling_MyScheduling,L("我的排班表"));
+            //schedulingPermission.CreateChildPermission(PermissionNames.Pages_Scheduling_MyScheduling,L("我的排班表"));
+            schedulingPermission.CreateChildPermission(PermissionNames.Pages_Scheduling_Auditor,L("排班审核"));
         }
         private static ILocalizableString L(string name)
         {

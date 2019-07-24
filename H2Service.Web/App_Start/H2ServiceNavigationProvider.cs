@@ -76,21 +76,34 @@ namespace H2Service.Web
                         icon: "flaticon-network",
                         requiredPermissionName: PermissionNames.Pages_QC_FunctionalDepartment
                        )
+                   ).AddItem(new MenuItemDefinition(
+                       "病案质控",
+                        new LocalizableString("病案质控", H2ServiceConsts.LocalizationSourceName),
+                        url: "HomePage/Index",
+                        icon: "flaticon-multimedia-5",
+                        requiredPermissionName: PermissionNames.Pages_QC_FunctionalDepartment
+                       )
                    )
                 ).AddItem(
                     new MenuItemDefinition(
                         "排班管理",
                         new LocalizableString("排班管理", H2ServiceConsts.LocalizationSourceName),
-                        url: "#/",
+                        url: "#",
                         icon: "flaticon-calendar",
                         requiredPermissionName: PermissionNames.Pages_Scheduling
                     ).AddItem(new MenuItemDefinition(
                         "排班",
                         new LocalizableString("排班", H2ServiceConsts.LocalizationSourceName),
+                         url: "#/",
+                        icon: "flaticon-time-3",
+                        requiredPermissionName: PermissionNames.Pages_Scheduling_Do
+                        ).AddItem(new MenuItemDefinition(
+                        "听班排班",
+                        new LocalizableString("听班排班", H2ServiceConsts.LocalizationSourceName),
                         url: "Scheduling/Index",
                         icon: "flaticon-time-3",
                         requiredPermissionName: PermissionNames.Pages_Scheduling_Do
-                        )
+                        ))
                    ).AddItem(new MenuItemDefinition(
                         "班次定义",
                         new LocalizableString("班次定义", H2ServiceConsts.LocalizationSourceName),
@@ -106,11 +119,17 @@ namespace H2Service.Web
                         requiredPermissionName: PermissionNames.Pages_Scheduling_SchedulingSetter
                         )
                    ).AddItem(new MenuItemDefinition(
+                        "排班权限设置",
+                        new LocalizableString("排班权限设置", H2ServiceConsts.LocalizationSourceName),
+                        url: "Scheduling/SchedulingPermissionIndex",
+                        icon: "flaticon-settings",
+                        requiredPermissionName: PermissionNames.Pages_Scheduling_SchedulingSetter
+                        )
+                   ).AddItem(new MenuItemDefinition(
                         "我的排班表",
                         new LocalizableString("我的排班表", H2ServiceConsts.LocalizationSourceName),
                         url: "Scheduling/SchedulingViewIndex",
-                        icon: "flaticon-event-calendar-symbol",
-                        requiredPermissionName: PermissionNames.Pages_Scheduling_MyScheduling
+                        icon: "flaticon-event-calendar-symbol"                       
                         )
                    )
                 ).AddItem(

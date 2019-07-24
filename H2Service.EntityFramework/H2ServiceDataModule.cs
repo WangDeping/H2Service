@@ -18,6 +18,7 @@ namespace H2Service
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
             Database.SetInitializer<H2ServiceDbContext>(null);
+          
         }
     }
 }

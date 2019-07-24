@@ -17,6 +17,7 @@ using Abp.UI;
 using H2Service.Users;
 using H2Service.Extensions;
 using H2Service.Authorization;
+using App.Models.Waste;
 
 namespace App.Controllers
 {
@@ -180,11 +181,16 @@ namespace App.Controllers
         }
         [AbpMvcAuthorize(PermissionNames.Pages_Infection_MedicalWasteWorker)]
         [DontWrapResult]
-        public JsonResult Delivery(int districtId)
+        public JsonResult Delivery(DeliveryCollectionRequestModel request)
         {
             try
             {
-                _medicalWasteAppService.DeliveryCollection(districtId);
+                var urls =new List<string>();
+                var savePath = Server.MapPath(@"~/Content/WxTemp/MedicalWaste/");               
+                foreach (var url in request.ImagesUrl) {
+                  urls.Add(wxTempFilePath + "MedicalWaste/" + _wxFileManager.DownLoadWxTempFile(url, savePath));
+                }
+                _medicalWasteAppService.DeliveryCollection(new DeliveryCollectionInput {  DistrictId=request.DistrictId, ImagesUrl=urls});
                 return Json(new ErrorInfo { Code = 1, Details = "成功", Message = "成功" });
             }
             catch (Exception ex)

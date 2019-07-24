@@ -23,7 +23,7 @@ namespace H2Service.SMS
                         builder.Append("&");
                     builder.AppendFormat("{0}={1}", item.Key, item.Value);
                     i++;
-                }
+                }                
                 byte[] byteArray = Encoding.UTF8.GetBytes(builder.ToString());
                 HttpWebRequest webReq = (HttpWebRequest)WebRequest.Create(new Uri(postUrl));
                 webReq.Method = "POST";

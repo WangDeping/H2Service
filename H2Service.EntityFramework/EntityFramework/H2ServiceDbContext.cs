@@ -50,9 +50,11 @@ namespace H2Service.EntityFramework
         public virtual IDbSet<SchedulingGroup> SchedulingGroup { get; set; }
         public virtual IDbSet<SchedulingType> SchedulingTypes{ get; set; }
         public virtual IDbSet<SchedulingRecord> SchedulingRecords { get; set; }
-       
+       // public virtual IDbSet<SchedulingDepartment> SchedulingDepartments { get; set; }
+        public virtual IDbSet<SchedulingDepartmentUser> SchedulingDepartmentUsers { get; set; }
+        public virtual IDbSet<H2ModuleWithAuditing> ModuleWithAuditings { get; set; }
         /// <summary>
-        /// 维修调度
+        /// 维修工单
         /// </summary>
         public virtual IDbSet<MaintenanceOrder> MaintenanceOrders { get; set; }     
         public virtual IDbSet<MaintenanceTrace> MaintenanceTraces { get; set; }

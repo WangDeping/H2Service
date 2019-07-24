@@ -1,248 +1,250 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@section subheader_title{
-    排班
-}
-@section scriptsrcsection{
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-   }
+﻿@model IEnumerable<H2Service.Scheduling.Dto.SchedulingTypeGroupDto>
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    @section subheader_title{
+        排班
+    }
+    @section scriptsrcsection{
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    }
 
-<div class=" row">
-    <div class="col-lg-10">
-        <div class="m-portlet">         
-            <div class="m-portlet__body">
-                <div id="m_calendar"></div>
+    <div class=" row">
+        <div class="col-lg-10">
+            <div class="m-portlet">
+                <div class="m-portlet__body">
+                    <div id="m_calendar"></div>
+                </div>
+
             </div>
-
         </div>
-    </div>
-    <div class="col-lg-2">
-        <!--begin::Preview-->
-        <div class="m-demo__preview m-nav-sticky m-scrollable" data-scrollable="true"   data-max-height="400"style="top:35%;width:15%;right:15px;padding-left:15px;height:400px;">
-            <ul class="nav nav-tabs  m-tabs-line m-tabs-line--success" role="tablist">
-                <li class="nav-item m-tabs__item">
-                    <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_6_1" role="tab">
-                        排班对象
-                    </a>
-                </li>              
-                <li class="nav-item m-tabs__item">
-                    <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_6_3" role="tab">
-                       班次类型
-                    </a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active " id="m_tabs_6_1" role="tabpanel">
-                    <div class="m-list-search ">
-                        <div class="m-list-search__results">
-                            <a href="#" class="m-list-search__result-item">
-                                <span class="m-list-search__result-item-pic">
-                                    <img class="m--img-rounded" src="~/Content/avatars/lansecheng.jpg" title="">
-                                </span>
-                                <span class="m-list-search__result-item-text" >
-                                    王德平
-                                </span>
-                            </a>
-                            <a href="#" class="m-list-search__result-item">
-                                <span class="m-list-search__result-item-pic">
-                                    <img class="m--img-rounded" src="~/Content/avatars/1954.jpg" title="">
-                                </span>
-                                <span class="m-list-search__result-item-text">
-                                    周瑞猛
-                                </span>
-                            </a>
-                            <a href="#" class="m-list-search__result-item">
-                                <span class="m-list-search__result-item-pic">
-                                    <img class="m--img-rounded" src="~/Content/avatars/1960.jpg" title="">
-                                </span>
-                                <span class="m-list-search__result-item-text">
-                                    张贝贝
-                                </span>
-                            </a>
-                            <a href="#" class="m-list-search__result-item">
-                                <span class="m-list-search__result-item-pic">
-                                    <img class="m--img-rounded" src="~/Content/avatars/0900.jpg" title="">
-                                </span>
-                                <span class="m-list-search__result-item-text">
-                                   于海波
-                                </span>
-                            </a>
-                            <a href="#" class="m-list-search__result-item">
-                                <span class="m-list-search__result-item-pic">
-                                    <img class="m--img-rounded" src="~/Content/avatars/1794.jpg" title="">
-                                </span>
-                                <span class="m-list-search__result-item-text">
-                                    李鹏飞
-                                </span>
-                            </a>
-                            <a href="#" class="m-list-search__result-item">
-                                <span class="m-list-search__result-item-pic">
-                                    <img class="m--img-rounded" src="~/Content/avatars/1938.jpg" title="">
-                                </span>
-                                <span class="m-list-search__result-item-text">
-                                    蒋忠良
-                                </span>
-                            </a>
-                            <a href="#" class="m-list-search__result-item">
-                                <span class="m-list-search__result-item-pic">
-                                    <img class="m--img-rounded" src="~/Content/avatars/0800.jpg" title="">
-                                </span>
-                                <span class="m-list-search__result-item-text">
-                                    刘志国
-                                </span>
-                            </a>                      
-                         
+        <div class="col-lg-2">
+            <!--begin::Preview-->
+            <div class="m-demo__preview m-nav-sticky m-scrollable" data-scrollable="true" data-max-height="400" style="top:35%;width:15%;right:15px;padding-left:15px;height:400px;">
+                <ul class="nav nav-tabs  m-tabs-line m-tabs-line--success" role="tablist">
+                    <li class="nav-item m-tabs__item">
+                        <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_6_1" role="tab">
+                            排班对象
+                        </a>
+                    </li>
+                    <li class="nav-item m-tabs__item">
+                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_6_3" role="tab">
+                            班次类型
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active " id="m_tabs_6_1" role="tabpanel">
+                        <div class="m-list-search ">
+                            <div class="m-list-search__results">
+                                <a href="#" class="m-list-search__result-item">
+                                    <span class="m-list-search__result-item-pic">
+                                        <img class="m--img-rounded" src="~/Content/avatars/lansecheng.jpg" title="">
+                                    </span>
+                                    <span class="m-list-search__result-item-text">
+                                        王德平
+                                    </span>
+                                </a>
+                                <a href="#" class="m-list-search__result-item">
+                                    <span class="m-list-search__result-item-pic">
+                                        <img class="m--img-rounded" src="~/Content/avatars/1954.jpg" title="">
+                                    </span>
+                                    <span class="m-list-search__result-item-text">
+                                        周瑞猛
+                                    </span>
+                                </a>
+                                <a href="#" class="m-list-search__result-item">
+                                    <span class="m-list-search__result-item-pic">
+                                        <img class="m--img-rounded" src="~/Content/avatars/1960.jpg" title="">
+                                    </span>
+                                    <span class="m-list-search__result-item-text">
+                                        张贝贝
+                                    </span>
+                                </a>
+                                <a href="#" class="m-list-search__result-item">
+                                    <span class="m-list-search__result-item-pic">
+                                        <img class="m--img-rounded" src="~/Content/avatars/0900.jpg" title="">
+                                    </span>
+                                    <span class="m-list-search__result-item-text">
+                                        于海波
+                                    </span>
+                                </a>
+                                <a href="#" class="m-list-search__result-item">
+                                    <span class="m-list-search__result-item-pic">
+                                        <img class="m--img-rounded" src="~/Content/avatars/1794.jpg" title="">
+                                    </span>
+                                    <span class="m-list-search__result-item-text">
+                                        李鹏飞
+                                    </span>
+                                </a>
+                                <a href="#" class="m-list-search__result-item">
+                                    <span class="m-list-search__result-item-pic">
+                                        <img class="m--img-rounded" src="~/Content/avatars/1938.jpg" title="">
+                                    </span>
+                                    <span class="m-list-search__result-item-text">
+                                        蒋忠良
+                                    </span>
+                                </a>
+                                <a href="#" class="m-list-search__result-item">
+                                    <span class="m-list-search__result-item-pic">
+                                        <img class="m--img-rounded" src="~/Content/avatars/0800.jpg" title="">
+                                    </span>
+                                    <span class="m-list-search__result-item-text">
+                                        刘志国
+                                    </span>
+                                </a>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-              
-                <div class="tab-pane" id="m_tabs_6_3" role="tabpanel">
-                    <div class="m-form__group form-group">                        
-                        <div class="m-radio-list">
-                            <label class="m-radio m-radio--state-success">
-                                <input type="radio" name="example_2" value="1">
-                                 三线
-                                <span></span>
-                            </label>
-                            <label class="m-radio m-radio--state-brand">
-                                <input type="radio" name="example_2" value="2">
-                                夜班
-                                <span></span>
-                            </label>
-                            <label class="m-radio m-radio--state-primary">
-                                <input type="radio" name="example_2" value="3">
-                                听班
-                                <span></span>
-                            </label>
+
+                    <div class="tab-pane" id="m_tabs_6_3" role="tabpanel">
+                        <div class="row">
+                            @foreach (var group in Model)
+                            {
+                                <div class="col-6">
+                                    <div class="m-demo"> @group.SchedulingGroupName</div>
+                                    <div class="m-form__group form-group">
+                                        <div class="m-radio-list">
+                                            @foreach (var type in group.SchedulingTypes)
+                                            {
+                                                <label class="m-radio m-radio--state-primary">
+                                                    <input type="radio" name="schedulingType_radio" value="@type.Id">
+                                                    @type.SchedulingTypeName
+                                                    <span></span>
+                                                </label>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                           
+                           
                         </div>
-                        <span class="m-form__help">
-                            Some help text goes here
-                        </span>
+
                     </div>
+
                 </div>
+                <!--end::Preview-->
             </div>
-           
         </div>
-        <!--end::Preview-->              
     </div>
-</div>
-@section scriptsection{
-<script>
-    var draggableItemClassArrary = [
-        'm-badge m-badge--success m-badge--wide m-badge--bigfont',
-        'm-badge m-badge--danger m-badge--wide m-badge--bigfont',
-        'm-badge m-badge--warning m-badge--wide m-badge--bigfont',
-        'm-badge m-badge--info m-badge--wide m-badge--bigfont',
-        'm-badge m-badge--primary m-badge--wide m-badge--bigfont',
-        'm-badge m-badge--secondary m-badge--wide m-badge--bigfont',
-        'm-badge m-badge--brand m-badge--wide m-badge--bigfont',
-        'm-badge m-badge--accent m-badge--wide m-badge--bigfont',
-        'm-badge m-badge--focus m-badge--wide m-badge--bigfont',
-        'm-badge m-badge--metal m-badge--wide m-badge--bigfont'
+    @section scriptsection{
+        <script>
+            var draggableItemClassArrary = [
+                'm-badge m-badge--success m-badge--wide m-badge--bigfont',
+                'm-badge m-badge--danger m-badge--wide m-badge--bigfont',
+                'm-badge m-badge--warning m-badge--wide m-badge--bigfont',
+                'm-badge m-badge--info m-badge--wide m-badge--bigfont',
+                'm-badge m-badge--primary m-badge--wide m-badge--bigfont',
+                'm-badge m-badge--secondary m-badge--wide m-badge--bigfont',
+                'm-badge m-badge--brand m-badge--wide m-badge--bigfont',
+                'm-badge m-badge--accent m-badge--wide m-badge--bigfont',
+                'm-badge m-badge--focus m-badge--wide m-badge--bigfont',
+                'm-badge m-badge--metal m-badge--wide m-badge--bigfont'
 
-    ];
-    var eventsClassArrary = [
-        'm-fc-event--solid-success m-fc-event--light',
-        'm-fc-event--solid-danger m-fc-event--light',
-        'm-fc-event--solid-warning m-fc-event--light',
-        'm-fc-event--solid-info m-fc-event--light',
-        'm-fc-event--solid-primary m-fc-event--light',
-        'm-fc-event--solid-secondary m-fc-event--light',
-        'm-fc-event--solid-brand m-fc-event--light',
-        'm-fc-event--solid-accent m-fc-event--light',
-        'm-fc-event--solid-focus m-fc-event--light',
-        'm-fc-event--solid-metal m-fc-event--light'
-    ];
-    $(document).ready(function () {
-        $('#m_aside_left_minimize_toggle').click()
-        $('ul.m-nav-sticky').remove()
+            ];
+            var eventsClassArrary = [
+                'm-fc-event--solid-success m-fc-event--light',
+                'm-fc-event--solid-danger m-fc-event--light',
+                'm-fc-event--solid-warning m-fc-event--light',
+                'm-fc-event--solid-info m-fc-event--light',
+                'm-fc-event--solid-primary m-fc-event--light',
+                'm-fc-event--solid-secondary m-fc-event--light',
+                'm-fc-event--solid-brand m-fc-event--light',
+                'm-fc-event--solid-accent m-fc-event--light',
+                'm-fc-event--solid-focus m-fc-event--light',
+                'm-fc-event--solid-metal m-fc-event--light'
+            ];
+            $(document).ready(function () {
+                $('#m_aside_left_minimize_toggle').click()
+                $('ul.m-nav-sticky').remove()
 
-        $('.m-list-search__result-item').each(function () {
+                $('.m-list-search__result-item').each(function () {
 
-            //$(this).data('event', {
-            //    title: $.trim($(this).children(".m-list-search__result-item-text").html()), // use the element's text as the event title
-            //    stick: true, // maintain when user navigates (see docs on the renderEvent method)
-            //    className: 'm-fc-event--solid-danger m-fc-event--light',
-            //    newEvent:'newEvent'
-            //});
+                    //$(this).data('event', {
+                    //    title: $.trim($(this).children(".m-list-search__result-item-text").html()), // use the element's text as the event title
+                    //    stick: true, // maintain when user navigates (see docs on the renderEvent method)
+                    //    className: 'm-fc-event--solid-danger m-fc-event--light',
+                    //    newEvent:'newEvent'
+                    //});
 
-            // make the event draggable using jQuery UI
-            $(this).draggable({
-                zIndex: 99999,
-                scroll: false,
-                revert: true,      // will cause the event to go back to its
-                revertDuration: 0,  //  original position after the drag
-                helper: function () {
-                    var clone = $('<div class="ui-clone">' + $(this).html() + '</div>');
-                    clone.appendTo('body');
-                    return clone;
+                    // make the event draggable using jQuery UI
+                    $(this).draggable({
+                        zIndex: 99999,
+                        scroll: false,
+                        revert: true,      // will cause the event to go back to its
+                        revertDuration: 0,  //  original position after the drag
+                        helper: function () {
+                            var clone = $('<div class="ui-clone">' + $(this).html() + '</div>');
+                            clone.appendTo('body');
+                            return clone;
+                        },
+                        cursor: "crosshair"
+
+                    });
+
+                });
+            })
+
+
+            var calendar = $('#m_calendar').fullCalendar({
+                header: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'basicWeek'
                 },
-                cursor: "crosshair"
+                allDaySlot: false,
+                color: true,
+                editable: true,
+                firstDay: 1,
+                droppable: true,
+                dragRevertDuration: 0,
+                fixedWeekCount: false,
+                drop: function (date, jsEvent, ui, resourceId) {
+                    $('#m_calendar').fullCalendar('renderEvent', {
+                        title: $.trim($(this).children(".m-list-search__result-item-text").html()),
+                        start: date,
+                        className: 'm-fc-event--solid-danger m-fc-event--light',
+                        newEvent: 'newEvent',
+                        id: date
 
-            });
+                    }, true)
+                },
+                eventDragStop: function (event, jsEvent, ui, view) {
+                    var fc_left = $('tbody.fc-body').offset().left;
+                    var fc_top = $('tbody.fc-body').offset().top;
+                    var fc_width = $('tbody.fc-body').width();
+                    var fc_height = $('tbody.fc-body').height();
+                    var mouse_X = jsEvent.screenX
+                    var mouse_Y = jsEvent.screenY
+                    if (mouse_X < fc_left || mouse_X > (fc_left + fc_width) || mouse_Y < fc_top || mouse_Y > (fc_top + fc_height)) {
+                        $('#m_calendar').fullCalendar('removeEvents', event.id);
+                    }
+                },
+                eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
+                    // console.log("拖拽结束"+event.newEvent);
+                },
+                eventAfterRender: function (event, element, view) {
 
-        });
-    })
-    
-  
-    var calendar = $('#m_calendar').fullCalendar({
-        header: {
-            left: 'prev,next',
-            center: 'title',
-            right: 'month'
-        },
-        color: true,
-        editable: true,
-        firstDay: 1,
-        droppable: true,  
-        dragRevertDuration: 0,      
-        fixedWeekCount: false,
-        drop: function (date, jsEvent, ui, resourceId) {          
-            $('#m_calendar').fullCalendar('renderEvent', {
-                title: $.trim($(this).children(".m-list-search__result-item-text").html()),
-                start: date,
-                className: 'm-fc-event--solid-danger m-fc-event--light',
-                newEvent: 'newEvent',
-                id: date
-
-            }, true)
-        },
-        eventDragStop: function (event, jsEvent, ui, view) {
-            var fc_left = $('tbody.fc-body').offset().left;
-            var fc_top = $('tbody.fc-body').offset().top;
-            var fc_width = $('tbody.fc-body').width();
-            var fc_height = $('tbody.fc-body').height();
-            var mouse_X = jsEvent.screenX
-            var mouse_Y = jsEvent.screenY          
-            if (mouse_X < fc_left || mouse_X > (fc_left + fc_width) || mouse_Y < fc_top || mouse_Y > (fc_top + fc_height)) {               
-                $('#m_calendar').fullCalendar('removeEvents', event.id);
-            }            
-        },
-        eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
-               // console.log("拖拽结束"+event.newEvent);
-        },
-        eventAfterRender: function (event, element, view) {
-           
-        },
-        events: [
-            {
-                id:"abc",
-                title: '[听]王德平',
-                allDay: false,
-                newEvent:"abc",
-                "start": "2019-01-12 10:30:00",
-                "end": "2019-01-13 23:30:00",
-                className: "m-fc-event--solid-success m-fc-event--light "
+                },
+                events: [
+                    {
+                        id: "abc",
+                        title: '[听]王德平',
+                        allDay: false,
+                        newEvent: "abc",
+                        "start": "2019-02-12 10:30:00",
+                        "end": "2019-02-13 23:30:00",
+                        className: "m-fc-event--solid-success m-fc-event--light "
+                    }
+                ]
+            })
+        </script>
+        <style>
+            .m-zdy {
+                z-index: 999
             }
-        ]
-    })
-</script>
-    <style>
-        .m-zdy {
-        z-index:999
-        }
-    </style>
-}
+        </style>
+    }

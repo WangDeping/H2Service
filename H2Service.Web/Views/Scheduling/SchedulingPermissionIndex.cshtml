@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewBag.Title = "ScheulingPermissionIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+   排班权限设置 
+}
+<div class=" row">
+    <div class="col-lg-7">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                           需排班科室设置排班和审核人员
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">              
+                <table class="bootstrap-table" id="schedulingDeps_grid" data-side-pagination="server" data-page-list="[100]" data-pagination="true" data-url='@Url.Action("GetPagedSchedulingDepartments")'
+                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                    <thead>
+                        <tr>
+                            <th data-checkbox="true"></th>
+                            <th data-field="Id" data-align="center">Id</th>
+                            <th data-field="DepartmentName" data-align="center">科室</th>
+                            <th data-field="SchedulingUserName" data-formatter="SchedulingUserFormatter"  data-align="center">排班人员</th>
+                            <th data-field="AuditorName" data-formatter="AuditorFormatter"  data-align="center">审核人员</th>                          
+                        
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    
+
+    <div class="modal fade" id="usersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        选择用户
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">                          
+                            <div class="input-group">
+                                <input type="text" id="search_UserName" class="form-control" placeholder="输入姓名...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" type="button" onclick="searchUser()">
+                                        搜
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <table class="bootstrap-table" id="users_grid" data-side-pagination="server" data-page-list="[100]"  data-pagination="true" data-url='@Url.Action("UserGrid","User")'
+                                   data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                                <thead>
+                                    <tr>
+                                        <th data-checkbox="true"></th>
+                                        <th data-field="UserNumber" data-align="center">工号</th>
+                                        <th data-field="UserName" data-align="center">姓名</th> 
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary"  onclick="SaveSchedulingDepartment()">
+                        确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var currentUserType = "";//排班人员/审核人员选择状态
+    function SchedulingUserFormatter(value, row, index) {
+        var userName = (value == null ? '未设置' : value);
+        return "\
+						<a href='javascript: openUsersGrid("+ JSON.stringify(row) + ",0)'   class='m-portlet__nav-link m-link' title='选中记录后点击修改'>\
+							"+ userName +"\
+						</a>\
+        "; 
+    }
+    function AuditorFormatter(value, row, index) {
+        var userName = (value == null ? '未设置' : value);
+        return "\
+						<a href='javascript: openUsersGrid("+ JSON.stringify(row) + ",1)'   class='m-portlet__nav-link m-link' title='选中记录后点击修改'>\
+							"+ userName + "\
+						</a>\
+        ";
+    }
+    $('#users_grid').bootstrapTable({
+        queryParams: function (params) {
+            return {
+                MaxResultCount: 5,
+                PageNumber: (params.offset / params.limit),
+                UserName: $('#search_UserName').val()
+            }
+        }
+    })
+    function searchUser() {      
+        $('#users_grid').bootstrapTable('refresh', {          
+            UserName: $('#search_UserName').val()
+        })
+    }
+    function openUsersGrid(schedulingPermission, type) {
+        currentUserType = type;
+        var selectRows = $('#schedulingDeps_grid').bootstrapTable('getSelections');//获取选择的行     
+        if (selectRows.length > 0 && (schedulingPermission.DepartmentId == selectRows[0].DepartmentId))//当前选中行点击
+        {
+            $('#usersModal').modal('show');
+           
+        }
+    }
+    $('#schedulingDeps_grid').bootstrapTable({
+            queryParams: function (params) {
+                return {
+                    MaxResultCount: params.limit,
+                    PageNumber: (params.offset / params.limit),                   
+                    DepartmentName:""
+                }
+            }
+    })
+
+    function SaveSchedulingDepartment() {//提交
+        var selects = $('#users_grid').bootstrapTable('getSelections');
+        if (selects.length > 0) {
+            var dep = $('#schedulingDeps_grid').bootstrapTable('getSelections')[0];
+            var userId = selects[0].Id
+            var schedulingDepartment = {
+                Id: dep.Id,
+                DepartmentId: dep.DepartmentId
+            }
+            if (currentUserType == 0)
+                schedulingDepartment.ShedulingUserId = userId;
+            else if (currentUserType == 1)
+                schedulingDepartment.AuditorId = userId;
+            abp.ajax({
+                url: "/Scheduling/SetSchedulingPermission",
+                data: JSON.stringify(schedulingDepartment)
+            }).done(function (data) {
+                abp.notify.success(data.message);
+                $('#usersModal').modal("hide")
+                $('#schedulingDeps_grid').bootstrapTable('refresh', {});
+               })
+        }
+    }
+</script>

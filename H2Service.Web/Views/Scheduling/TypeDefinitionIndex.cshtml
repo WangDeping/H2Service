@@ -1,0 +1,330 @@
+﻿
+@{
+    ViewBag.Title = "TypeDefinitionIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section subheader_title{
+    班次定义
+}
+<div class=" row">
+    <div class="col-lg-3">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            班次分组定义
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+                <div class="m-demo" >
+                    <button type="button" class="btn btn-primary" onclick="typeGroupInfo()">新增+</button>
+                 </div>
+                <table class="bootstrap-table" id="typeGroup_grid" data-url='@Url.Action("GetTypeGroupsGrid")'
+                           data-side-pagination="server" data-page-list="[1000]" data-pagination="false"
+                           data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                        <thead>
+                            <tr>
+                                <th data-checkbox="true"></th>
+                                <th data-field="SchedulingGroupName" data-align="center">类组名称</th>
+                                <th data-field="Id" data-formatter="actionFormatter" data-align="center"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+        </div>
+
+        <!--MODAL BEGIN-->
+        <div class="modal fade" id="typeGroup_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          班次分组维护
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">
+                                &times;
+                            </span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="schedulingGroupName" class="form-control-label">
+                                    分组名称:
+                                </label>
+                                <input type="text" class="form-control" id="schedulingGroupName">
+                                <input type="hidden"  id="groupId">
+                            </div>
+                        
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="saveTypeGroup()">
+                            保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--MODAL END-->
+    </div>
+    <div class="col-lg-6">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            班次列表
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+                <div class="m-demo">
+                    <button type="button" class="btn btn-success" onclick="typeInfo(0)">新增+</button>
+                </div>
+                <table class="bootstrap-table" id="types_grid" data-url='@Url.Action("GetTypesGrid",new {groupId=0})'
+                       data-side-pagination="server" data-page-list="[1000]" data-pagination="false"
+                       data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                    <thead>
+                        <tr>
+                            <th data-checkbox="true"></th>
+                            <th data-field="SchedulingTypeName" data-align="center">班次</th> 
+                            <th data-field="StartTime" data-align="center">开始</th> 
+                            <th data-field="TimeSpanEnum" data-align="center">T</th> 
+                            <th data-field="EndTime" data-align="center">结束</th> 
+                            <th data-field="IsEnable" data-align="center">启用</th> 
+                        </tr>
+                    </thead>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            班次维护
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <form class="m-form" id="typeInfoForm">
+                <div class="m-portlet__body">
+                    <div class="form-group m-form__group">
+                        <label for="typeName">
+                            班次名称
+                        </label>
+                        <input type="text" class="form-control m-input m-input--air" id="typeName" placeholder="输入班次名称">
+                        <input type="hidden"  id="typeId" value="0"/>
+                        <input  type="hidden" id="groupTypeId" value="0"/>
+                        <span class="m-form__help">
+                            不能超过4个字且不能重复
+                        </span>
+                    </div>
+                    <div class="form-group m-form__group">
+                        <label for="startTime">
+                            班次开始时间点
+                        </label>
+                        <input type="text" readonly class="form-control m-input m-input--air" id="startTime" placeholder="开始点">
+                    </div>
+                    <div class="form-group m-form__group">
+                        <label for="endTime">
+                            班次开始时间点
+                        </label>
+                        <input type='text' class="form-control" id="endTime" readonly placeholder="结束点" />
+                    </div>
+                    <div class="form-group m-form__group">
+                        <label for="timeSpan">
+                            间隔枚举
+                        </label>
+                        <select class="form-control m-input" aria-describedby="emailHelp" id="timeSpan">
+                            <option selected value="T0">
+                                T0
+                            </option>
+                            <option value="T1">
+                                T1
+                            </option>
+                            <option value="T2">
+                                T2
+                            </option>
+                            <option value="T3">
+                                T3
+                            </option>                          
+                        </select>
+                        <span class="m-form__help">
+                            T0指开始点和结束点在同一天,T1是隔一天,以此类推
+                        </span>
+                    </div>                   
+                    <div class="m-form__group form-group row">
+                        <label class="col-5 col-form-label">
+                            是否启用
+                        </label>
+                        <div class="col-3">
+                            <span   class="m-switch m-switch--outline m-switch--success">
+                                <label>
+                                    <input type="checkbox" checked="checked" id="isEnable" name="isEnable" />
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="m-portlet__foot m-portlet__foot--fit">
+                    <div class="m-form__actions">
+                        <button onclick="saveType()" type="button" id="saveTypeBtn" class="btn btn-success">
+                           保存
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script>
+    /////////
+    $('#startTime,#endTime').timepicker({
+        showMeridian: false,
+        showSeconds: true
+    });
+    ///////////////////
+    var typegroups_grid=$('#typeGroup_grid').bootstrapTable({
+        onCheck: function (row, arg) {
+            $('#types_grid').bootstrapTable('refresh',{
+                url: '/Scheduling/GetTypesGrid?groupId='+row.Id,
+            });
+        },
+        onUncheck: function (row, arg) {
+            $('#types_grid').bootstrapTable('refresh', {
+                url: '/Scheduling/GetTypesGrid?groupId=0',
+            });
+        }
+            });
+    function actionFormatter(value, row, index) {
+
+        return "\
+						<a href='javascript: typeGroupInfo("+ JSON.stringify(row) +")'   class='m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill' title='修改名称'>\
+							<i class='la la-edit'></i>\
+						</a>\
+        "; 
+    }
+    function typeGroupInfo(group) {
+        if (!group) {//新增
+            $('#groupId').val(0);
+            $('#schedulingGroupName').val("")
+        }
+        else {
+            $('#groupId').val(group.Id);
+            $('#schedulingGroupName').val(group.SchedulingGroupName)
+        }
+           
+        $('#typeGroup_modal').modal("show")
+    }
+    function saveTypeGroup() {     
+        var group = { SchedulingGroupName: $('#schedulingGroupName').val(), Id: $('#groupId').val()}
+        abp.ajax({
+            url: '/Scheduling/PutTypeGroup',
+            data: JSON.stringify(group)
+        }).done(function (data) {
+            abp.notify.success(data.message);
+            $('#typeGroup_modal').modal("hide")
+            $('#typeGroup_grid').bootstrapTable('refresh', {});
+        })
+    }
+    ///////////////////////////////
+    $(document).ready(function () {
+        $('#typeInfoForm')[0].reset();
+        $('#saveTypeBtn').attr("disabled", true);
+    })
+    var types_grid = $('#types_grid').bootstrapTable({
+        onCheck: function (row, arg) {
+            typeInfo(row.Id)
+        },
+        onUncheck: function (row, arg) {
+            $('#saveTypeBtn').attr("disabled", true);
+        } });
+   //加载或清空Type
+    function typeInfo(typeId) {
+        $('#typeId').val(typeId);      
+        if (typeId == 0) {
+            if (typegroups_grid.bootstrapTable('getSelections').length == 0) {
+                abp.notify.error("选中班次分组后才能新建");
+                return;
+            }
+            else {
+                $('#typeInfoForm')[0].reset();
+                $('#groupTypeId').val(typegroups_grid.bootstrapTable('getSelections')[0].Id);
+                $("#typeName").focus()
+                abp.notify.info("在右侧栏班次填写信息并保存")
+            }
+
+        }      
+       else if (typeId > 0) {
+            abp.ajax({
+                url: "/Scheduling/GetSchedulingType",
+                data: JSON.stringify({ "typeId": typeId })
+            }).done(function (data) {
+                $("#typeName").val(data.SchedulingTypeName);
+                $('#startTime').val(data.StartTime);
+                $('#endTime').val(data.EndTime);
+                $("#isEnable").prop("checked", "checked");
+                $('#timeSpan').val(data.TimeSpanEnum);
+                $('#groupTypeId').val(data.SchedulingGroupId);
+                })
+
+        }
+        $('#saveTypeBtn').removeAttr("disabled");
+    }
+    function saveType() {
+        var typeInfo = {
+            Id: $('#typeId').val(),
+            SchedulingTypeName: $("#typeName").val(),
+            IsEnable: $('#isEnable').is(":checked"),
+            StartTime: $('#startTime').val(),
+            EndTime: $('#endTime').val(),
+            TimeSpanEnum: $('#timeSpan').val(),
+            SchedulingGroupId: $('#groupTypeId').val()
+        }      
+        abp.ajax({
+            url: '/Scheduling/PutSchedulingType',
+            data: JSON.stringify(typeInfo)
+        }).done(function (data) {
+            abp.notify.success(data.message);
+            $('#typeInfoForm')[0].reset();
+            $('#saveTypeBtn').attr("disabled", true);
+            $('#types_grid').bootstrapTable('refresh', {
+                url: '/Scheduling/GetTypesGrid?groupId=' + $('#groupTypeId').val()
+            });
+          })
+        console.log(JSON.stringify(typeInfo))
+    }
+</script>

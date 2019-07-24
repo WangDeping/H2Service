@@ -49,16 +49,15 @@ namespace H2Service.MedicalWastes
         /// 医疗垃圾在暂存点出库(变更Flow状态)
         /// </summary>
         /// <param name="districtId">院区Id</param>
-        public void Delivery(int districtId,string summary)
+        public void Delivery(MedicalWasteDelivery medicalWasteDelivery)
         {
-            var unDeliveryFlowList = _medicalWasteFlowRepository.GetAll().Where(T => T.Department.DistrictId == districtId && T.Status == MedicalWasteStatus.医院暂存点).ToList();
+            var unDeliveryFlowList = _medicalWasteFlowRepository.GetAll().Where(T => T.Department.DistrictId ==medicalWasteDelivery.DistrictId && T.Status == MedicalWasteStatus.医院暂存点).ToList();
             if (unDeliveryFlowList.Count() == 0)
-                return;  
-            var delivery = new MedicalWasteDelivery { DistrictId = districtId, Summary=summary };
-            _medicalWasteDeliveryRepository.InsertAndGetId(delivery);
+                return;          
+            _medicalWasteDeliveryRepository.InsertAndGetId(medicalWasteDelivery);
             foreach (var flow in unDeliveryFlowList)
                 flow.Status = MedicalWasteStatus.卫康公司;
-            delivery.MedicalWasteFlowCollection = unDeliveryFlowList;
+           medicalWasteDelivery.MedicalWasteFlowCollection = unDeliveryFlowList;
         }
 
 

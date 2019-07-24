@@ -63,9 +63,11 @@
     <Compile Include="Cryptography.cs" />
     <Compile Include="Entities\File\WxRetImg.cs" />
     <Compile Include="Entities\File\WxRetTepmFile.cs" />
+    <Compile Include="Entities\Msg\WxTextCardMsg.cs" />
     <Compile Include="Entities\Msg\WxNewsMsgArticle.cs" />
     <Compile Include="Entities\Msg\WxNewsMsgArticleCollection.cs" />
     <Compile Include="Entities\Msg\WxRetMsg.cs" />
+    <Compile Include="Entities\Msg\WxSendTextCardMsg.cs" />
     <Compile Include="Entities\Msg\WxSendMsg.cs" />
     <Compile Include="Entities\Msg\WxSendNewsMsg.cs" />
     <Compile Include="Entities\Msg\WxSendTextMsg.cs" />

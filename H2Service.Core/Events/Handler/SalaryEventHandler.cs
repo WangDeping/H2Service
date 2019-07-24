@@ -12,7 +12,7 @@ namespace H2Service.Events.Handler
     public class SalaryEventHandler : IEventHandler<SalaryCreateEventData>, ITransientDependency
     {
         private readonly WxSender _wxSender;
-        private readonly ILogger _logger;
+        private readonly ILogger _logger;        
         public SalaryEventHandler(WxSender wxSender,
             ILogger logger) {
            

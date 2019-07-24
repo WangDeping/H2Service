@@ -23,6 +23,7 @@ namespace H2Service.Web.Controllers
         // GET: QC
         public ActionResult Index()
         {
+            _qCAppService.Test();
             return View();
         }
         public ActionResult CreatePeriod()

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<H2Service.HomePages.Dto.HomePageValidateMessageDto>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>校验问题病历</title>
+    <meta name="viewport" content="width=device-width" />    
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="~/Content/weui.min.css" />
+    <link rel="stylesheet" href="~/Content/jquery-weui.min.css" />
+    <link rel="stylesheet" href="~/Content/weui-demo.css" />
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+    <header class='demos-header'>
+        <h1 class="demos-title">校验病历列表</h1>
+    </header>
+    <div class="weui-cells">
+        @foreach (var msg in Model)
+        {
+             var discharge=string.IsNullOrEmpty(msg.DischargeDate)?"未出院":msg.DischargeDate;
+        <a class="weui-cell weui-cell_access" href='@Url.Action("ValidateMessage", new { Id = msg.Id })'>
+            <div class="weui-cell__bd">
+                <p>@msg.BAH (@discharge)</p>
+            </div>
+            <div class="weui-cell__ft">@msg.ValidateType.ToString()</div>
+        </a>       
+        }
+
+    </div>
+</body>
+</html>

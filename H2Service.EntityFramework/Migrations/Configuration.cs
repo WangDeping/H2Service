@@ -11,6 +11,8 @@ namespace H2Service.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+          
+
         }
 
         protected override void Seed(H2Service.EntityFramework.H2ServiceDbContext context)

@@ -16,6 +16,9 @@ namespace H2Service.WxWork.Entities
         {
           
         }
+        /// <summary>
+        /// 可序列JSON
+        /// </summary>
         [JsonProperty]
         private WxNewsMsgArticleCollection news { get; set; }       
         public WxSendNewsMsg(string description,string picurl,string title,string url,string touser,string agentid="0") {

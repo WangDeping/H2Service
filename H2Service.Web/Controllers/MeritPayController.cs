@@ -119,14 +119,16 @@ namespace H2Service.Web.Controllers
 
                     }
             }
-            if(colList.Count<=15)
-             throw new UserFriendlyException("表格式不正确");
+            //Logger.Error("标题列数:" + colList.Count);
+           // if (colList.Count <= 15)
+              //  throw new UserFriendlyException("表格式不正确");
             List<MeritPayDetailDto> meritPayDetailList = new List<MeritPayDetailDto>();
 
             var rowCount = workSheet.LastRowNum;//表的最大行数
             for (int i = 1; i <= rowCount; i++)
             {//从非标题行开始
                 IRow row = workSheet.GetRow(i);
+               // Logger.Error("第"+i+"行的单元格数:"+row.Count());
                 //取标题行和数据行单元格最小数,防止标题行和数据行单元格不一样多时报索引错误
                 int minCount = row.Count() < colList.Count ? row.Count() : colList.Count;
                 string rowDetail = "";

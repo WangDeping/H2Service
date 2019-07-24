@@ -33,6 +33,27 @@
 
         }
     </div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <div class="weui-uploader">
+                    <div class="weui-uploader__hd">
+                        <p class="weui-uploader__title">图片上传</p>
+                        <div class="weui-uploader__info">6</div>
+                    </div>
+                    <div class="weui-uploader__bd">
+                        <ul class="weui-uploader__files" id="uploaderFiles">                           
+                        
+                           
+                        </ul>
+                        <div class="weui-uploader__input-box">
+                            <input id="btnCam" onclick="choosePic()" class="weui-uploader__input" type="button">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="weui-form-preview__ft"> 
         <a class="weui-form-preview__btn weui-form-preview__btn_default" href="@Url.Action("DeliveryHistory",new { Id=ViewBag.DistrictId})">历史</a>
         <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary"  onclick="javascript:delivery()">出库</button>
@@ -40,6 +61,36 @@
 </div>
 
 <script>
+    var picturesArrary = new Array();
+    function choosePic() {
+        var imgs_len = $('#uploaderFiles li img').length
+
+        if (imgs_len >= 6) {
+            $.toast("最多6张", "forbidden");
+            return;
+        }       
+        wx.chooseImage({
+            count: 1,
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['camera'], // 相机
+            success: function (res) {
+                var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                $('#uploaderFiles').append('<li class="weui-uploader__file"><img width="77" height="77" src="' + localIds + '" /></li>');
+                wx.uploadImage({
+                    localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
+                    isShowProgressTips: 1,// 默认为1，显示进度提示
+                    success: function (ures) {                        
+                        picturesArrary.push(ures.serverId);
+
+                    }
+                });
+            }
+        });
+
+    }
+
+
+
     function delivery() {  
        
         var counts =@counts;
@@ -48,7 +99,8 @@
             return;
         }
         $.post('/MedicalWaste/Delivery', {
-            districtId: '@ViewBag.DistrictId'
+            DistrictId: '@ViewBag.DistrictId',
+            ImagesUrl: picturesArrary
         }, function (data) {
             if (data.Code > 0)
                 $.toast("出库完毕", function () {

@@ -132,14 +132,15 @@ namespace H2Service.Web.Controllers
                             throw new UserFriendlyException("格式错误");                      
 
                 }  
-            }
+            }            
             //if(colList.Count<=15)
                // throw new UserFriendlyException("工资表格式不对(多余15列视为).");
             List<SalaryDetailDto> salaryDetailList = new List<SalaryDetailDto>();
          
             var  rowCount = workSheet.LastRowNum;//表的最大行数
+            //Logger.Error("最大行数" + rowCount);
             for (int i = 1; i <= rowCount; i++) {//从非标题行开始
-                IRow row = workSheet.GetRow(i);
+                IRow row = workSheet.GetRow(i);                
                 //取标题行和数据行单元格最小数,防止标题行和数据行单元格不一样多时报索引错误
                 int minCount = row.Count() < colList.Count ? row.Count() : colList.Count;
                 string rowDetail = "";

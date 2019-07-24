@@ -13,5 +13,7 @@ namespace H2Service.Scheduling.Dto
         public int Id { get; set; }
        
         public string SchedulingGroupName { get; set; }
+
+        public virtual ICollection<SchedulingTypeDto> SchedulingTypes { get; set; }
     }
 }

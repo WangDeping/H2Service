@@ -11,6 +11,8 @@ using Abp.WebApi.Controllers.Dynamic.Builders;
 using System.Linq;
 using Swashbuckle.Application;
 using H2Service.MedicalWastes;
+using H2Service.HomePages;
+using Abp.Web;
 
 namespace H2Service
 {
@@ -21,12 +23,13 @@ namespace H2Service
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
-            Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<IMedicalWasteAppService>("system/medicalwaste").Build();
+           // Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<IMedicalWasteAppService>("system/medicalwaste").Build();
             //Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder
             //    .ForAll<IApplicationService>(typeof(H2ServiceApplicationModule).Assembly, "app")
             //    .Build();
-
-
+            Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<IHomePageAppService>("app/HomePage").ForMethod("Validate").WithVerb(HttpVerb.Get).Build();
+            Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<IHomePageAppService>("app/HomePage").ForMethod("QCValidate").Build();
+            Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<IHomePageAppService>("app/HomePage").ForMethod("UpdateHomePage").Build();
         }
 
         private void ConfigureSwaggerUi()

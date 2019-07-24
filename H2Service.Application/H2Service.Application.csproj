@@ -66,6 +66,12 @@
     <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Windsor.4.1.1\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Gma.QrCodeNet.0.4.1.2\lib\net40\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
@@ -184,8 +190,8 @@
       <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -252,11 +258,11 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.6\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -330,12 +336,23 @@
     <Compile Include="External\ExternalUserAppService.cs" />
     <Compile Include="External\IExternalCompanyAppService.cs" />
     <Compile Include="External\IExternalUserAppService.cs" />
+    <Compile Include="H2Modules\Dto\GetPagedH2ModuleWithAuditingInput.cs" />
+    <Compile Include="H2Modules\Dto\H2ModuleWithAuditingDto.cs" />
+    <Compile Include="H2Modules\H2ModuleAppService.cs" />
     <Compile Include="H2ServiceApplicationModule.cs" />
     <Compile Include="H2ServiceAppServiceBase.cs" />
     <Compile Include="Helpers\DepartmentsListEquality.cs" />
     <Compile Include="Helpers\DownLoadHelper.cs" />
     <Compile Include="Helpers\QrCodeHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
+    <Compile Include="HomePages\Dto\HomePageValidateMessageDto.cs" />
+    <Compile Include="HomePages\Dto\QCValidateInput.cs" />
+    <Compile Include="HomePages\Dto\ValidateOutput.cs" />
+    <Compile Include="HomePages\HomePageAppService.cs" />
+    <Compile Include="HomePages\Validate\HomePageDepValidate.cs" />
+    <Compile Include="HomePages\Validate\HomePageICDValidate.cs" />
+    <Compile Include="HomePages\IHomePageAppService.cs" />
+    <Compile Include="HomePages\Validate\IValidate.cs" />
     <Compile Include="Log4\ILogAppService.cs" />
     <Compile Include="Log4\LogAppService.cs" />
     <Compile Include="Maintenances\Dto\CompleteOrderBaseInput.cs" />
@@ -346,6 +363,7 @@
     <Compile Include="Maintenances\IMaintenanceAppService.cs" />
     <Compile Include="Maintenances\MaintenanceAppService.cs" />
     <Compile Include="MedicalWastes\Dto\AppendWasteInput.cs" />
+    <Compile Include="MedicalWastes\Dto\DeliveryCollectionInput.cs" />
     <Compile Include="MedicalWastes\Dto\DisplayWasteInDepartmentOutput.cs" />
     <Compile Include="MedicalWastes\Dto\GetPagedDeliveryInput.cs" />
     <Compile Include="MedicalWastes\Dto\GetHandOverFlowListInput.cs" />
@@ -378,6 +396,11 @@
     <Compile Include="Salaries\Dto\SalaryPeriodDto.cs" />
     <Compile Include="Salaries\ISalaryAppService.cs" />
     <Compile Include="Salaries\SalaryAppService.cs" />
+    <Compile Include="Scheduling\Dto\CreateDepartmentUserInput.cs" />
+    <Compile Include="Scheduling\Dto\GetAllSchedulingDepartmentsInput.cs" />
+    <Compile Include="Scheduling\Dto\RemoveDepartmentUserInput.cs" />
+    <Compile Include="Scheduling\Dto\SchedulingDepartmentUserDto.cs" />
+    <Compile Include="Scheduling\Dto\SchedulingTypeDto.cs" />
     <Compile Include="Scheduling\Dto\SchedulingTypeGroupDto.cs" />
     <Compile Include="Scheduling\ISchedulingAppService.cs" />
     <Compile Include="Scheduling\SchedulingAppService.cs" />

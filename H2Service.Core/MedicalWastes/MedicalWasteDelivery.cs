@@ -26,6 +26,8 @@ namespace H2Service.MedicalWastes
         public virtual District District { get; set; }
 
         public string Summary { get; set; }
+
+        public string ImageUrl { get; set; }
         public bool IsDeleted { get; set; }
         public long? CreatorUserId { get ; set ; }
         [ForeignKey("CreatorUserId")]

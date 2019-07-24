@@ -86,7 +86,7 @@
         queryParams: function (params) {
             return {
                 MaxResultCount: params.limit,
-                PageNumber: params.offset
+                PageNumber: (params.offset/params.limit)
             }
         }, onCheck: function (row, arg) {
 

@@ -45,11 +45,16 @@
     <text name="质量控制" value="质量控制" />
     <text name="督察填报" value="督察填报" />
     <text name="发布督察任务" value="发布督察任务" />
+     <text name="首页管理员" value="首页管理员" />
+    <text name="病案质控" value="病案质控" />
     <text name="科室关联模块" value="科室关联模块" />
     <text name="排班管理" value="排班管理" />
      <text name="排班" value="排班" />
+     <text name="听班排班" value="听班排班" />
     <text name="班次定义" value="班次定义" />
     <text name="排班对象维护" value="排班对象维护" />
+    <text name="排班权限设置" value="排班/审核人员维护" />
     <text name="我的排班表" value="我的排班表" />
+    <text name="排班审核" value="排班审核" />
   </texts>
 </localizationDictionary>

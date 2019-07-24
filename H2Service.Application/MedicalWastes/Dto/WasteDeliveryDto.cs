@@ -13,6 +13,8 @@ namespace H2Service.MedicalWastes.Dto
 
         public string Summary { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public string CreatorUserName { get; set; }
 
         public string CreationTime { get; set; }

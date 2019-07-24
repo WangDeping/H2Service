@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/vuetify/MaterialIcons.css" />
+    <link rel="stylesheet" href="~/Content/vuetify/vuetify.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title>Vue</title>
+</head>
+<body>
+    <div id="app">
+        <v-app id="inspire">
+            <v-card height="100%" flat>
+                <div class="headline text-xs-center pa-5">
+                    Active: {{ bottomNav }}
+                </div>
+                <v-bottom-nav :active.sync="bottomNav"
+                              :value="true"
+                              absolute
+                              color="transparent">
+                    <v-btn color="teal" flat   value="recent">
+                        <span>Recent</span>
+                        <v-icon>history</v-icon>
+                    </v-btn>
+
+                    <v-btn color="teal"  flat   value="favorites">
+                        <span>Favorites</span>
+                        <v-icon>favorite</v-icon>
+                    </v-btn>
+
+                    <v-btn color="teal" flat  value="nearby">
+                        <span>Nearby</span>
+                        <v-icon>place</v-icon>
+                    </v-btn>
+                </v-bottom-nav>
+            </v-card>
+        </v-app>
+    </div>
+    <script type="text/javascript" src="~/Scripts/vuetify/vue.js"></script>
+    <script type="text/javascript" src="~/Scripts/vuetify/vuetify.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    bottomNav: 'recent'
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

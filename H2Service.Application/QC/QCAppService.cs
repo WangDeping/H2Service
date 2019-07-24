@@ -4,6 +4,7 @@ using Abp.Domain.Repositories;
 using Abp.UI;
 using H2Service.Dto;
 using H2Service.Extensions;
+using H2Service.MedicalData.HomePages;
 using H2Service.QC.Dto;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,15 @@ public    class QCAppService: H2ServiceAppServiceBase,IQCAppService
     {
         private readonly IRepository<QCAppraisalPeriod> _qCAppraisalPeriodRepository;
         private readonly IRepository<QCAppraisalDetail> _qCAppraisalDetailRepository;
+        private readonly HomePageDomainService _homePageDomianService;
 
         public QCAppService(IRepository<QCAppraisalPeriod> qCAppraisalPeriodRepository,
-            IRepository<QCAppraisalDetail> qCAppraisalDetailRepository)
+            IRepository<QCAppraisalDetail> qCAppraisalDetailRepository,
+           HomePageDomainService homePageDomianService)
         {
             _qCAppraisalPeriodRepository = qCAppraisalPeriodRepository;
             _qCAppraisalDetailRepository = qCAppraisalDetailRepository;
+            _homePageDomianService = homePageDomianService;
         }
         public PagedResultDto<QCAppraisalPeriodDto> GetPagedQCAppraisalPeriod(PagedInputDto input)
         {
@@ -76,6 +80,13 @@ public    class QCAppService: H2ServiceAppServiceBase,IQCAppService
             if(detail.FunctionalDepartmentId.ToString()!=AbpSession.GetDepartmentId())
                 throw new UserFriendlyException("登录科室与督察科室不一致！");
             _qCAppraisalDetailRepository.Delete(Id);
+        }
+
+
+        public void Test()
+        {
+            _homePageDomianService.SynchronousHomePage("2019-03-01", "2019-03-01");
+
         }
     }
 }

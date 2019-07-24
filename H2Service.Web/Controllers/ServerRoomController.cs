@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace H2Service.Web.Controllers
 {
-   
+    [AbpMvcAuthorize]
     public class ServerRoomController : H2ServiceControllerBase
     {
         private readonly IServerRoomAppService _serverRoomAppService;

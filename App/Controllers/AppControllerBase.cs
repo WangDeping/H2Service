@@ -33,16 +33,15 @@ namespace App.Controllers
             ViewBag.timestamp = table["timestamp"];
             ViewBag.signature = table["signature"];            
         }
-        protected override void OnException(ExceptionContext context)
-        {
-            if (!context.ExceptionHandled)
-            {
-                Logger.Error("abcdef");
-                context.ExceptionHandled = true;
-            }
-            base.OnException(context);
+        //protected override void OnException(ExceptionContext context)
+        //{
+        //    if (!context.ExceptionHandled)
+        //    {              
+        //        context.ExceptionHandled = true;
+        //    }
+        //    base.OnException(context);
            
-        }
+        //}
         public ActionResult Error()
         {
             

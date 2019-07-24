@@ -13,6 +13,7 @@ namespace H2Service.Hangfire.Jobs.DailyInPatients
             wxSender = _wxSender;
             
         }
+        
         public override void ExecuteJob(DailyInPatientsJobArgs aParams)
         {          
             

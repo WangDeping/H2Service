@@ -31,5 +31,7 @@ namespace H2Service.QC
 
         void RemoveDetail(int Id);
 
+        void Test();
+
     }
 }

@@ -200,6 +200,8 @@
     <Compile Include="Jobs\DailyServerRoomPatrol\Dto\DailyServerRoomPatrolJobArgs.cs" />
     <Compile Include="Jobs\DailyUserSynchronous\DailyUserSynchronousJob.cs" />
     <Compile Include="Jobs\DailyUserSynchronous\Dto\DailyUserSynchronousJobArgs.cs" />
+    <Compile Include="Jobs\MinutelyHomePageSynchronous\Dto\MinutelyHomePageSynchronousJobArgs.cs" />
+    <Compile Include="Jobs\MinutelyHomePageSynchronous\MinutelyHomePageSynchronousJob.cs" />
     <Compile Include="Jobs\WeeklyUserDetailUpdate\Dto\WeeklyUserDetailUpdateJobArgs.cs" />
     <Compile Include="Jobs\WeeklyUserDetailUpdate\WeeklyUserDetailUpdateJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

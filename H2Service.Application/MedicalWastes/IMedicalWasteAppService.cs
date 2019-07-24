@@ -31,7 +31,7 @@ namespace H2Service.MedicalWastes
         /// 按院区出库
         /// </summary>
         /// <param name="districtId"></param>
-        void DeliveryCollection(int districtId);
+        void DeliveryCollection(DeliveryCollectionInput input);
 
         void AppendImage(WasteImageDto dto);
         [HttpGet]

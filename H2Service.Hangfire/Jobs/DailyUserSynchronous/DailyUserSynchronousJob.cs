@@ -33,8 +33,7 @@ namespace H2Service.Hangfire.Jobs.DailyUserSsynchronous
           IUnitOfWorkManager unitOfWorkManager,
           WxUserManager wxUserManager,
           ILogAppService logAppservice)
-        {
-          
+        {          
             _userRepository = userRepository;
             _unitOfWorkManager = unitOfWorkManager;
             _logAppservice = logAppservice;

@@ -16,10 +16,9 @@ namespace H2Service.SMS
         }
         public void Test() {         
 
-           // _smsSimperInter.Send(new List<string> { "18678621306","18054624306"},"你好");
+            //_smsSimperInter.Send(new List<string> { "18678621306"}, "Well I wonder could it be When I was dreaming about you baby",DateTime.Now.AddMinutes(5));
             _smsSimperInter.GetBalance();
-            _smsSimperInter.GetMo();
-            _smsSimperInter.GetReport();
+            _smsSimperInter.GetMo();           
         }
     }
 }

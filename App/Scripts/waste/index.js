@@ -11,6 +11,9 @@
                 $(".weui-dialog,.weui-mask").remove();
                 return;
             }
+            if (input > 5) {
+                $.toptip('重量超过5Kg给与提示', 2500,'warning');
+            }
             $.ajax({
                 url: APPEND_WASTE_URL,
                 data: { FlowId: btnAdd.attr('flowId'), Kind: btnAdd.attr('kind'), Weight: input,Code:input2 },

@@ -11,6 +11,6 @@ namespace H2Service.MedicalWastes
     {
         MedicalWasteFlow InitOrGetDefaultFlow(int departmentId);
 
-        void Delivery(int districtId, string summary);
+        void Delivery(MedicalWasteDelivery medicalWasteDelivery);
     }
 }

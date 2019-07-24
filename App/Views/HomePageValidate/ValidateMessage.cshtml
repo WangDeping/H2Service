@@ -1,0 +1,70 @@
+﻿@model H2Service.HomePages.Dto.HomePageValidateMessageDto
+@{
+    Layout = null;    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>首页质控</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="~/Content/weui.min.css" />
+    <link rel="stylesheet" href="~/Content/jquery-weui.min.css" />
+    <link rel="stylesheet" href="~/Content/weui-demo.css" />
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <style>
+        .orange {
+            color:orange
+        }
+    </style>
+</head>
+<body ontouchstart>
+    @if (Model== null)
+    {
+        <header class='demos-header'>
+            <h1 class="demos-title">该消息已经过期</h1>
+        </header>
+
+    }
+    else
+    {     
+         var list = Model.Message.Split('\n');        
+        <header class='demos-header'>
+            <h1 class="demos-title">首页数据质控</h1>
+        </header>
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>病案号</p>
+                </div>
+                <div class="weui-cell__ft">@Model.BAH</div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>通知时间</p>
+                </div>
+                <div class="weui-cell__ft">@Model.SendTime.ToString()</div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>不通过原因</p>
+                </div>
+              
+            </div>
+            @foreach (var s in list)
+            {
+                <div class="weui-cell">
+                    <div class="weui-cell__bd orange">
+                        @s
+                    </div>
+
+                </div>
+
+            }
+          
+        </div>
+
+     }
+</body>
+</html>

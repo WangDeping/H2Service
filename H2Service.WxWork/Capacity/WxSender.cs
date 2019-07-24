@@ -36,7 +36,7 @@ namespace H2Service.WxWork
             {
                 var postContent = new StringContent(JsonConvert.SerializeObject(msg));             
                 var result = client.PostAsync(postUrl, postContent);               
-                var responseJson = result.Result.Content.ReadAsStringAsync().Result;             
+                var responseJson = result.Result.Content.ReadAsStringAsync().Result;              
                 return JsonConvert.DeserializeObject<WxRetMsg>(responseJson);
 
             }

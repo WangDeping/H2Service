@@ -18,7 +18,7 @@ namespace H2Service.MeritPays
         public DateTime CreationTime { get; set; }
 
         [ForeignKey("CreatorUserId")]
-        public virtual User Creator { get; set; }
+        public virtual User Creator { get; set; }        
 
         public virtual ICollection<MeritPayDetail> DetailCollection { get; set; }
       

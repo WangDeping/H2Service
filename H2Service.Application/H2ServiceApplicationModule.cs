@@ -7,6 +7,9 @@ using H2Service.Authorization;
 using H2Service.Authorization.Departments;
 using H2Service.Authorization.Dto;
 using H2Service.External.Dto;
+using H2Service.H2Modules;
+using H2Service.HomePages.Dto;
+using H2Service.MedicalData.HomePages;
 using H2Service.MedicalWastes;
 using H2Service.MedicalWastes.Dto;
 using H2Service.MeritPays;
@@ -15,6 +18,8 @@ using H2Service.QC;
 using H2Service.QC.Dto;
 using H2Service.Salaries.Dto;
 using H2Service.Salarires;
+using H2Service.Scheduling;
+using H2Service.Scheduling.Dto;
 using H2Service.ServerRooms;
 using H2Service.ServerRooms.Dto;
 using H2Service.SMS;
@@ -141,6 +146,21 @@ namespace H2Service
                 .ForMember(d => d.Gender, opt => { opt.MapFrom(s => s.gender); })
                 .ForMember(d => d.UserName, opt => { opt.MapFrom(s => s.name); })
                 .ForMember(d => d.UserNumber, opt => { opt.MapFrom(s => s.userid); });
+
+                cfg.CreateMap<SchedulingDepartmentUser, SchedulingDepartmentUserDto>()
+                 .ForMember(d => d.DepartmentName, opt => opt.MapFrom(s => s.Department.DepartmentName))
+                 .ForMember(d => d.UserName, opt => opt.MapFrom(s => s.User.UserName))
+                 .ForMember(d => d.UserNumber, opt => opt.MapFrom(s => s.User.UserNumber));
+
+                cfg.CreateMap<H2ModuleWithAuditing,H2ModuleWithAuditingDto>()
+                 .ForMember(d => d.DepartmentName, opt => opt.MapFrom(s => s.Department.DepartmentName))
+                 .ForMember(d => d.DoUserName, opt => opt.MapFrom(s => s.DoUser.UserName))
+                 .ForMember(d => d.AuditorName, opt => opt.MapFrom(s => s.Auditor.UserName));
+
+                cfg.CreateMap<HomePageValidateMessage, HomePageValidateMessageDto>()
+                .ForMember(d=>d.DischargeDate,opt=>opt.MapFrom(s=>s.DischargeDate==null?"":s.DischargeDate.Value.ToShortDateString()))
+                .ForMember(d=>d.SendTime,opt=>opt.MapFrom(s=>s.SendTime.ToString()))
+                .ForMember(d => d.ValidateType, opt => opt.MapFrom(s => Enum.GetName(typeof(ValidateType), s.ValidateType)));
             });
 
         }

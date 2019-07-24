@@ -48,7 +48,7 @@ namespace H2Service.MeritPays
                 _meritPayDetailRepository.Insert(detail);
             }
             _unitOfWorkManager.Current.SaveChanges();
-            _eventsBus.Trigger(new MeritPayCreateEventData { Period = instance, UserNumberList = details.Select(d => d.UserNumber).Distinct() });
+             _eventsBus.Trigger(new MeritPayCreateEventData { Period = instance, UserNumberList = details.Select(d => d.UserNumber).Distinct() });
         }
     }
 }

@@ -44,6 +44,9 @@
     <Reference Include="Abp.Zero.Common, Version=4.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Abp.Zero.Common.4.0.2\lib\netstandard2.0\Abp.Zero.Common.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
@@ -52,6 +55,22 @@
     </Reference>
     <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Windsor.4.1.1\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="DHC_LANSECHENG, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Administrator\Desktop\DHC_LANSECHENG.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.6.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="InterSystems.Data.CacheClient">
+      <HintPath>C:\Users\Administrator\Desktop\InterSystems.Data.CacheClient.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Annotations, Version=2018.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.2018.2.1\lib\net20\JetBrains.Annotations.dll</HintPath>
@@ -84,6 +103,17 @@
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.15.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.15\lib\net452\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.10.8\lib\net452\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.EntityFramework, Version=8.0.15.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.EntityFramework.8.0.15\lib\net452\MySql.Data.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -131,6 +161,7 @@
     <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Configuration.ConfigurationManager.4.5.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Common">
       <HintPath>..\packages\System.Data.Common.4.3.0\lib\net451\System.Data.Common.dll</HintPath>
@@ -138,6 +169,7 @@
     </Reference>
     <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Linq.Dynamic.Core, Version=1.0.9.0, Culture=neutral, PublicKeyToken=0f07ec44de6ac832, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Linq.Dynamic.Core.1.0.9\lib\net46\System.Linq.Dynamic.Core.dll</HintPath>
@@ -169,6 +201,7 @@
       <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Security.AccessControl, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.AccessControl.4.5.0\lib\net461\System.Security.AccessControl.dll</HintPath>
     </Reference>
@@ -207,8 +240,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization\AuthorizationManager.cs" />
-    <Compile Include="Authorization\Departments\DepartmentRelateModule.cs" />
+    <Compile Include="Authorization\Departments\H2Module\DepartmentRelateModule.cs" />
     <Compile Include="Authorization\Departments\District.cs" />
+    <Compile Include="Authorization\Departments\H2Module\H2ModuleDomainService.cs" />
+    <Compile Include="Authorization\Departments\H2Module\H2ModuleWithAuditing.cs" />
     <Compile Include="Authorization\Permissions\DepartmentPermission.cs" />
     <Compile Include="Authorization\Departments\Department.cs" />
     <Compile Include="Authorization\Departments\DepartmentDomainService.cs" />
@@ -231,9 +266,11 @@
     <Compile Include="Events\DeleteUserEventData.cs" />
     <Compile Include="Events\Handler\CreateUserEventHandler.cs" />
     <Compile Include="Events\Handler\DeleteUserEventHandler.cs" />
+    <Compile Include="Events\Handler\HomePageValidateEventHandler.cs" />
     <Compile Include="Events\Handler\MeritPayEventHandler.cs" />
     <Compile Include="Events\Handler\SalaryEventHandler.cs" />
     <Compile Include="Events\Handler\TestEventHandler.cs" />
+    <Compile Include="Events\HomePageValidateEventData.cs" />
     <Compile Include="Events\MeritPayCreateEventData.cs" />
     <Compile Include="Events\SalaryCreateEventData.cs" />
     <Compile Include="Events\TestEventData.cs" />
@@ -247,6 +284,19 @@
     <Compile Include="Log\LoginLog.cs" />
     <Compile Include="Maintenances\MaintenanceOrder.cs" />
     <Compile Include="Maintenances\MaintenanceTrace.cs" />
+    <Compile Include="MedicalData\HomePages\HomePage.cs" />
+    <Compile Include="MedicalData\HomePages\HomePageDomainService.cs" />
+    <Compile Include="MedicalData\HomePages\HomePageValidateMessage.cs" />
+    <Compile Include="MedicalData\HomePages\HomePageValidateDomainService.cs" />
+    <Compile Include="MedicalData\ICDMaps\InuseICD9CM3.cs" />
+    <Compile Include="MedicalData\ICDMaps\Hos_Nat_ICD10.cs" />
+    <Compile Include="MedicalData\ICDMaps\Hos_Nat_ICD9CM3.cs" />
+    <Compile Include="MedicalData\ICDMaps\ICDMapCaching.cs" />
+    <Compile Include="MedicalData\ICDMaps\InuseICD10.cs" />
+    <Compile Include="MedicalData\ICDMaps\SD_Nat_ICD10.cs" />
+    <Compile Include="MedicalData\ICDMaps\SD_Nat_ICD9CM3.cs" />
+    <Compile Include="MedicalData\IntersystemsCache.cs" />
+    <Compile Include="MedicalData\Users\UserDomainService.cs" />
     <Compile Include="MedicalWastes\IMedicalWasteDomainService.cs" />
     <Compile Include="MedicalWastes\MedicalWaste.cs" />
     <Compile Include="MedicalWastes\MedicalWasteDelivery.cs" />
@@ -265,6 +315,8 @@
     <Compile Include="Salarires\SalaryDomainService.cs" />
     <Compile Include="Salarires\SalaryPeriod.cs" />
     <Compile Include="Salarires\SalaryType.cs" />
+    <Compile Include="Scheduling\SchedulingDepartmentUser.cs" />
+    <Compile Include="Scheduling\SchedulingDomainServcie.cs" />
     <Compile Include="Scheduling\SchedulingRecord.cs" />
     <Compile Include="Scheduling\SchedulingGroup.cs" />
     <Compile Include="Scheduling\SchedulingType.cs" />
@@ -286,6 +338,7 @@
       <Name>H2Service.WxWork</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

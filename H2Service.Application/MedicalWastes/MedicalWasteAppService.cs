@@ -142,17 +142,17 @@ namespace H2Service.MedicalWastes
             }
             return wasteStatisticOutput;
         }
-        /// <summary>
-        /// 按院区出库
-        /// </summary>
-        /// <param name="districtId"></param>
-        public void DeliveryCollection(int districtId)
+      /// <summary>
+      /// 暂存点出库
+      /// </summary>
+      /// <param name="input"></param>
+        public void DeliveryCollection(DeliveryCollectionInput input)
         {
-            IEnumerable<WasteStatisticOutput> wasteCollection = this.GetUnDeliveryCollection(districtId);
+            IEnumerable<WasteStatisticOutput> wasteCollection = this.GetUnDeliveryCollection(input.DistrictId);
             string summary = "";
             foreach (var w in wasteCollection)
                 summary +=w.Kind+":"+w.Total+"Kg"+","+w.PackageCount+"包;";
-            _medicalWasteDomainService.Delivery(districtId,summary);
+            _medicalWasteDomainService.Delivery(new MedicalWasteDelivery {  DistrictId=input.DistrictId, Summary=summary, ImageUrl=String.Join(";",input.ImagesUrl)});
         }
     
         public PagedResultDto<WasteDeliveryDto> GetPagedDeliveryHistory(GetPagedDeliveryInput input)

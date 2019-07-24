@@ -17,8 +17,7 @@ namespace H2Service.SMS.Entity
            this.timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
            var encrt = this.appId+secretkey+ this.timestamp;         
            var md5 = MD5.Create();
-           var result = md5.ComputeHash(Encoding.ASCII.GetBytes(encrt));
-            //this.sign= System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(encrt, "MD5").ToUpper();
+           var result = md5.ComputeHash(Encoding.ASCII.GetBytes(encrt));        
             this.sign = BitConverter.ToString(result).Replace("-", ""); 
         }
 
