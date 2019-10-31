@@ -40,8 +40,7 @@ namespace H2Service.Events.Handler
                     var url = string.Format(WebConfigurationManager.AppSettings["appBaseUrl"] + @"HomePageValidate/ValidateMessage/{0}", id);
                     var description = string.Format("<div class='highlight'>{0}</div>", eventData.ValidateMessage.Message);
                     var userNumber = eventData.ValidateMessage.UserNumber;
-                    var wxMsg = new WxSendTextCardMsg(description, title, url, userNumber, WebConfigurationManager.AppSettings["homepageAppid"]);
-                    //var wxMsg = new WxSendTextMsg(description,userNumber);
+                    var wxMsg = new WxSendTextCardMsg(description, title, url, userNumber, WebConfigurationManager.AppSettings["homepageAppid"]);                  
                     _wxSender.SendMsg(wxMsg);
                 }
                

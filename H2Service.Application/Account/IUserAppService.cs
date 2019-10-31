@@ -92,5 +92,7 @@ namespace H2Service.Users
         DepartmentDto GetDefaultDepartment(int userId);
 
         void GrantPermission(GrantPermissionInput input);
+
+        List<UserDto> FindUser(FindUserInput input);
     }
 }

@@ -38,6 +38,7 @@ namespace H2Service.Authorization
         public const string Pages_QC_PeriodCreate = "Pages.QC.PeriodCreate";
         public const string Pages_QC_FunctionalDepartment = "Pages.QC.FunctionalDepartment";
         public const string Pages_QC_HomPageAdministrator = "Pages.QC.HomPageAdministrator";
+        public const string Pages_QC_QCDoctor = "Pages.QC.QCDoctor";//住院总质控医师
 
         public const string Pages_Infection = "Pages.Infection";
         public const string Pages_Infection_MedicalWasteStatistics = "Pages.Infection.MedicalWasteStatistics";
@@ -53,7 +54,11 @@ namespace H2Service.Authorization
         //public const string Pages_Scheduling_MyScheduling = "Pages.Scheduling.MyScheduling";
         public const string Pages_Scheduling_Auditor = "Pages.Scheduling.Auditor";
 
-        
+        public const string Pages_Equipment= "Pages.Equipment";
+        public const string Pages_Equipment_Do= "Pages.Equipment.Do";
+        public const string Pages_Equipment_PatrolII = "Pages.Equipment.PatrolII";
+
+
 
     }
 }

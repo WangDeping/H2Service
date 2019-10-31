@@ -5,17 +5,21 @@ using Abp.Runtime.Caching.Redis;
 using H2Service.Account.Dto;
 using H2Service.Authorization;
 using H2Service.Authorization.Departments;
-using H2Service.Authorization.Dto;
+using H2Service.EnumDic;
+using H2Service.Equipments;
+using H2Service.Equipments.Dto;
 using H2Service.External.Dto;
 using H2Service.H2Modules;
 using H2Service.HomePages.Dto;
 using H2Service.MedicalData.HomePages;
+using H2Service.MedicalData.OPMedicalDiagnose;
 using H2Service.MedicalWastes;
 using H2Service.MedicalWastes.Dto;
 using H2Service.MeritPays;
 using H2Service.MeritPays.Dto;
 using H2Service.QC;
 using H2Service.QC.Dto;
+using H2Service.Reports.Dto;
 using H2Service.Salaries.Dto;
 using H2Service.Salarires;
 using H2Service.Scheduling;
@@ -161,6 +165,44 @@ namespace H2Service
                 .ForMember(d=>d.DischargeDate,opt=>opt.MapFrom(s=>s.DischargeDate==null?"":s.DischargeDate.Value.ToShortDateString()))
                 .ForMember(d=>d.SendTime,opt=>opt.MapFrom(s=>s.SendTime.ToString()))
                 .ForMember(d => d.ValidateType, opt => opt.MapFrom(s => Enum.GetName(typeof(ValidateType), s.ValidateType)));
+
+                cfg.CreateMap<OPMedicalDiagnose, OPQtyMonthDto>()
+                .ForMember(d => d.Month, opt => opt.MapFrom(s => s.AdDate.Value.ToString("yyyy-MM")))
+                .ForMember(d => d.Dep, opt => opt.MapFrom(s => s.AdmDep));
+
+
+                cfg.CreateMap<Equipment, EquipmentOutput>()
+                .ForMember(d => d.DepartmentName, opt => opt.MapFrom(s => s.Dept.DepartmentName))
+                .ForMember(d => d.EquipmentKindName, opt => opt.MapFrom(s => s.Kind.EquipmentKindName))
+                .ForMember(d => d.EquipmentTypeName, opt => opt.MapFrom(s => s.Type.EquipmentTypeName))
+                 .ForMember(d => d.EquipmentTypeIcon, opt => opt.MapFrom(s => s.Type.Icon))
+                .ForMember(d => d.EquipmentModelName, opt => opt.MapFrom(s => s.Model.EquipmentModelName))
+                .ForMember(d => d.Status, opt => opt.MapFrom(s => Enum.GetName(typeof(EquipmentStatus), s.Status)))
+                .ForMember(d=>d.IsUsing,opt=>opt.MapFrom(s=>s.UsageLogs.FirstOrDefault(T=>T.EndUserId==null)!=null))
+                .ForMember(d => d.IsLoaning_Id, opt => opt.MapFrom(s => s.LoanLogs.FirstOrDefault(T => T.SignUserId == null).Id))
+                .ForMember(d => d.HasPatrol_I, opt => opt.MapFrom(s => s.PatrolLogs.Any(T => T.EquipmentId==s.Id&&T.CreationTime>=DateTime.Now.Date&&T.Type==PatrolTypeEnum.I级巡视)))
+                .ForMember(d => d.HasPatrol_II, opt => opt.MapFrom(s => s.PatrolLogs.Any(T=>T.CreationTime>= DateTime.Now.AddDays(1 - DateTime.Now.Day).Date&&T.EquipmentId==s.Id&&T.Type==PatrolTypeEnum.II级巡视)));
+
+                cfg.CreateMap<EquipmentProperty, EquipmentPropertyDto>()
+                .ForMember(d => d.Frequency, opt => opt.MapFrom(s => Enum.GetName(typeof(EquipmentPartrolFrequencyEnum), s.Frequency)))
+                .ForMember(d => d.ViewType, opt => opt.MapFrom(s => Enum.GetName(typeof(ViewType), s.ViewType)))
+                 .ForMember(d => d.PartrolType, opt => opt.MapFrom(s => Enum.GetName(typeof(PatrolTypeEnum), s.PartrolType)));
+
+                cfg.CreateMap<EquipmentLoanLog, EquipmentLoanLogDto>()
+                .ForMember(d => d.BorrowDeptName, opt => opt.MapFrom(s => s.BorrowDepartment.DepartmentName))
+                .ForMember(d => d.BorrowUserName, opt => opt.MapFrom(s => s.BorrowUser.UserName))
+                .ForMember(d => d.LoanDepartmentName, opt => opt.MapFrom(s => s.LoanDepartment.DepartmentName))
+                .ForMember(d => d.LoanUserName, opt => opt.MapFrom(s => s.LoanUser.UserName))
+                .ForMember(d => d.SignUserName, opt => opt.MapFrom(s => s.SignUser.UserName))
+                .ForMember(d => d.ReturnUserName, opt => opt.MapFrom(s => s.ReturnUser.UserName));
+
+                cfg.CreateMap<EquipmentPatrolLog, EquipmentPatrolLogDto>()
+                .ForMember(d => d.CreatorUserName, opt => opt.MapFrom(s => s.CreatorUser.UserName))
+                .ForMember(d => d.EquipmentName, opt => opt.MapFrom(s => s.Equipment.EquipmentName))
+                .ForMember(d => d.Type, opt => opt.MapFrom(s => Enum.GetName(typeof(PatrolTypeEnum), s.Type)))
+                .ForMember(d=>d.EquipmentTypeName,opt=>opt.MapFrom(s=>s.Equipment.Type.EquipmentTypeName))
+                .ForMember(d=>d.Code,opt=>opt.MapFrom(s=>s.Equipment.Code));
+
             });
 
         }

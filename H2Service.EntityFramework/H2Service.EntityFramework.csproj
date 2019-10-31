@@ -323,6 +323,110 @@
     <Compile Include="Migrations\201907110231441_tjhl_t.Designer.cs">
       <DependentUpon>201907110231441_tjhl_t.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907250939093_validate_status.cs" />
+    <Compile Include="Migrations\201907250939093_validate_status.Designer.cs">
+      <DependentUpon>201907250939093_validate_status.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908010639280_mzop.cs" />
+    <Compile Include="Migrations\201908010639280_mzop.Designer.cs">
+      <DependentUpon>201908010639280_mzop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908010850324_opdiagonse.cs" />
+    <Compile Include="Migrations\201908010850324_opdiagonse.Designer.cs">
+      <DependentUpon>201908010850324_opdiagonse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908020116516_opdiagonse_datetime.cs" />
+    <Compile Include="Migrations\201908020116516_opdiagonse_datetime.Designer.cs">
+      <DependentUpon>201908020116516_opdiagonse_datetime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908020228254_opdiagonse_age.cs" />
+    <Compile Include="Migrations\201908020228254_opdiagonse_age.Designer.cs">
+      <DependentUpon>201908020228254_opdiagonse_age.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909110223219_update_cysjs_rysjs.cs" />
+    <Compile Include="Migrations\201909110223219_update_cysjs_rysjs.Designer.cs">
+      <DependentUpon>201909110223219_update_cysjs_rysjs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910130916001_createequipment.cs" />
+    <Compile Include="Migrations\201910130916001_createequipment.Designer.cs">
+      <DependentUpon>201910130916001_createequipment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161016365_addeqprotery.cs" />
+    <Compile Include="Migrations\201910161016365_addeqprotery.Designer.cs">
+      <DependentUpon>201910161016365_addeqprotery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161035544_addmodel.cs" />
+    <Compile Include="Migrations\201910161035544_addmodel.Designer.cs">
+      <DependentUpon>201910161035544_addmodel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161045195_addmodel2.cs" />
+    <Compile Include="Migrations\201910161045195_addmodel2.Designer.cs">
+      <DependentUpon>201910161045195_addmodel2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161052425_addmodel3.cs" />
+    <Compile Include="Migrations\201910161052425_addmodel3.Designer.cs">
+      <DependentUpon>201910161052425_addmodel3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161054100_addmodel4.cs" />
+    <Compile Include="Migrations\201910161054100_addmodel4.Designer.cs">
+      <DependentUpon>201910161054100_addmodel4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161154098_addmodel5.cs" />
+    <Compile Include="Migrations\201910161154098_addmodel5.Designer.cs">
+      <DependentUpon>201910161154098_addmodel5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161219460_addmodel51.cs" />
+    <Compile Include="Migrations\201910161219460_addmodel51.Designer.cs">
+      <DependentUpon>201910161219460_addmodel51.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910170704132_addmodel6.cs" />
+    <Compile Include="Migrations\201910170704132_addmodel6.Designer.cs">
+      <DependentUpon>201910170704132_addmodel6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910170711243_addmodel7.cs" />
+    <Compile Include="Migrations\201910170711243_addmodel7.Designer.cs">
+      <DependentUpon>201910170711243_addmodel7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910170713132_addmode8.cs" />
+    <Compile Include="Migrations\201910170713132_addmode8.Designer.cs">
+      <DependentUpon>201910170713132_addmode8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910170717358_addmode9.cs" />
+    <Compile Include="Migrations\201910170717358_addmode9.Designer.cs">
+      <DependentUpon>201910170717358_addmode9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910170719393_addmod10.cs" />
+    <Compile Include="Migrations\201910170719393_addmod10.Designer.cs">
+      <DependentUpon>201910170719393_addmod10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910170742303_addmod11.cs" />
+    <Compile Include="Migrations\201910170742303_addmod11.Designer.cs">
+      <DependentUpon>201910170742303_addmod11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910170747393_addmod12.cs" />
+    <Compile Include="Migrations\201910170747393_addmod12.Designer.cs">
+      <DependentUpon>201910170747393_addmod12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910170828227_addmod13.cs" />
+    <Compile Include="Migrations\201910170828227_addmod13.Designer.cs">
+      <DependentUpon>201910170828227_addmod13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910180808152_addfk.cs" />
+    <Compile Include="Migrations\201910180808152_addfk.Designer.cs">
+      <DependentUpon>201910180808152_addfk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910211214439_addicon.cs" />
+    <Compile Include="Migrations\201910211214439_addicon.Designer.cs">
+      <DependentUpon>201910211214439_addicon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910260854366_editerror.cs" />
+    <Compile Include="Migrations\201910260854366_editerror.Designer.cs">
+      <DependentUpon>201910260854366_editerror.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910310232447_addbirthday.cs" />
+    <Compile Include="Migrations\201910310232447_addbirthday.Designer.cs">
+      <DependentUpon>201910310232447_addbirthday.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="H2ServiceDataModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -400,6 +504,84 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907110231441_tjhl_t.resx">
       <DependentUpon>201907110231441_tjhl_t.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907250939093_validate_status.resx">
+      <DependentUpon>201907250939093_validate_status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908010639280_mzop.resx">
+      <DependentUpon>201908010639280_mzop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908010850324_opdiagonse.resx">
+      <DependentUpon>201908010850324_opdiagonse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908020116516_opdiagonse_datetime.resx">
+      <DependentUpon>201908020116516_opdiagonse_datetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908020228254_opdiagonse_age.resx">
+      <DependentUpon>201908020228254_opdiagonse_age.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909110223219_update_cysjs_rysjs.resx">
+      <DependentUpon>201909110223219_update_cysjs_rysjs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910130916001_createequipment.resx">
+      <DependentUpon>201910130916001_createequipment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161016365_addeqprotery.resx">
+      <DependentUpon>201910161016365_addeqprotery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161035544_addmodel.resx">
+      <DependentUpon>201910161035544_addmodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161045195_addmodel2.resx">
+      <DependentUpon>201910161045195_addmodel2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161052425_addmodel3.resx">
+      <DependentUpon>201910161052425_addmodel3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161054100_addmodel4.resx">
+      <DependentUpon>201910161054100_addmodel4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161154098_addmodel5.resx">
+      <DependentUpon>201910161154098_addmodel5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161219460_addmodel51.resx">
+      <DependentUpon>201910161219460_addmodel51.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910170704132_addmodel6.resx">
+      <DependentUpon>201910170704132_addmodel6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910170711243_addmodel7.resx">
+      <DependentUpon>201910170711243_addmodel7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910170713132_addmode8.resx">
+      <DependentUpon>201910170713132_addmode8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910170717358_addmode9.resx">
+      <DependentUpon>201910170717358_addmode9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910170719393_addmod10.resx">
+      <DependentUpon>201910170719393_addmod10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910170742303_addmod11.resx">
+      <DependentUpon>201910170742303_addmod11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910170747393_addmod12.resx">
+      <DependentUpon>201910170747393_addmod12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910170828227_addmod13.resx">
+      <DependentUpon>201910170828227_addmod13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910180808152_addfk.resx">
+      <DependentUpon>201910180808152_addfk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910211214439_addicon.resx">
+      <DependentUpon>201910211214439_addicon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910260854366_editerror.resx">
+      <DependentUpon>201910260854366_editerror.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910310232447_addbirthday.resx">
+      <DependentUpon>201910310232447_addbirthday.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,114 @@
+﻿@model H2Service.Equipments.Dto.EquipmentOutput
+@{
+    ViewBag.Title = "使用记录";
+    Layout = "~/Views/Shared/_WxconfigLayout.cshtml";
+}
+<style type="text/css">   
+    .weui-btn_primary {
+        background-color: #1296db;
+    }
+</style>
+<div class="weui-cells__title">设备使用</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>@Model.EquipmentTypeName</p>
+        </div>
+        <div class="weui-cell__ft">
+            <p>@Model.Code</p>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>住院号</p>
+        </div>
+        <div class="weui-cell__ft">
+            <input class="weui-input" id="patientNO" style="text-align:right" type="text" value="">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <label for="" class="weui-label">开始时间</label>
+
+        </div>
+        <div class="weui-cell__ft" style="width:70%;">
+            <input class="weui-input" type="text" id='datetime-picker' value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")" style="text-align:right">
+        </div>
+    </div>
+</div>
+
+<div class="weui-btn-area">
+    <a class="weui-btn weui-btn_primary" href="javascript:createUsage()" id="showTooltips">开始使用</a>
+</div>
+<div class="weui-cells__title">历史记录</div>
+<div class="weui-cells" id="usageLogs_Container">
+
+</div>
+
+
+<script>
+
+    var CREATE_USAGE_URL = '@Url.Action("CreateUsage", "Equipment")'
+    var END_USAGE_URL = '@Url.Action("EndUsage", "Equipment")'
+    var MaxResultCount = 15;
+    $("#datetime-picker").datetimePicker({});
+    var loading = false;
+    var currentPageNumber = 0;
+      var loadUsageLogs = function (pageNumber) {
+          $.post('@Url.Action("UsageLogsView", "Equipment")', {
+              'MaxResultCount': MaxResultCount,
+            'PageNumber':pageNumber,
+            'EquipmentId': '@Model.Id'
+        }, function (data) {
+            loading = false
+            if (data.trim() != "") {
+                $('#usageLogs_Container').append(data);
+                currentPageNumber++
+            }
+            else {//全部加载完毕
+            }
+        })
+    }
+    loadUsageLogs(currentPageNumber)
+    $('#usageLogs_Container').pullToRefresh(function () {
+        if (loading)
+            return;
+        loading = true;
+        loadUsageLogs(currentPageNumber)
+    })
+    function createUsage() {
+        var usage = new Object();
+        usage.EquipmentId = '@Model.Id';
+        usage.PatientAdmNo = $('#patientNO').val();
+        usage.BeginTime = $('#datetime-picker').val();
+        $.ajax({
+            url: CREATE_USAGE_URL,
+            type: 'post',
+            data: usage,
+            success: function (data) {
+                if (data.Code == 0) {
+                    $.toast("操作成功", function () {
+                        window.location.href="@Url.Action("Index","Equipment")"
+                    });
+                }
+                else {
+                    $.toptip(data.Message, 'error');
+                }
+            },
+            error: function (data) {
+                $.toptip(data.Message, 'error');
+            }
+        })
+    }
+</script>
+<script>
+
+    function endUsage(obj, Id) {
+        $.post(END_USAGE_URL, { Id: Id }, function (data) {
+             $.toast("操作成功", function () {
+                        window.location.href="@Url.Action("Index","Equipment")"
+                    });
+        })
+    }
+
+</script>

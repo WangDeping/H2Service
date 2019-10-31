@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using H2Service.SMS.Dto;
+using Abp.UI;
 
 namespace H2Service.SMS
 {
@@ -14,11 +16,23 @@ namespace H2Service.SMS
             _smsSimperInter = smsSimperInter;
 
         }
-        public void Test() {         
-
-            //_smsSimperInter.Send(new List<string> { "18678621306"}, "Well I wonder could it be When I was dreaming about you baby",DateTime.Now.AddMinutes(5));
-            _smsSimperInter.GetBalance();
-            _smsSimperInter.GetMo();           
+        /// <summary>
+        /// 发送短信
+        /// </summary>
+        /// <param name="input">手机号和短信内容</param>
+        public void Send(SMSSendInput input)
+        {
+            if (input.Mobiles.Count == 0||string.IsNullOrEmpty(input.Content))
+                throw new UserFriendlyException("手机号和内容不得为空");            
+            _smsSimperInter.Send(input.Mobiles,input.Content );
+        }
+        /// <summary>
+        /// 获取余额
+        /// </summary>
+        /// <returns></returns>
+        public string GetBalance() { 
+           return _smsSimperInter.GetBalance();
+           // _smsSimperInter.GetMo();           
         }
     }
 }

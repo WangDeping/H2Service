@@ -19,10 +19,7 @@
                 <div class="headline text-xs-center pa-5">
                     Active: {{ bottomNav }}
                 </div>
-                <v-bottom-nav :active.sync="bottomNav"
-                              :value="true"
-                              absolute
-                              color="transparent">
+                <v-bottom-nav :active.sync="bottomNav" :value="true" absolute color="transparent">
                     <v-btn color="teal" flat   value="recent">
                         <span>Recent</span>
                         <v-icon>history</v-icon>

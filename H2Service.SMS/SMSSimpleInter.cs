@@ -64,15 +64,16 @@ namespace H2Service.SMS
         /// <summary>
         /// 查询余额
         /// </summary>
-        public void GetBalance() {
+        public string GetBalance() {
             var url = WebConfigurationManager.AppSettings["smsUrl"] + @"simpleinter/getBalance";
             Dictionary<string, string> parms = new Dictionary<string, string>();
             var entity = new SMSEntityBase();
             parms.Add("appId", entity.appId);
             parms.Add("timestamp", entity.timestamp);
             parms.Add("sign", entity.sign);        
-            var result = SMSHelper.postData(url, parms);
+            var result = SMSHelper.postData(url, parms);            
             _logger.Error("余额返回：" + result);
+            return result;
 
         }
         /// <summary>

@@ -24,17 +24,18 @@ namespace H2Service.HomePages
  public   class HomePageAppService : H2ServiceAppServiceBase,IHomePageAppService
     {
         private readonly HomePageDomainService _homepageDomainService;      
-        private readonly UserDomainService _userDomainService;
-        private readonly IRepository<HomePageValidateMessage> _validateMessageRepository;
+        private readonly UserDomainService _userDomainService;    
+        private readonly HomePageValidateDomainService _homepageValidateDomainService;
         private IEventBus _eventBus;
         public HomePageAppService(HomePageDomainService homepageDomainService,       
-            UserDomainService userDomainService,
-            IRepository<HomePageValidateMessage> validateMessageRepository,
-            IEventBus eventBus) {
+            UserDomainService userDomainService,          
+            IEventBus eventBus,
+            HomePageValidateDomainService homepageValidateDomainService) {
             _homepageDomainService = homepageDomainService;          
             _eventBus = eventBus;
             _userDomainService = userDomainService;
-            _validateMessageRepository = validateMessageRepository;
+          
+            _homepageValidateDomainService = homepageValidateDomainService;
         }
         /// <summary>
         /// 更新病案首页
@@ -42,10 +43,7 @@ namespace H2Service.HomePages
         /// <param name="admNo">IP就诊记录</param>
         public void UpdateHomePage(string admNo) {           
             _homepageDomainService.UpdateHomepage(admNo);
-
         }
-
-
         /// <summary>
         /// 校验病案首页
         /// </summary>
@@ -58,43 +56,11 @@ namespace H2Service.HomePages
             userNumber = _userDomainService.GetUserById(userNumber);
             var result = true;
             var builder = new StringBuilder();
-            //入院时间出院时间必填质控
-            if (homePage.RYSJ == null || homePage.RYSJS == null || homePage.CYSJ == null || homePage.CYSJS == null)
-            {
-                builder.AppendLine("入院时间、出院时间必填");
-                result = result && false;
-            }
-            //年龄质控
-            else if(homePage.NL!=null){
-                var age =Convert.ToInt32((homePage.RYSJ - homePage.CSRQ).Value.TotalDays / 365);
-                if (homePage.NL != age && (homePage.NL + 1) != age && (homePage.NL - 1) != age)
-                {
-                    builder.AppendLine("年龄误差不能超过1年,计算值为" + age+"填写年龄:"+homePage.NL);
-                    result = result && false;
-                }
-                var Indays = (homePage.CYSJ - homePage.RYSJ).Value.Days == 0 ? 1 : homePage.CYSJ.Value.Subtract(homePage.RYSJ.Value).Days;
-                if (Indays != homePage.SJZYTS)
-                {
-                    builder.AppendLine("住院天数不正确(计算值:"+Indays.ToString()+")");                  
-                    result = result && false;
-                }
-            }
-            if (homePage.NL == null)
-            {
-                builder.AppendLine("年龄不能为空");
-                result = result && false;
-            }
-            if (homePage.RYSJ > homePage.CYSJ)
-            {
-                builder.AppendLine("入院时间不能晚于出院时间");
-                result = result && false;
-            }
-            if (homePage.CSRQ == null)
-            {
-                builder.AppendLine("出生日期不能为空");
-                result = result && false;
-            }
-           
+            //日期和年龄必填质控
+            IValidate dateValidate = new HomePageDateValidate(homePage);
+            var dateResult = dateValidate.Validate();
+            builder.Append(dateResult.ValidateDescription);
+            result = result & dateResult.ValidateResult;
 
             var IDNumber = homePage.SFZH.Trim();
             if (IDNumber != "-")
@@ -195,12 +161,7 @@ namespace H2Service.HomePages
                 {
                     builder.AppendLine("填写病理号");
                     result = result && false;
-                }
-            if (homePage.ZKRQ < homePage.CYSJ)
-            {
-                builder.AppendLine("质控日期不能早于出院日期");
-                result = result && false;
-            }
+                }         
             if (homePage.XSECSTZ != null)
                 if (homePage.XSECSTZ < 100 || homePage.XSECSTZ > 9999)
                 {
@@ -215,16 +176,7 @@ namespace H2Service.HomePages
                 }
           
             
-            if (homePage.RYQ_XS >= 24)
-            {
-                builder.AppendLine("外伤导致的入院前昏迷小时不能超过24");
-                result = result && false;
-            }
-            if (homePage.RYH_XS >= 24)
-            {
-                builder.AppendLine("外伤导致的入院后昏迷小时不能超过24");
-                result = result && false;
-            }
+           
             if (homePage.SFZZYJH == "有")
                 if (string.IsNullOrEmpty(homePage.MD))
                 {
@@ -293,29 +245,83 @@ namespace H2Service.HomePages
         }
 
         /// <summary>
-        /// 
+        /// 住院总质控
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public bool QCValidate(QCValidateInput input) {
-            _eventBus.Trigger(new HomePageValidateEventData
-            {
-                Validate = false,
-                ValidateMessage = new HomePageValidateMessage
+        public bool QCValidate(QCValidateInput input) { 
+            _homepageValidateDomainService.SendQCValidateMessage(
+                new HomePageValidateMessage
                 {
                     AdmNo = input.AdmNo,
                     BAH = input.BAH,
-                    Message = input.Message,
+                    Message =new StringBuilder().AppendLine(input.Message).ToString(),
                     SendTime = DateTime.Now,
-                    ValidateType = ValidateType.手工质控,
+                    ValidateType = ValidateType.住院总质控,
                     DischargeDate = DateTime.Parse(input.DischargeDate),
+                    Dep=input.Dep,
+                    ValidateStatus=ValidateStatus.问题通知,
                     UserNumber = input.UserNumber,
                     SendUser = input.SendUser
                 }
-            });
-           
-            return false;
+                );
+            return true;
         }
+
+        /// <summary>
+        /// 完善病历后通知住院总
+        /// </summary>
+        /// <param name="Id">通知Id</param>
+        public void CorrectThenNotify(int Id)
+        {
+            _homepageValidateDomainService.CorrectThenNotify(Id);
+        }
+        /// <summary>
+        /// 住院总审核通过问题病历
+        /// </summary>
+        /// <param name="Id">消息Id</param>
+        public void PassValidate(int Id)
+        {
+            _homepageValidateDomainService.PassValidate(Id);
+        }
+        /// <summary>
+        /// 住院总审核不通过
+        /// </summary>
+        /// <param name="Id">Id</param>
+        public void NoPassValidate(int Id) {
+            _homepageValidateDomainService.NoPassValidate(Id);
+        }
+        /// <summary>
+        /// 删除消息
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public void DeleteMessage(int Id) {          
+            _homepageValidateDomainService.DeleteMessage(Id);
+         
+        }
+
+
+        /// <summary>
+        /// 病案归档上架，删除所有消息
+        /// </summary>
+        /// <param name="bah"></param>
+        public void FileHomePage(string bah) {
+            _homepageValidateDomainService.FileHomePage(bah);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         /// <summary>
         /// 根据用户和校验类型查询校验
         /// </summary>
@@ -325,13 +331,12 @@ namespace H2Service.HomePages
         public IEnumerable<HomePageValidateMessageDto> GetValidateMessages(string userNumber, ValidateType type = ValidateType.全部) {
             var validateMessages =new List<HomePageValidateMessage>();           
             if (PermissionChecker.IsGranted(PermissionNames.Pages_QC_HomPageAdministrator))
-                 validateMessages =_validateMessageRepository.GetAll().OrderByDescending(T=>T.DischargeDate).ToList();
+                 validateMessages =_homepageValidateDomainService.GetAllMessage().OrderByDescending(T=> T.DischargeDate).ThenByDescending(T=>T.ValidateType).ToList();
             else
-                validateMessages = _validateMessageRepository.GetAll().Where(T => T.UserNumber == userNumber).OrderByDescending(T=>T.DischargeDate).ToList();
+                validateMessages = _homepageValidateDomainService.GetAllMessage().Where(T => T.UserNumber == userNumber||T.SendUser==userNumber).OrderByDescending(T=>T.DischargeDate).ToList();
            
             return validateMessages.MapTo<IEnumerable<HomePageValidateMessageDto>>();
         }
-        
 
 
 
@@ -345,10 +350,32 @@ namespace H2Service.HomePages
 
 
 
+        /// <summary>
+        /// 获取校验信息列表
+        /// </summary>
+        /// <param name="userNumber">工号</param>
+        /// <returns></returns>
+        public List<HomePageValidateMessageDto> GetValidateMessageByUser(string userNumber)
+        {
+            var result = _homepageValidateDomainService.GetAllMessage().Where(T => T.UserNumber == userNumber);
+            if (result != null)
+                return result.MapTo<List<HomePageValidateMessageDto>>();
+            else
+                return new List<HomePageValidateMessageDto>();
+        }
+        /// <summary>
+        /// 获取校验信息
+        /// </summary>
+        /// <param name="Id">校验信息Id</param>
+        /// <returns></returns>
+        public HomePageValidateMessageDto GetValidateMessageById(int Id)
+        {
+            var msg = _homepageValidateDomainService.GetMessageById(Id);
+            return msg.MapTo<HomePageValidateMessageDto>();
+        }
 
 
-
-            private bool CheckIDCard18(string Id)
+        private bool CheckIDCard18(string Id)
         {
             long n = 0;
             if (long.TryParse(Id.Remove(17), out n) == false || n < Math.Pow(10, 16) || long.TryParse(Id.Replace('x', '0').Replace('X', '0'), out n) == false)
@@ -412,35 +439,7 @@ namespace H2Service.HomePages
             return true;//符合15位身份证标准
 
         }
-        /// <summary>
-        /// 获取校验信息列表
-        /// </summary>
-        /// <param name="userNumber">工号</param>
-        /// <returns></returns>
-        public List<HomePageValidateMessageDto> GetValidateMessageByUser(string userNumber)
-        {
-            var result = _validateMessageRepository.GetAll().Where(T => T.UserNumber == userNumber);
-            if (result != null)
-                return result.MapTo<List<HomePageValidateMessageDto>>();
-            else
-                return new List<HomePageValidateMessageDto>();
-        }
-        /// <summary>
-        /// 获取校验信息
-        /// </summary>
-        /// <param name="Id">校验信息Id</param>
-        /// <returns></returns>
-        public HomePageValidateMessageDto GetValidateMessageById(int Id)
-        {
-            var msg = _validateMessageRepository.FirstOrDefault(T => T.Id == Id);
-            return msg.MapTo<HomePageValidateMessageDto>();
-            //if (msg != null)
-            //{
-            //    var dto= msg.MapTo<HomePageValidateMessageDto>();                
-            //    return dto;
-            //}
-            //else
-            //    return new HomePageValidateMessageDto();
-        }
+
+      
     }
 }

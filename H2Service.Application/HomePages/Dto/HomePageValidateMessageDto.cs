@@ -44,9 +44,17 @@ namespace H2Service.HomePages.Dto
         /// </summary>
         public string ValidateType { get; set; }
         /// <summary>
+        /// 验证状态
+        /// </summary>
+        public string ValidateStatus { get; set; }
+        /// <summary>
         /// 发送时间
         /// </summary>
         public string SendTime { get; set; }
+        /// <summary>
+        /// 发送人
+        /// </summary>
+        public string SendUser { get; set; }
         /// <summary>
         /// 是否删除
         /// </summary>

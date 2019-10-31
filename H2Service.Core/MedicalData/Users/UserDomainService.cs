@@ -33,5 +33,27 @@ namespace H2Service.MedicalData.Users
             return userNumber;
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">住院号</param>
+        /// <returns></returns>
+        public PatientSample GetPatientSample(string id) {
+            var patient = new PatientSample();
+            var cmd = DHCWLZBBCommonQuery.GetPatDiagByMedicare(conn);
+            cmd.Parameters.Add("InputMedicare", id);
+            conn.Open();
+            var obj = cmd.ExecuteScalar();           
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                patient.Diagnose = reader["admDiag"] + "";
+                patient.PatName = reader["papmiName"] + "";
+            }
+            reader.Close();
+            conn.Close();
+            return patient;
+
+        }
     }
 }

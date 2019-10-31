@@ -1,6 +1,8 @@
-﻿@model H2Service.HomePages.Dto.HomePageValidateMessageDto
+﻿@using App.Models.HomePageValidate;
+@model App.Models.HomePageValidate.ValidateMessageModel
+
 @{
-    Layout = null;    
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -20,7 +22,7 @@
     </style>
 </head>
 <body ontouchstart>
-    @if (Model== null)
+    @if (Model.Msg == null)
     {
         <header class='demos-header'>
             <h1 class="demos-title">该消息已经过期</h1>
@@ -28,23 +30,47 @@
 
     }
     else
-    {     
-         var list = Model.Message.Split('\n');        
+    {
+        var list = Model.Msg.Message.Split('\n');
         <header class='demos-header'>
-            <h1 class="demos-title">首页数据质控</h1>
+            <h1 class="demos-title">@Model.Msg.ValidateType</h1>
         </header>
         <div class="weui-cells">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>病案号</p>
                 </div>
-                <div class="weui-cell__ft">@Model.BAH</div>
+                <div class="weui-cell__ft">@Model.Msg.BAH</div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>通知时间</p>
                 </div>
-                <div class="weui-cell__ft">@Model.SendTime.ToString()</div>
+                <div class="weui-cell__ft">@Model.Msg.SendTime</div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>出院时间</p>
+                </div>
+                <div class="weui-cell__ft">@Model.Msg.DischargeDate</div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>出院科室</p>
+                </div>
+                <div class="weui-cell__ft">@Model.Msg.Dep</div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>发送人员</p>
+                </div>
+                <div class="weui-cell__ft">@Model.SenderUserName</div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>住院医师</p>
+                </div>
+                <div class="weui-cell__ft">@Model.UserName</div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
@@ -62,9 +88,116 @@
                 </div>
 
             }
-          
-        </div>
+            @if ((Model.Msg.ValidateType ==ValidateTypeModel.住院总质控.ToString()|| Model.Msg.ValidateType == ValidateTypeModel.临床改正反馈.ToString())&&Model.IsSelf)
+            {
+                var corrected = Model.Msg.ValidateType == ValidateTypeModel.临床改正反馈.ToString();
+                var ck_attr= corrected ? "checked='checked'  disabled='disabled'" : "";
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell weui-cell_switch">
+                        <div class="weui-cell__bd">已修正并通知住院总</div>
+                    <div class="weui-cell__ft">
+                        <input class="weui-switch" onclick="notify(@Model.Msg.Id,this)" @ck_attr  type="checkbox">
+                    </div>
+                </div>
+                </div>
+                }             
+                @if (Model.IsAdministrator)
+                    {
+                        <div class="weui-cell weui-cell_swiped">
+                            <div class="weui-cell__bd">
+                                <div class="weui-cell">
+                                    <div class="weui-cell__bd">
+                                        <p>向左滑动删除</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="weui-cell__ft">
+                                <a class="weui-swiped-btn weui-swiped-btn_warn delete-swipeout" href="javascript:deleteMsg(@Model.Msg.Id)">删除</a>
+                            </div>
+                        </div>
+
+                    }             
+
+            </div>
+
+
+            <div class='demos-content-padded'>
+                @if (Model.IsQCDoctor&&Model.Msg.ValidateType==ValidateTypeModel.临床改正反馈.ToString()&&Model.IsSender)
+                {
+                    <a href="javascript:pass(@Model.Msg.Id);" class="weui-btn weui-btn_primary">审核通过</a>
+                    <a href="javascript:nopass(@Model.Msg.Id);;" class="weui-btn weui-btn_warn">不通过,回退</a>
+                }
+            
+            </div>
 
      }
+<script type="text/javascript" src="~/Scripts/jqweui/jquery-weui.js"></script>
+<script>
+    function notify(Id, ck) {
+        $.post('/HomePageValidate/CorrectThenNotify/', { Id: Id }, function (data) {
+            if (data.Code < 0)
+                $.toast(data.Message, "cancel");
+            else {
+                $(ck).attr('disabled', 'disabled')
+                $.toast("消息已发出")
+            }
+        })
+
+    }
+
+    function deleteMsg(Id) {
+        $.confirm({
+            title: '确认提示',
+            text: '确定要删除此消息吗?',
+            onOK: function () {
+                $.post('/HomePageValidate/DeleteMessage/', { Id: Id }, function (data) {
+                    if (data.Code < 0)
+                        $.toast(data.Message, "cancel");
+                    else
+                        $.toast("操作成功", function () {
+                            window.location.href ='@Url.Action("GetValidateMessagesList", "HomePageValidate")'
+
+                    });
+            })
+        },
+        onCancel: function () {
+            return;
+        }
+    })
+}
+
+    function pass(Id) {
+        $('.demos-content-padded').remove();
+        $.post('/HomePageValidate/Pass/', { Id: Id }, function (data) {
+            if (data.Code<0)
+                $.toast(data.Message, "cancel");
+            else
+                $.toast("审核完成", function () {
+                    window.location.href='@Url.Action("GetValidateMessagesList", "HomePageValidate")'
+
+                    });
+
+        })
+
+    }
+
+
+    function nopass(Id) {
+        $('.demos-content-padded').remove();
+        $.post('/HomePageValidate/NoPass/', { Id: Id }, function (data) {
+            if (data.Code<0)
+                $.toast(data.Message, "cancel");
+            else
+                $.toast("回退消息已发送", function () {
+                    window.location.href='@Url.Action("GetValidateMessagesList", "HomePageValidate")'
+                    });
+
+        })
+
+    }
+
+
+</script>
 </body>
 </html>

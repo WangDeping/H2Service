@@ -3,6 +3,7 @@ using H2Service.MedicalData;
 using System.Data.Entity;
 using H2Service.MedicalData.ICDMaps;
 using H2Service.MedicalData.HomePages;
+using H2Service.MedicalData.OPMedicalDiagnose;
 
 namespace H2Service.EntityFramework
 {
@@ -41,6 +42,8 @@ namespace H2Service.EntityFramework
         /// 在用手术编码
         /// </summary>
         public virtual IDbSet<InuseICD9CM3> InuseICD9CM3 { get; set; }
+
+        public virtual IDbSet<OPMedicalDiagnose> OPMedicalDiagnose { get; set; }
 
         public MedicalDataContext(): base("MySql")
         {

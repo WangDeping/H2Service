@@ -1,0 +1,204 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section  subheader_title{
+   设备管理
+}
+
+<div class=" row">
+    <div class="col-lg-12">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            设备管理
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                    <div class="toolbar">
+                        <button id="newBtn" class="btn btn-primary">添加设备</button>
+                    </div>
+                    <table class="bootstrap-table" id="equipments_grid" data-url='@Url.Action("EquipmentGrid")'
+                           data-side-pagination="server" data-page-list="[10]" data-pagination="true" data-toolbar=".toolbar"
+                           data-id-field="Id" data-unique-id="Id" data-single-select="true" data-striped="true">
+                        <thead>
+                            <tr>                               
+                                <th data-field="EquipmentName" data-align="center">设备名称</th>
+                                <th data-field="Code" data-align="center">设备编码</th>
+                                <th data-field="EquipmentTypeName" data-align="center">设备分类</th>
+                                <th data-field="EquipmentKindName" data-align="center">设备种类</th>
+                                <th data-field="EquipmentModelName" data-align="center">设备型号</th>
+                                <th data-field="DepartmentName" data-align="center">所属科室</th>
+                                <th data-field="Status" data-align="center">设备状态</th>
+                                                      
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="modal fade" id="equipmentModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        设备信息维护
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <form class="m-form m-form--fit m-form--label-align-right" id="equipmentForm">
+                    <div class="modal-body align-content-center">
+
+                        <div class="form-group">
+                            <label for="EquipmentName" class="form-control-label">
+                               设备名称:
+                            </label>
+                            <input type="text" class="form-control" id="EquipmentName" required>
+                            <input type="hidden" id="Id" value="0" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Code" class="form-control-label">
+                                条码编号:
+                            </label>
+                            <input type="text" class="form-control" id="Code" required>                         
+                        </div>
+                        <div class="form-group">
+                            <label for="departmentsSelect2">
+                                所属科室:
+                            </label>
+                            @{Html.RenderAction("RelatedDepartmentsSelect", "Department", new { module =6 });}
+                        </div>
+                        <div class="form-group">
+                            <label for="EquipmentKindSelect2" class="form-control-label">
+                                设备种类:
+                            </label>
+                            <select class="form-control m-select2" style="width:100%" id="EquipmentKindSelect2" name="EquipmentKindSelect2">
+                                <option value="0" selected>
+                                    请选择
+                                </option>
+                                @foreach(var k in ViewBag.Kinds)
+                                {
+                                    <option value="@k.Id">
+                                       @k.EquipmentKindName
+                                    </option>
+                                }
+
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="EquipmentTypeSelect2" class="form-control-label">
+                                设备分类:
+                            </label>
+                            <select class="form-control m-select2" style="width:100%" id="EquipmentTypeSelect2" name="EquipmentTypeSelect2">
+                                <option value="0" selected>
+                                    请选择
+                                </option>
+                                @foreach(var t in ViewBag.Types)
+                                {
+                                    <option value="@t.Id">
+                                        @t.EquipmentTypeName
+                                    </option>
+                                }
+
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="EquipmentModelSelect2" class="form-control-label">
+                                设备型号:
+                            </label>
+                            <select class="form-control m-select2" style="width:100%" id="EquipmentModelSelect2" name="EquipmentTypeSelect2">
+                                <option value="0" selected>
+                                    请选择
+                                </option>
+                                @foreach (var t in ViewBag.Models)
+                                {
+                                    <option value="@t.Id">
+                                        @t.EquipmentModelName
+                                    </option>
+                                }
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">
+                            保存
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scriptsection{
+<script>
+    $('#equipments_grid').bootstrapTable({
+        queryParams: function (params) {
+            return {              
+                MaxResultCount: params.limit,
+                PageNumber: (params.offset / params.limit)
+            }
+        }
+    })
+    $('#EquipmentTypeSelect2,#EquipmentKindSelect2,#EquipmentModelSelect2').select2();
+   $('#newBtn').click(function () {
+            $('#Id').val(0);
+            $('#departmentsSelect2').val(0).select2()
+            $('#equipmentForm').resetForm();
+            $('#equipmentModal').modal('show');
+    })
+    //提交表单
+    $('#equipmentForm').submit(function (e) {
+        e.preventDefault();
+        if ($('#departmentsSelect2').select2('val') <= 0 || $('#EquipmentTypeSelect2').select2('val') <= 0 || $('#EquipmentKindSelect2').select2('val') <= 0 || $('#EquipmentModelSelect2').select2('val')<=0) {
+            abp.notify.error("请选择科室、种类、型号");
+            return;
+        }
+        var equipment = {
+            "Id": $('#Id').val(),
+            "EquipmentName": $('#EquipmentName').val(),     
+            "Code": $('#Code').val(),     
+            "DepartmentId": $('#departmentsSelect2').select2('val'),
+            "EquipmentTypeId": $('#EquipmentTypeSelect2').select2('val'),
+            "EquipmentKindId": $('#EquipmentKindSelect2').select2('val'),
+            "EquipmentModelId": $('#EquipmentModelSelect2').select2('val')
+        }
+        abp.ajax({
+            url: '/Equipment/AddorUpdateEquipment',
+            data: JSON.stringify(equipment)
+        }).done(function (data) {
+            abp.notify.success(data.message);
+            $('#equipmentModal').modal('hide');
+            $('#equipments_grid').bootstrapTable('refresh');
+        })
+
+    })
+
+</script>
+}

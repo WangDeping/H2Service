@@ -23,10 +23,11 @@
     <div class="weui-cells">
         @foreach (var msg in Model)
         {
-             var discharge=string.IsNullOrEmpty(msg.DischargeDate)?"未出院":msg.DischargeDate;
+            var discharge=string.IsNullOrEmpty(msg.DischargeDate)?"未出院":msg.DischargeDate;
+            var dep = string.IsNullOrEmpty(msg.Dep) ? "" : msg.Dep.Substring(0, msg.Dep.Length>=4?3:0);
         <a class="weui-cell weui-cell_access" href='@Url.Action("ValidateMessage", new { Id = msg.Id })'>
             <div class="weui-cell__bd">
-                <p>@msg.BAH (@discharge)</p>
+                <p>@msg.BAH (@discharge) @dep</p>
             </div>
             <div class="weui-cell__ft">@msg.ValidateType.ToString()</div>
         </a>       

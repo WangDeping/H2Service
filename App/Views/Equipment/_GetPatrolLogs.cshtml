@@ -1,0 +1,36 @@
+﻿@model App.Models.Equipment.PagedPatrolLogsResultModel
+@foreach (var patrol in Model.rows)
+{
+    var checkResult = patrol.MainCheck ? "良好" : "损坏";
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>@patrol.EquipmentTypeName</p>
+            </div>
+            <div class="weui-cell__ft">
+                <p>@patrol.Code (@patrol.Type)</p>
+            </div>
+           
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>巡视时间</p>
+            </div>
+            <div class="weui-cell__ft">@patrol.CreationTime</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>巡视人</p>
+            </div>
+            <div class="weui-cell__ft">@patrol.CreatorUserName</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>整体检查情况</p>
+            </div>
+            <div class="weui-cell__ft">@checkResult</div>
+
+</div>
+
+</div>
+}    

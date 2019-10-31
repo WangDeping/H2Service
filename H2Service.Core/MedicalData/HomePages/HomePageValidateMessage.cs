@@ -46,6 +46,11 @@ namespace H2Service.MedicalData.HomePages
         /// 发送时间
         /// </summary>
         public DateTime SendTime { get; set; }
+
+        /// <summary>
+        /// 校验状态(住院总质控)
+        /// </summary>
+        public ValidateStatus ValidateStatus { get; set; }
         /// <summary>
         /// 是否删除
         /// </summary>
@@ -58,6 +63,17 @@ namespace H2Service.MedicalData.HomePages
         首页填写=1,//首页填写校验
         手工质控=2,//手工质控校验
         出院日期一致性=3,//出院日期一致性校验
-        住院总质控=4
+        住院总质控=4,
+        临床改正反馈=5
+    }
+
+    public enum ValidateStatus {
+        无状态=0,
+        问题通知=1,
+        修正反馈=2,    
+        病案上架=80,
+        完成=99
+        
+
     }
 }

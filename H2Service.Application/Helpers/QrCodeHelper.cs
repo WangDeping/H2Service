@@ -58,10 +58,10 @@ namespace H2Service.Helpers
         {
             QrEncoder qrEncoder = new QrEncoder(ErrorCorrectionLevel.M);
             QrCode qrCode = qrEncoder.Encode(content);
-            GraphicsRenderer render = new GraphicsRenderer(new FixedModuleSize(moduleSize, QuietZoneModules.Two), Brushes.Black, Brushes.White);
+            GraphicsRenderer render = new GraphicsRenderer(new FixedModuleSize(moduleSize, QuietZoneModules.Two), Brushes.DeepSkyBlue, Brushes.White);
 
             DrawingSize dSize = render.SizeCalculator.GetSize(qrCode.Matrix.Width);
-            Bitmap map = new Bitmap(dSize.CodeWidth, dSize.CodeWidth);
+            Bitmap map = new Bitmap(dSize.CodeWidth, dSize.CodeWidth);            
             Graphics g = Graphics.FromImage(map);
             render.Draw(g, qrCode.Matrix);
             //Point imgPoint = new Point((map.Width - img.Width) / 2, (map.Height - img.Height) / 2);

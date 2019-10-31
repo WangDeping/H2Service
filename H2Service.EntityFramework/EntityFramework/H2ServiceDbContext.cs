@@ -1,6 +1,7 @@
 ﻿using Abp.EntityFramework;
 using H2Service.Authorization;
 using H2Service.Authorization.Departments;
+using H2Service.Equipments;
 using H2Service.H2Log;
 using H2Service.Maintenances;
 using H2Service.MedicalWastes;
@@ -60,6 +61,16 @@ namespace H2Service.EntityFramework
         public virtual IDbSet<MaintenanceTrace> MaintenanceTraces { get; set; }
 
 
+        public virtual IDbSet<Equipment> Equipments { get; set; }
+        public virtual IDbSet<EquipmentKind> EquipmentKinds { get; set; }
+        public virtual IDbSet<EquipmentLoanLog> EquipmentLoanLogs { get; set; }
+        public virtual IDbSet<EquipmentPatrolLog> EquipmentPatrolLogs { get; set; }
+        public virtual IDbSet<EquipmentType> EquipmentTypes { get; set; }
+        public virtual IDbSet<EquipmentUsageLog> EquipmentUsageLogs { get; set; }
+        public virtual IDbSet<EquipmentProperty> EquipmentProperties { get; set; }
+        public virtual IDbSet<EquipmentPatrolDetail> EquipmentPatrolDetails { get; set; }
+        public virtual IDbSet<EquipmentModel> EquipmentModels { get; set; }
+
         /* NOTE: 
          *   Setting "Default" to base class helps us when working migration commands on Package Manager Console.
          *   But it may cause problems when working Migrate.exe of EF. If you will apply migrations on command line, do not
@@ -102,6 +113,14 @@ namespace H2Service.EntityFramework
                            m.MapRightKey("UserID");
                            m.ToTable("DepartmentUsers");
                        })   ;
+            modelBuilder.Entity<EquipmentType>()
+                   .HasMany(d => d.EquipmentProperties)
+                       .WithMany(u => u.EquipmentTypes)
+                       .Map(m => {
+                           m.MapLeftKey("EquipmentTypeID");
+                           m.MapRightKey("EquipmentPropertyID");
+                           m.ToTable("EquipmentTypeProterties");
+                       });
             modelBuilder.Entity<Role>()
             .HasMany(r => r.Users)
             .WithMany(u => u.Roles)

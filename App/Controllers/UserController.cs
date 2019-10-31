@@ -3,6 +3,7 @@ using Abp.Web.Models;
 using Abp.Web.Mvc.Authorization;
 using H2Service.Account;
 using H2Service.Account.Dto;
+using H2Service.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,20 +16,32 @@ namespace App.Controllers
     public class UserController : AppControllerBase
     {
         private readonly DepartmentAppService _departmentAppService;
-        public UserController(DepartmentAppService departmentAppService)
+        private readonly IUserAppService _userAppService;
+        public UserController(DepartmentAppService departmentAppService, IUserAppService userAppService)
         {
             _departmentAppService = departmentAppService;
+            _userAppService = userAppService;
 
         }
         // GET: User
         public ActionResult Index()
         {
-            return View();
+            var user = _userAppService.GetUserById((int)AbpSession.GetUserId());
+            return View(user);
         }
-        public ActionResult  SetDepartment()
+        public ActionResult  SetDepartment(int moduleId=-1)
         {
-            var departments = _departmentAppService.GetDepartmentAllowedUser();            
-            return View(departments);
+            var departments = new List<DepartmentDto>();
+            if (moduleId < 0)
+            {
+                departments = _departmentAppService.GetDepartmentAllowedUser().ToList();
+                return View(departments);
+            }
+            else {
+                departments = _departmentAppService.GetRelatedDepartments(moduleId).Select(S=>
+                new DepartmentDto {  DepartmentName=S.DepartmentName, Id=S.DepartmentId}).ToList();
+                return View(departments);
+            }
 
         }
         /// <summary>
@@ -43,8 +56,7 @@ namespace App.Controllers
             var assignedDeps = _departmentAppService.GetUserInDepartments(userId);
             if (assignedDeps != null && assignedDeps.Count > 0)
             {
-                var defaultDep = assignedDeps.First().DepartmentName;
-                return Json(new ErrorInfo(-1, "已在"+defaultDep));
+                _departmentAppService.RemoveDepartmentUser(new DepartmentUserDto { UserId = userId, DepartmentId = assignedDeps.First().DepartmentId });               
              }
             _departmentAppService.AssginDepartment(new DepartmentUserDto {
                   DepartmentId=departmentId, UserId=userId

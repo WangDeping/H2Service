@@ -1,0 +1,87 @@
+﻿@model App.Models.Equipment.PreviewLoanModel
+@{
+    ViewBag.Title =Model.Id>0? "归还登记": "外借登记";
+    Layout = "~/Views/Shared/_OnlyJqweuiLayout.cshtml";
+}
+<style type="text/css">
+    .demos-title {
+        color: #1296db;
+    }
+    .weui-btn_primary {
+        background-color: #1296db;
+    }  
+</style>
+<header class='demos-header'>
+    <h1 class="demos-title">@(Model.Id>0? "归还登记": "外借登记")</h1>
+</header>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>设备编号</p>
+        </div>
+        <div class="weui-cell__ft"><p>@Model.Code</p></div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>借出科室</p>
+        </div>
+        <div class="weui-cell__ft">@Model.LoanDepName</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>借出人</p>
+        </div>
+        <div class="weui-cell__ft">@Model.LoanUserName</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>借出时间</p>
+        </div>
+        <div class="weui-cell__ft">@Model.LoanTime</div>
+    </div>
+</div>
+
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>借用科室</p>
+        </div>
+        <div class="weui-cell__ft"><p>@Model.BorrowDepName</p></div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>借用人</p>
+        </div>
+        <div class="weui-cell__ft">@Model.BorrowUserName</div>
+    </div>
+  
+</div>
+
+@if (Model.Id > 0)
+{
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>归还人</p>
+            </div>
+            <div class="weui-cell__ft"><p>@Model.ReturnUserName</p></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>签收人</p>
+            </div>
+            <div class="weui-cell__ft">@Model.SignUserName</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>归还时间</p>
+            </div>
+            <div class="weui-cell__ft">@DateTime.Now</div>
+        </div>
+    </div>
+
+}
+
+<div class="weui-flex">
+    <img width="150" height="150" style="margin:25px auto" src="@Url.Action("ConfirmQrCode", "Equipment",new { param= Model.QrCode })" />
+</div>

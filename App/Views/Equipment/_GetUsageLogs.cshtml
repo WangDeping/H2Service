@@ -1,0 +1,33 @@
+﻿@model App.Models.Equipment.PagedUsageLogsResultModel
+@foreach (var usage in Model.rows)
+{
+    if (usage.EndTime == null)
+    {
+        <div class="weui-cell weui-cell_swiped">
+            <div class="weui-cell__bd">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <p>@usage.BeginTime</p>
+                    </div>
+                    <div class="weui-cell__ft">@usage.EndTime</div>
+                </div>
+            </div>
+            <div class="weui-cell__ft">
+                <a class="weui-swiped-btn weui-swiped-btn_warn delete-swipeout" href="javascript:endUsage(this,@usage.Id)">结束使用</a>
+            </div>
+        </div>
+        <script>  $('.weui-cell_swiped').swipeout();</script>
+    }
+    else
+    {
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <p>@usage.BeginTime.Value.ToString("yyyy-MM-dd HH:mm")</p>
+            </div>
+            <div class="weui-cell__bd">
+                <p> /@usage.PatientName/</p>
+            </div>
+            <div class="weui-cell__ft">@usage.EndTime.Value.ToString("yyyy-MM-dd HH:mm")</div>
+        </div>
+    }
+}

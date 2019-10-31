@@ -52,13 +52,17 @@ namespace H2Service.Web
             {
                 cache.DefaultSlidingExpireTime = TimeSpan.FromSeconds(7100);
             });
-            Configuration.Caching.Configure("SynchronousHomePageDate", cache =>
+            Configuration.Caching.Configure("SynchronousDate", cache =>
             {
                 cache.DefaultSlidingExpireTime = TimeSpan.FromDays(365 * 10);
             });
             Configuration.Caching.Configure("ICDMap", cache =>
             {
                 cache.DefaultSlidingExpireTime = TimeSpan.FromDays(365 * 10);
+            });
+            Configuration.Caching.Configure("RegistersQty", cache =>
+            {
+                cache.DefaultSlidingExpireTime = TimeSpan.FromDays(365*10);
             });
             Configuration.Localization.Languages.Add(new LanguageInfo("en", "English", "famfamfam-flag-england", true));
             Configuration.Localization.Languages.Add(new LanguageInfo("tr", "Türkçe", "famfamfam-flag-tr"));

@@ -1,0 +1,30 @@
+﻿@model int
+<input class="weui-input shoud_submit"  id="@Model" type="select" value="">
+
+<script>
+  $('#@Model').select({
+                title: "请选择",
+                items: [
+                    {
+                        title: "未做检测",
+                        value: "",
+                    },
+                    {
+                        title: "检测通过",
+                        value: "True",
+                    },
+                    {
+                        title: "检测未通过",
+                        value: "False",
+                    }
+                ]
+    });
+   
+    //$(document).ready(function () {
+     //   $("#@Model").on('click', function () {
+
+     //   })
+
+ //   })
+
+</script>

@@ -6,6 +6,7 @@ using H2Service.Account.Dto;
 using H2Service.Authorization;
 using H2Service.Authorization.Departments;
 using H2Service.Dto;
+using H2Service.Users.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -123,6 +124,18 @@ namespace H2Service.Account
 
             return departments.ToList();
         }
+
+        /// <summary>
+        /// 获取部门下的用户
+        /// </summary>
+        /// <param name="Id">用户Id</param>
+        /// <returns></returns>
+        public List<UserDto> GetUserByDepartmentId(int Id)
+        {
+            var users = _departmentRepository.FirstOrDefault(T=>T.Id==Id).Users.ToList();
+            return users.MapTo<List<UserDto>>();
+        }
+
         /// <summary>
         /// 分配人员到科室
         /// </summary>

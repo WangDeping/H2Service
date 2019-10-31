@@ -74,5 +74,11 @@ namespace App.Controllers
 
             return View();
         }
+
+        public string AuthWx(string msg_signature, string timestamp, string nonce, string echostr)
+        {
+            Logger.Error(msg_signature+"+"+timestamp+"+"+nonce+"+"+echostr);
+          return  _wxAuthManager.AuthWx(msg_signature, timestamp, nonce, echostr);
+        }
     }
 }

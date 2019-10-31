@@ -1,0 +1,25 @@
+﻿@model App.Models.Equipment.PagedLoanLogsResultModel
+@foreach (var log in Model.rows)
+{      
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>@log.BorrowDeptName</p>
+            </div>
+            <div class="weui-cell__ft">
+                <p>@log.BorrowUserName</p>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <p>@log.LoanTime</p>
+            </div>
+            <div class="weui-cell__bd">
+                <p>到</p>
+            </div>
+            <div class="weui-cell__ft">@log.ReturnTime</div>
+        </div>
+       
+
+    </div>
+}    

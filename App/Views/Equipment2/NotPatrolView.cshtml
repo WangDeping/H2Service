@@ -1,0 +1,90 @@
+﻿@model App.Models.Equipment.PatrolIINotifyModel
+@{
+    ViewBag.Title = "II级巡检情况";
+    Layout = "~/Views/Shared/_OnlyJqweuiLayout.cshtml";
+}
+<style type="text/css">
+    .weui-cell__ft p {
+        text-align:right
+    }
+</style>
+<header class='demos-header'>
+    <h1 class="demos-title"></h1>
+</header>
+<div class="weui-tab">
+    <div class="weui-navbar">
+        <a class="weui-navbar__item weui-bar__item--on" href="#tab1">
+            <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;background-color:grey">@Model.NotPatrol.Count()</span>
+           未巡检
+        </a>
+        <a class="weui-navbar__item" href="#tab2">
+            <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;background-color:#1296db">@Model.HasPatrol.Count()</span>
+           已巡检
+        </a>
+        <a class="weui-navbar__item" href="#tab3">
+            <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">@Model.NotWork.Count()</span>
+            维修中
+        </a>
+    </div>
+    <div class="weui-tab__bd">
+        <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+            <div class="weui-cells">
+                @foreach (var eq in Model.NotPatrol)
+                {
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <p>@eq.Code </p>
+                        </div>
+                        <div class="weui-cell__bd">
+                            @{var depName = eq.DepartmentName.Length >7 ? eq.DepartmentName.Substring(0, 7) : eq.DepartmentName;}
+                            <p>> @depName </p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <p>@eq.EquipmentTypeName</p>
+                        </div>
+                    </div>
+                }
+            </div>
+         
+        </div>
+        <div id="tab2" class="weui-tab__bd-item">
+            <div class="weui-cells">
+                @foreach (var eq in Model.NotPatrol)
+                {
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <p>@eq.Code </p>
+                        </div>
+                        <div class="weui-cell__bd">
+                            @{var depName = eq.DepartmentName.Length > 7 ? eq.DepartmentName.Substring(0, 7) : eq.DepartmentName;}
+                            <p>> @depName </p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <p>@eq.EquipmentTypeName</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div id="tab3" class="weui-tab__bd-item">
+            <div class="weui-cells">
+                @foreach (var eq in Model.NotPatrol)
+                {
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <p>@eq.Code </p>
+                        </div>
+                        <div class="weui-cell__bd">
+                            @{var depName = eq.DepartmentName.Length > 7 ? eq.DepartmentName.Substring(0, 7) : eq.DepartmentName;}
+                            <p>> @depName </p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <p>@eq.EquipmentTypeName</p>
+                        </div>
+                    </div>
+                                }
+            </div>
+        </div>
+    </div>
+</div>
+

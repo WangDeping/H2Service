@@ -822,6 +822,8 @@
     <Content Include="App\Main\views\layout\layout.cshtml" />
     <Content Include="App\Main\web.config" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\h2web\report\currentPats.js" />
+    <Content Include="Scripts\h2web\report\opatsQty.js" />
     <Content Include="Scripts\h2web\salary\index.js" />
     <Content Include="Scripts\h2web\serverroom\index.js" />
     <Content Include="Scripts\h2web\user\index.js" />
@@ -1618,8 +1620,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\H2ModuleController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
+    <Compile Include="Controllers\OPReportController.cs" />
     <Compile Include="Controllers\QrCodeController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DistrictController.cs" />
@@ -1646,10 +1650,14 @@
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\PictureHelper.cs" />
     <Compile Include="Models\H2Module\SetModulePermissionModel.cs" />
+    <Compile Include="Models\HomePage\HomePageValidateMessageExcelModel.cs" />
     <Compile Include="Models\HomePage\HomePageValidateMessageGridModel.cs" />
     <Compile Include="Models\Layout\SideBarNavViewModel.cs" />
     <Compile Include="Models\Layout\TopBarViewBar.cs" />
     <Compile Include="Models\MedicalWaste\MedicalWasteGridRequestModel.cs" />
+    <Compile Include="Models\Report\CurrentPatientsCounts.cs" />
+    <Compile Include="Models\Report\CurrentRegistersQtyModel.cs" />
+    <Compile Include="Models\Report\OPQtyInPeriodModel.cs" />
     <Compile Include="Models\RepViewModel.cs" />
     <Compile Include="Models\Users\ExternalUserModel.cs" />
     <Compile Include="Models\Users\LoginValidateModel.cs" />
@@ -1743,6 +1751,9 @@
     <Content Include="Views\H2Module\Index.cshtml" />
     <Content Include="Views\QC\Index.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
+    <Content Include="Views\OPReport\Index.cshtml" />
+    <Content Include="Views\OPReport\_PatQtyGrid.cshtml" />
+    <Content Include="Views\Equipment\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1755,6 +1766,7 @@
     <Folder Include="Content\avatars\default\" />
     <Folder Include="Content\avatars\external\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Models\Equipment\" />
     <Folder Include="Models\ServerRooms\" />
     <Folder Include="tmpFiles\" />
     <Folder Include="Views\BarCode\" />

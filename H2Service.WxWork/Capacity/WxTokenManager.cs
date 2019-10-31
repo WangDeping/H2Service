@@ -23,10 +23,8 @@ namespace H2Service.WxWork
         private readonly string tokenPath;
         private readonly string jsApiTicketPath;
         private readonly  ILogger _logger;
-        private readonly ICacheManager _cacheManager;
-        private string sToken = "kDncXp8dPVNvbALV";
-        private readonly  string corpID = "";
-        private string sEncodingAESKey = "uSyVcn9Fc3BqUCM6PLjrjrwHl36smHObrszD2k9XukG";
+        private readonly ICacheManager _cacheManager;        
+        private readonly  string corpID = "";       
 
         public WxTokenManager(ICacheManager cacheManager, ILogger logger)
         {
@@ -53,8 +51,8 @@ namespace H2Service.WxWork
         /// <returns></returns>
         public string GetWxToken(string agentid="0")
         {            
-            XDocument xdocument = XDocument.Load(tokenPath);
-            var app = xdocument.Root.Elements("app").Where(T => T.Element("agentid").Value == agentid).First();
+            XDocument xdocument = XDocument.Load(tokenPath);           
+            var app = xdocument.Root.Elements("app").Where(T => T.Element("agentid").Value == agentid).First();           
             if (app == null)
                 throw new Exception("应用id找不到");
            return _cacheManager.GetCache("WxTokenCache").Get(agentid, () =>
@@ -141,28 +139,6 @@ namespace H2Service.WxWork
             }
 
         }
-        public string AuthWx(string msg_signature, string timestamp, string nonce, string echostr)
-        {
-
-
-            Tencent.WXBizMsgCrypt wxcpt = new Tencent.WXBizMsgCrypt(sToken, sEncodingAESKey, corpID);
-            string sVerifyMsgSig = msg_signature;
-            string sVerifyTimeStamp = timestamp;
-            string sVerifyNonce = nonce;
-            string sVerifyEchoStr = echostr;
-
-            int ret = 0;
-            string sEchoStr = "";
-            ret = wxcpt.VerifyURL(sVerifyMsgSig, sVerifyTimeStamp, sVerifyNonce, sVerifyEchoStr, ref sEchoStr);
-
-            if (ret != 0)
-            {
-                _logger.Error("微信验证出错");
-            }
-            //ret==0表示验证成功，sEchoStr参数表示明文，用户需要将sEchoStr作为get请求的返回参数，返回给企业微信。
-            // HttpUtils.SetResponse(sEchoStr);
-            _logger.Info("微信验证成功");
-            return sEchoStr;
-        }
+      
     }
 }

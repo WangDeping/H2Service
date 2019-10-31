@@ -248,6 +248,7 @@
         columns: [[]],
         data: [],
         dataField: 'rows',
+        sum:'SumQty',
         method: 'get',
         url: undefined,
         ajax: undefined,
@@ -414,7 +415,12 @@
             return sprintf('%s records per page', pageNumber);
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows);
+            return sprintf(' %s to %s of %s rows; ', pageFrom, pageTo, totalRows);
+        },
+        formatShowingSum: function (sum) {
+            if (sum != null)
+                return sprintf('Sum: %s', sum)
+            return  null
         },
         formatDetailPagination: function (totalRows) {
             return sprintf('Showing %s rows', totalRows);
@@ -1185,13 +1191,13 @@
         this.pageTo = this.options.pageNumber * this.options.pageSize;
         if (this.pageTo > this.options.totalRows) {
             this.pageTo = this.options.totalRows;
-        }
-
+        }       
         html.push(
             '<div class="pull-' + this.options.paginationDetailHAlign + ' pagination-detail">',
             '<span class="pagination-info">',
             this.options.onlyInfoPagination ? this.options.formatDetailPagination(this.options.totalRows) :
             this.options.formatShowingRows(this.pageFrom, this.pageTo, this.options.totalRows),
+            this.options.formatShowingSum(this.options.sum),
             '</span>');
 
         if (!this.options.onlyInfoPagination) {
@@ -2102,7 +2108,8 @@
 
         // #431: support pagination
         if (this.options.sidePagination === 'server') {
-            this.options.totalRows = data.total;
+            this.options.totalRows = data.total;            
+            this.options.sum = data.sum            
             fixedScroll = data.fixedScroll;
             data = data[this.options.dataField];
         } else if (!$.isArray(data)) { // support fixedScroll

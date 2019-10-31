@@ -13,6 +13,8 @@ using Swashbuckle.Application;
 using H2Service.MedicalWastes;
 using H2Service.HomePages;
 using Abp.Web;
+using H2Service.SMS;
+using H2Service.OPDiagnose;
 
 namespace H2Service
 {
@@ -30,6 +32,10 @@ namespace H2Service
             Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<IHomePageAppService>("app/HomePage").ForMethod("Validate").WithVerb(HttpVerb.Get).Build();
             Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<IHomePageAppService>("app/HomePage").ForMethod("QCValidate").Build();
             Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<IHomePageAppService>("app/HomePage").ForMethod("UpdateHomePage").Build();
+            Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<IHomePageAppService>("app/HomePage").ForMethod("FileHomePage").Build();
+            Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<ISMSManagerAppService>("app/SMS").ForMethod("Send").Build();
+            Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<ISMSManagerAppService>("app/SMS").ForMethod("GetBalance").Build();
+            Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder.For<IOPDiagnoseAppService>("app/OPDiagnose").ForMethod("SynchronousDiagnose").Build(); 
         }
 
         private void ConfigureSwaggerUi()

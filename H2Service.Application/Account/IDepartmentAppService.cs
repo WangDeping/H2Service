@@ -3,6 +3,7 @@ using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using H2Service.Account.Dto;
 using H2Service.Dto;
+using H2Service.Users.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,5 +74,7 @@ namespace H2Service.Account
         void CreateDepartmentModuleRelation(DepartmentModulesRelationDto dto);
         List<DepartmentModulesRelationDto> GetRelatedDepartments(int module);
         void RemoveRelation(int Id);
+
+        List<UserDto> GetUserByDepartmentId(int Id);
     }
 }

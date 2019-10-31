@@ -1,0 +1,49 @@
+﻿@model Abp.Web.Models.ErrorInfo
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_OnlyJqweuiLayout.cshtml";
+}
+<style>
+    .weui-icon-success {
+        color:#1296db;
+    }
+    .weui-btn_primary {
+        background-color: #1296db;
+    }
+</style>
+@if (Model.Code == 0)
+{
+     <div class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+        <div class="weui-msg__text-area">
+        <h2 class="weui-msg__title">操作成功</h2>
+        <p class="weui-msg__desc">在借用设备期间请每日保养维护，使用完毕后及时归还原科室，归还时确认设备完好无损</p>
+    </div>
+        <div class="weui-msg__opr-area">
+        <p class="weui-btn-area">
+            <a href="javascript:@Url.Action("Index");" class="weui-btn weui-btn_primary">设备查看</a>
+            <a href="javascript:Window.close();" class="weui-btn weui-btn_default">关闭</a>
+        </p>
+    </div>
+        <div class="weui-msg__extra-area">
+                <div class="weui-footer">
+                <p class="weui-footer__links">
+                <a href="javascript:void(0);" class="weui-footer__link"></a>
+            </p>
+            <p class="weui-footer__text"></p>
+        </div>
+    </div>
+</div>
+}
+else
+{
+    <div class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg"></i></div>
+        <div class="weui-msg__text-area">
+            <h2 class="weui-msg__title">@Model.Message</h2>
+            <p class="weui-msg__desc">@Model.Details</p>
+        </div>
+      
+    </div>
+
+}

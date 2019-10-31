@@ -17,7 +17,9 @@ namespace H2Service.Authorization.Departments
         质量控制1=2,//职能科室
         质量控制2=3,//被督查科室
         机房科室=4,
-        需排班科室=5
+        需排班科室=5,
+        设备管理=6,
+        护理病区=7
     }
 
 }

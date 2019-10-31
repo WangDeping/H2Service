@@ -1,0 +1,20 @@
+﻿@model Abp.Web.Models.ErrorInfo
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_OnlyJqweuiLayout.cshtml";
+}
+
+
+<div class="weui-msg">
+    <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg"></i></div>
+    <div class="weui-msg__text-area">
+        <h2 class="weui-msg__title">@Model.Message</h2>
+        <p class="weui-msg__desc">@Model.Details</p>
+    </div>
+    <div class="weui-msg__opr-area">
+        <p class="weui-btn-area">
+            <a href="javascript:Window.close();" class="weui-btn weui-btn_default">关闭</a>
+        </p>
+    </div>
+</div>
+

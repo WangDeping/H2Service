@@ -1,0 +1,140 @@
+﻿@model H2Service.Equipments.Dto.EquipmentOutput
+@{
+    ViewBag.Title = "设备巡检";
+    Layout = "~/Views/Shared/_WxconfigLayout.cshtml";
+}
+<style type="text/css">
+    .demos-title {
+        color: #1296db;
+    }
+    .weui-btn_primary {
+        background-color: #1296db;
+    }
+</style>
+@if (Model == null)
+{
+    <header class='demos-header'>
+        <h1 class="demos-title">该条码号不存在</h1>
+    </header>
+    return;
+
+}
+
+<header class='demos-header'>   
+    <h1 class="demos-title">@Model.EquipmentTypeName</h1>
+</header>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>设备型号</p>
+        </div>
+        <div class="weui-cell__ft"><p>@Model.EquipmentModelName<input type="hidden" id="EqId" value="@Model.Id" /></p></div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>巡检人员</p>
+        </div>
+        <div class="weui-cell__ft"><p>@ViewBag.UserName</p></div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>巡检日期</p>
+        </div>
+        <div class="weui-cell__ft">@ViewBag.Date</div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>巡检级别</p>
+        </div>
+        <div class="weui-cell__ft">(@ViewBag.PatrolType)</div>
+    </div>
+</div>
+
+<div class="weui-cells">
+    @{var properties = Model.Properties.Where(T => T.PartrolType == ViewBag.PatrolType.ToString());}
+    @foreach (var pro in properties)
+    {   
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>@pro.EquipmentPropertyName</p>
+            </div>
+            <div class="weui-cell__ft">
+                @{
+                    Html.RenderPartial(pro.ViewType,pro.Id);
+                }
+            </div>
+        </div>
+    }
+
+</div>
+
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>检查通过</p>
+        </div>
+        <div class="weui-cell__ft">
+            <input class="weui-switch" id="MainCheck" type="checkbox">
+        </div>
+    </div>
+</div>
+    <div class="weui-cells__title">巡检小结</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <textarea id="summary" class="weui-textarea" placeholder="请输入文本" rows="2"></textarea>
+                <div class="weui-textarea-counter"><span>0</span>/200</div>
+            </div>
+        </div>
+    </div>
+    <div class="weui-btn-area">
+        <a class="weui-btn weui-btn_primary" href="javascript:submitForm()" id="submitBtn">确定</a>
+    </div>
+
+
+    <script>
+        var PATROL_POST_URL = '@Url.Action("Patrol", "Equipment")';
+    function submitForm() {
+        var patrol = new Object();
+        patrol.Summary = $('#summary').val()
+        patrol.EquipmentId = $('#EqId').val()
+        patrol.MainCheck = $('#MainCheck').is(':checked')
+        details=[]
+        $.each($('.shoud_submit'), function (i, ele) {
+            key = $(ele).attr('Id')
+            value=""
+            if ($(ele).attr('type') =="checkbox")
+                value = $(ele).is(':checked');
+            else if ($(ele).attr('type') == "select")
+                value = $(ele).attr('data-values') == null ? "" : $(ele).attr('data-values')
+            else
+                value = $(ele).val()
+            details.push({ Key: key, Value: value })
+
+        })
+        if (details.length==0) {
+            $.toast("无巡视参数", "forbidden");
+            return;
+        }
+        patrol.Details = details
+        $('#submitBtn').addClass("weui-btn_disabled")
+        $.ajax({
+            url: PATROL_POST_URL,
+            contentType:'application/json',
+            type: 'post',
+            data: JSON.stringify(patrol),
+            //data: { Summary: patrol.Summary, EquipmentId: patrol.EquipmentId, Details: patrol.Details},
+            success: function (data) {
+                $.toast("操作成功", function () {
+                   window.location.href="@Url.Action("Index","Equipment")"
+                });
+            },
+            error: function (data) {
+                $.toast("出错了", "cancel");
+                $('#submitBtn').removeClass("weui-btn_disabled")
+            }
+        })
+
+    }
+
+    </script>

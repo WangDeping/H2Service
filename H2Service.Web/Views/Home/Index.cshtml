@@ -5,6 +5,89 @@
 }
 
 @section  subheader_title{
-    Index
+    仪表盘
 }
 
+<div class=" row">
+    <div class="col-lg-12">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                            业务指标
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-portlet__body">               
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 " id="gauge" style="height:300px;padding:0" >                           
+                        </div>                      
+                    </div>
+                    <div class="row align-items-center">
+                         <div class="col-xl-12 " id="dynamicInPat" style="height:300px;padding:0">
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-xl-12 " id="dynamicReg" style="height:300px;padding:0">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+<script>
+    var CURRENTPATS_URL = '@Url.Action("GetCurrentPatients", "Home")';
+    var CURRENTREG_URL='@Url.Action("GetCurrentRegistersQty", "Home")';
+</script>
+<script type="text/javascript"   src="~/Scripts/h2web/report/currentPats.js?v=1.2"> </script>
+<script>
+    var dynamicReg_LineChart = echarts.init(document.getElementById('dynamicReg'));
+    var hourList = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]
+    function InitRegDashChart() {
+        $.get(CURRENTREG_URL, function (result) {
+            dynamicReg_LineChart.setOption({
+                tooltip: {},
+                title: {
+                    text: "每小时挂号数(总共:" + result.Total+")"
+                },
+                grid: {
+                  
+                    left: '0%',
+                    right: '0%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+                xAxis: {
+                    
+                    data: result.HourList
+
+                },
+                yAxis: {
+                    type:'value'
+                },
+                series: [{
+                    name: '挂号人数',
+                    type: 'line',
+                   
+                    data: result.QtyList
+                    }]
+            })//function
+
+        })
+
+    }
+    InitRegDashChart()
+    setInterval(function () {
+        InitRegDashChart();
+    }, 1000 * 60 * 60);
+</script>

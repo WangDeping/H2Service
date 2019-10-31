@@ -1,0 +1,77 @@
+﻿@model H2Service.Users.Dto.UserDto
+@{
+    ViewBag.Title = "我";
+    Layout = "~/Views/Shared/_OnlyJqweuiLayout.cshtml";
+}
+<style>
+    .demos-header {
+     background-color:#fff;
+     height:100px;
+    }    
+    .demos-header .avatar {
+        width: 80px;
+        height: 80px;
+        margin-left: 30px;
+        margin-top: 10px;
+        -moz-border-radius: 15px;
+        -webkit-border-radius: 15px;
+        border-radius: 15px;
+        float:left;
+        display:block;
+    }   
+    .weui_name {
+        margin-top:15px;
+       margin-left:130PX;
+    }
+</style>
+<header class='demos-header'>    
+    <img class="avatar"  src="@Model.AvatarUrl" alt="">   
+    <h2 class="weui_name">@Model.UserName</h2>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__hd"></div>
+        <div class="weui-cell__bd">
+            <p>工号:@Model.UserNumber</p>
+        </div>
+        <div class="weui-cell__ft"><img src="../Content/weui/qrCode_20.png" style="margin-right:5px;display:block"></div>
+    </a>
+</header>
+<div class="weui-cells">
+    
+    <a class="weui-cell weui-cell_access" href="@Url.Action("SetDepartment", "User", new {moduleId=(int)H2Service.Authorization.Departments.H2Module.护理病区})">
+        <div class="weui-cell__hd"><img src="../Content/weui/dept_20.png" alt="" style="margin-right:5px;display:block"></div>
+        <div class="weui-cell__bd">
+            <p>科室</p>
+        </div>
+        <div class="weui-cell__ft">@Model.Birthday</div>
+    </a>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__hd"><img src="../Content/weui/birthday_20.png" alt="" style="margin-right:5px;display:block"></div>
+        <div class="weui-cell__bd">
+            <p>生日</p>
+        </div>
+        <div class="weui-cell__ft">@Model.Birthday</div>
+    </a>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__hd"><img src="../Content/weui/phone_20.png" alt="" style="margin-right:5px;display:block"></div>
+        <div class="weui-cell__bd">
+            <p>手机</p>
+        </div>
+        <div class="weui-cell__ft">@Model.TelPhone</div>
+    </a>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__hd"><img src="../Content/weui/email_20.png" alt="" style="margin-right:5px;display:block"></div>
+        <div class="weui-cell__bd">
+            <p>Email</p>
+        </div>
+        <div class="weui-cell__ft">@Model.Email</div>
+    </a>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__hd"><img src="../Content/weui/notify_20.png" alt="" style="margin-right:5px;display:block"></div>
+        <div class="weui-cell__bd">
+            <p>消息</p>
+        </div>
+        <div class="weui-cell__ft"></div>
+    </a>
+</div>
+
+

@@ -276,6 +276,15 @@ namespace H2Service.Users
 
         }
 
+        public List<UserDto> FindUser(FindUserInput input) {
+            var result = _userRepository.GetAll().WhereIf(!string.IsNullOrEmpty(input.PermissionName), 
+                T => T.Permissions.Any(P => P.PermissionName == input.PermissionName)||
+                T.Roles.Any(R=>R.Permissions.Any(P=>P.PermissionName==input.PermissionName))||
+                T.Departments.Any(D=>D.Permissions.Any(P=>P.PermissionName==input.PermissionName))).ToList();
+            return result.MapTo<List<UserDto>>();
+
+        }
+
     }
 
 

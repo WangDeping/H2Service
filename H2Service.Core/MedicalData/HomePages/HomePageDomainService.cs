@@ -18,7 +18,7 @@ namespace H2Service.MedicalData.HomePages
         private ICDMapCaching _ICDMapCaching;
         private IEventBus _eventBus;
         private CacheConnection conn;
-      
+        private IList<string> _filtterAdmNo = new List<string>() { "IP0000080870", "IP0000080833", "IP0000086884" };
      
         private string bah = "";
         private DateTime cysj;
@@ -34,7 +34,11 @@ namespace H2Service.MedicalData.HomePages
             //conn.ConnectionTimeout = 60 * 15;
 
         }
-
+        /// <summary>
+        /// 获取大夫书写首页
+        /// </summary>
+        /// <param name="admNo"></param>
+        /// <returns></returns>
         public HomePage GetErpHomePage(string admNo) {
             var homepage = new HomePage();
             var cmd = DHCExportService.GetEprInfo(conn);
@@ -49,8 +53,9 @@ namespace H2Service.MedicalData.HomePages
                 homepage.CSRQ =string.IsNullOrEmpty(reader["CSRQ"]+"")?dateNull: DateTime.Parse(reader["CSRQ"]+"").Date;
                 homepage.RYSJ = string.IsNullOrEmpty(reader["RYSJ"] + "") ? dateNull : DateTime.Parse(reader["RYSJ"] + "").Date;
                 homepage.CYSJ = string.IsNullOrEmpty(reader["CYSJ"] + "") ? dateNull : DateTime.Parse(reader["CYSJ"] + "").Date;
-                homepage.RYSJS = string.IsNullOrEmpty(reader["RYSJ"]+"") ? 0 : DateTime.Parse(reader["RYSJ"] + "").Hour;
-                homepage.CYSJS = string.IsNullOrEmpty(reader["CYSJ"] + "") ? 0 : DateTime.Parse(reader["CYSJ"] + "").Hour;
+                homepage.ZKRQ= string.IsNullOrEmpty(reader["ZKRQ"] + "") ? dateNull : DateTime.Parse(reader["ZKRQ"] + "").Date;
+                homepage.RYSJS = reader["RYSJ"]+"";
+                homepage.CYSJS =reader["CYSJ"] + "";
                 homepage.SJZYTS = ToInt32(reader["SJZYTS"]);//实际住院天数
                 homepage.NL =ToInt32(reader["NL"]);//年龄
                 homepage.SFZH = (reader["SFZH"] + "").ToUpper();//身份证
@@ -84,6 +89,7 @@ namespace H2Service.MedicalData.HomePages
                 homepage.ZKKB2MC = reader["_ZKKB2"] + "";//
                 homepage.RYKBMC = reader["_RYKB"] + "";//
                 homepage.CYKBMC = reader["_CYKB"] + "";//
+                homepage.BAZL = reader["BAZL"] + "";//病案质量
             }
             reader.Close();
             conn.Close();
@@ -104,15 +110,27 @@ namespace H2Service.MedicalData.HomePages
                 while (reader.Read())
                 {
                     var admNo = reader["AdmNo"] + "";
+                    if (_filtterAdmNo.Contains(admNo))
+                        continue;
                     var homePage = _homePageRepository.FirstOrDefault(T => T.AdmNo ==admNo);                 
                     homePage = homePage == null ? new HomePage() : homePage;
                     homePage.AdmNo = admNo;
                     this.SetHomePage(ref homePage, reader);
-                    
+
                     if (homePage.Id > 0)
                         _homePageRepository.Update(homePage);
                     else
-                        _homePageRepository.Insert(homePage);
+                    {
+                        try
+                        {
+                            _homePageRepository.Insert(homePage);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Error("同步病案首页出错:" + ex.Message + "日期为:" + dateFrom + "bah:" + bah);
+                            continue;
+                        }                       
+                    }
 
 
                 }
@@ -166,7 +184,14 @@ namespace H2Service.MedicalData.HomePages
             }
         }
 
-        private void SetHomePage(ref HomePage homePage, CacheDataReader reader) {           
+        private void SetHomePage(ref HomePage homePage, CacheDataReader reader) {
+
+            /*homePage.JBMM = reader["JBMM"] + "";
+            homePage.BLZD = reader["BLZD"] + "";
+            homePage.CYSJS = reader["CYSJS"] + "";
+            homePage.RYSJS = reader["RYSJS"] + "";
+            homePage.HLF = ToDecimal(reader["HLF"] + "");*/
+            
             bah = reader["BAH"] + "";
             cysj = ToDateTime(reader["CYSJ"]).Value;
             var mzzd = MapNatDis(reader["JBBM"] + "");
@@ -187,7 +212,7 @@ namespace H2Service.MedicalData.HomePages
             var qtzd13 = MapNatDis(reader["JBDM13"] + "");
             var qtzd14 = MapNatDis(reader["JBDM14"] + "");
             var qtzd15 = MapNatDis(reader["JBDM15"] + "");
-            /***************8个手术与操作编码**********************/
+            ///***************8个手术与操作编码*****************
             var sscz1 = MapNatOper(reader["SSJCZBM1"] + "");
             var sscz2 = MapNatOper(reader["SSJCZBM2"] + "");
             var sscz3 = MapNatOper(reader["SSJCZBM3"] + "");
@@ -205,7 +230,7 @@ namespace H2Service.MedicalData.HomePages
             var qk6 = GetQKDJYHLB(reader["_QKDJ6"] + "");
             var qk7 = GetQKDJYHLB(reader["_QKDJ7"] + "");
             var qk8 = GetQKDJYHLB(reader["_QKDJ8"] + "");
-            /******************************************/
+           /// /****************************************
             homePage.BAH = reader["BAH"] + "";
             homePage.InHosDep = reader["InHosLoc"] + "";
             homePage.OutHosDep = reader["OutHosLoc"] + "";
@@ -291,22 +316,14 @@ namespace H2Service.MedicalData.HomePages
             homePage.MAF = ToDecimal(reader["MAF"] + "");
             homePage.MD = reader["MD"] + "";
             homePage.MZ = reader["MZ"] + "";
-            homePage.MZFS1 = reader["MZFS1"] + "";
-            homePage.MZFS2 = reader["MZFS2"] + "";
-            homePage.MZFS3 = reader["MZFS3"] + "";
-            homePage.MZFS4 = reader["MZFS4"] + "";
-            homePage.MZFS5 = reader["MZFS5"] + "";
-            homePage.MZFS6 = reader["MZFS6"] + "";
-            homePage.MZFS7 = reader["MZFS7"] + "";
-            homePage.MZFS8 = reader["MZFS8"] + "";
-            homePage.MZYS1 = reader["MZYS1"] + "";
-            homePage.MZYS2 = reader["MZYS2"] + "";
-            homePage.MZYS3 = reader["MZYS3"] + "";
-            homePage.MZYS4 = reader["MZYS4"] + "";
-            homePage.MZYS5 = reader["MZYS5"] + "";
-            homePage.MZYS6 = reader["MZYS6"] + "";
-            homePage.MZYS7 = reader["MZYS7"] + "";
-            homePage.MZYS8 = reader["MZYS8"] + "";
+            homePage.MZFS1 =MapMZFS(reader["MZFS1"] + "");
+            homePage.MZFS2 = MapMZFS(reader["MZFS2"] + "");
+            homePage.MZFS3 = MapMZFS(reader["MZFS3"] + "");
+            homePage.MZFS4 = MapMZFS(reader["MZFS4"] + "");
+            homePage.MZFS5 = MapMZFS(reader["MZFS5"] + "");
+            homePage.MZFS6 = MapMZFS(reader["MZFS6"] + "");
+            homePage.MZFS7 = MapMZFS(reader["MZFS7"] + "");
+            homePage.MZFS8 = MapMZFS(reader["MZFS8"] + "");
             homePage.MZZD = mzzd[1];
             homePage.NL = ToInt32(reader["NL"]);
             homePage.NXYZLZPF = ToDecimal(reader["NXYZLZPF"] + "");
@@ -363,14 +380,16 @@ namespace H2Service.MedicalData.HomePages
             homePage.RYBQ13 = reader["RYBQ13"] + "";
             homePage.RYBQ14 = reader["RYBQ14"] + "";
             homePage.RYBQ15 = reader["RYBQ15"] + "";
+            homePage.RYH_T = ToInt32(reader["RYH_T"]);
+            homePage.RYH_XS = ToInt32(reader["RYH_XS"]);
             homePage.RYH_F = ToInt32(reader["RYH_F"]);
             homePage.RYKB = reader["RYKB"] + "";////////////
             homePage.RYQ_T = ToInt32(reader["RYQ_T"]);
             homePage.RYQ_XS = ToInt32(reader["RYQ_XS"]);
             homePage.RYQ_F = ToInt32(reader["RYQ_F"]);
             homePage.RYSJ = ToDateTime(reader["RYSJ"]);
-            homePage.RYSJS = ToInt32(reader["RYSJS"]);
-            homePage.CYSJS = ToInt32(reader["CYSJS"]);
+            homePage.RYSJS = reader["RYSJS"]+"";
+            homePage.CYSJS = reader["CYSJS"]+"";
             homePage.RYTJ = reader["RYTJ"] + "";
             homePage.SFZH = (reader["SFZH"] + "").ToUpper();
             homePage.SFZJLB = reader["SFZJLB"] + "";
@@ -502,6 +521,7 @@ namespace H2Service.MedicalData.HomePages
             homePage.QKDJ6MC = reader["_QKDJ6"] + "";
             homePage.QKDJ7MC = reader["_QKDJ7"] + "";
             homePage.QKDJ8MC = reader["_QKDJ8"] + "";
+            
 
         }
 
@@ -657,6 +677,21 @@ namespace H2Service.MedicalData.HomePages
                  return new string[] { "1", "" };
             else                
                  return new string[] { qkmc.Split('/')[0],qkmc.Split('/')[1] };
+
+        }
+
+        /// <summary>
+        /// 我院首页的42静吸复合全，但山东省是42针药复合麻醉 41静吸复合麻醉，故把我院的42修改为41，新增42.1针药复合麻醉映射为42
+        /// </summary>
+        /// <param name="mzfs">麻醉方式</param>
+        /// <returns></returns>
+        private string MapMZFS(string mzfs) {
+            if (mzfs == "42")
+                return "41";
+            else if (mzfs == "42.1")
+                return "42";
+            else
+                return mzfs;                
 
         }
     }

@@ -25,6 +25,7 @@ namespace H2Service.Users.Dto
         
         public string TelPhone2 { get; set; }
         
+        public string Birthday { get; set; }
         public Gender Gender { get; set; }
 
         public string Email { get; set; }

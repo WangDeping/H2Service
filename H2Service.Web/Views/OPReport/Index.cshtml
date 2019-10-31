@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section  subheader_title{
+    门诊报表
+}
+
+<div class=" row">
+    <div class="col-lg-4">
+        @{
+            Html.RenderPartial("_PatQtyGrid");
+        }
+
+
+    </div>
+
+    <div class="col-lg-8">
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="m-portlet__head-text">
+                           报表分析
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <!--<form class="m-form m-form--fit">-->
+            <div class="m-portlet__body">
+                <div class="m-form__section m-form__section--first">
+                    <div class="form-group m-form__group">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div  id='patQtyBar' style="height:300px;padding:0">
+                                  
+                                </div>
+                            </div>                          
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!--</form>-->
+            <!--end::Form-->
+        </div>
+    </div>
+</div>   
+@section scriptsection{
+    <script src="@Scripts.Url("~/Scripts/h2web/report/opatsQty.js")"></script>
+    <script>
+        var OPQTYINPERIOD_URL='@Url.Action("GetOPQtyGroupPeriod", "OPReport")';
+        var pats_bar = echarts.init(document.getElementById('patQtyBar'));
+        function QueryQtyPeriod() {
+            $.get(OPQTYINPERIOD_URL, function (result) {
+                pats_bar.setOption({
+                    tooltip: {},
+                    title: {
+                        text: ""
+                    },
+                    grid: {
+                        top:'5%',
+                        left: '0%',
+                        right: '0%',
+                        bottom: '0%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        data: result.PeriodList
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        name: '就诊人次',
+                        type: 'line',
+                        data: result.QtyList
+                    }]
+                })//function
+
+            })
+
+        }
+
+        QueryQtyPeriod()
+    </script>
+
+}    

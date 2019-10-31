@@ -20,5 +20,9 @@ namespace App.Controllers
 
         }
 
+        public ActionResult Exception(Exception ex) {
+            return View(ex);
+        }
+
     }
 }

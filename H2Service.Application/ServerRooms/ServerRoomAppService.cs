@@ -64,10 +64,10 @@ namespace H2Service.ServerRooms
             var int_depId = int.Parse(depId);
             using (_unitOfWorkManager.Current.DisableFilter(AbpDataFilters.SoftDelete))
             {
-                var query = roomId == null ? _serverRoomPartrolRepository.GetAll().Where(T => T.ServerRoom.DepartmentId == int_depId) : _serverRoomPartrolRepository.GetAll().Where(e => e.ServerRoomId == roomId);
+                var query = roomId == null ? _serverRoomPartrolRepository.GetAll().Where(T => T.ServerRoom.DepartmentId == int_depId).OrderByDescending(T=>T.CreationTime) : _serverRoomPartrolRepository.GetAll().Where(e => e.ServerRoomId == roomId).OrderByDescending(T => T.CreationTime);
                 var partrolsCount = query.Count();
                 var partrolsList = query.OrderByDescending(T => T.Id).Skip(input.SkipCount).Take(input.MaxResultCount).ToList();
-                return new PagedResultDto<ServerRoomPatrolDto> { Items = partrolsList.MapTo<List<ServerRoomPatrolDto>>(), TotalCount = partrolsCount };
+                return new PagedResultWithSumDto<ServerRoomPatrolDto> { Items = partrolsList.MapTo<List<ServerRoomPatrolDto>>(), TotalCount = partrolsCount };
             }
          
          

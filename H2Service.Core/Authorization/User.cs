@@ -31,8 +31,9 @@ namespace H2Service.Authorization
         public string AvatarUrl { get; set; }
         [Required]
         public string TelPhone { get; set; }
-        public string TelPhone2 { get; set; }        
+        public string TelPhone2 { get; set; }          
         public Gender Gender { get; set; }
+        public string Brithday { get; set; }
         public string Email { get; set; }
         public long? CreatorUserId { get ; set ; }
         public DateTime CreationTime { get ; set ; }

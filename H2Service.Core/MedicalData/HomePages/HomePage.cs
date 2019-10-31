@@ -76,7 +76,7 @@ namespace H2Service.MedicalData
         public string RYTJ { get; set; }
         public string ZZYLJGMC { get; set; }
         public DateTime? RYSJ { get; set; }
-        public int? RYSJS { get; set; }
+        public string RYSJS { get; set; }
         public string RYKB { get; set; }
         public string RYKBMC { get; set; }
         public string RYBF { get; set; }
@@ -87,7 +87,7 @@ namespace H2Service.MedicalData
         public string ZKKB2 { get; set; }
         public string ZKKB2MC { get; set; }
         public DateTime? CYSJ { get; set; }
-        public int? CYSJS { get; set; }
+        public string CYSJS { get; set; }
         public string CYKB { get; set; }
         public string CYKBMC { get; set; }
         public string CYBF { get; set; }

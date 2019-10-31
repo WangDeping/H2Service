@@ -1,0 +1,112 @@
+﻿@model IReadOnlyList<H2Service.Equipments.Dto.EquipmentOutput>
+<header class='demos-header'>
+    <div class="weui-grid__icon">
+        <img src="../Content/weui/scan.png" alt="" onclick="scanCode()">       
+    </div>   
+</header>
+@{
+    Html.RenderPartial("_GetGrids", Model);
+}
+<div id="popuphalf" class='weui-popup__container popup-bottom' style="z-index:9000">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal">
+        <div class="toolbar">
+            <div class="toolbar-inner">
+                <a href="#" class="picker-button close-popup">关闭</a>
+                <h1 class="title">操作</h1>
+            </div>
+        </div>
+        <div class="modal-content">
+            <div class="weui-grids">
+                <a href="javascript:toPatrolView();" class="weui-grid js_grid" data-id="patrol">
+                    <div class="weui-grid__icon">
+                        <img src="../Content/weui/patrol.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                      日常巡检
+                    </p>
+                </a>
+                <a href="javascript:toUsageView();" class="weui-grid js_grid" data-id="progress">
+                    <div class="weui-grid__icon">
+                        <img src="../Content/weui/patient.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        患者使用
+                    </p>
+                </a>
+                <a href="javascript:inputBorrowUser();" class="weui-grid js_grid close-popup" data-id="msg">
+                    <div class="weui-grid__icon">
+                        <img src="../Content/weui/loan.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        外借/归还
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui-grid js_grid" data-id="dialog">
+                    <div class="weui-grid__icon">
+                        <img src="../Content/weui/repair.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                       一键报修
+                    </p>
+                </a>
+           
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var code = ""
+    function scanCode() {
+        wx.scanQRCode({
+            desc: 'scanQRCode desc',
+            needResult: 1, // 默认为0，扫描结果由企业微信处理，1则直接返回扫描结果，
+            success: function (res) {
+                var result = res.resultStr;
+                var barCode = getBarCode(result);
+                if (barCode.length > 6) {
+                    code = barCode;// "220000042"
+                    $("#popuphalf").popup();
+                }
+            },
+            error: function (res) {
+                if (res.errMsg.indexOf('function_not_exist') > 0) {
+                    alert('版本过低请升级')
+                }
+            }
+        });
+    }
+    function getBarCode(resultStr) {
+        var serial = resultStr.split(",");
+        var barCode = serial[serial.length - 1];
+        return barCode;
+    }
+    function toPatrolView() {
+        if (code.length <= 6)
+            return;
+        window.location = '@Url.Action("PatrolView", "Equipment")' + "?code=" + code;
+    }
+    function toUsageView() {
+        if (code.length<= 6)
+            return;
+        window.location = '@Url.Action("UsageView", "Equipment")' + "?code=" + code;
+    }
+    function inputBorrowUser() {
+        if (code.length<= 6)
+            return;
+        $.prompt({
+            title: '输入人员工号',
+            text: '',
+            input: '',
+            empty: false, // 是否允许为空
+            onOK: function (input) {
+                window.location = '@Url.Action("PreviewLoan", "Equipment")' + "?Code=" + code + "&UserNumber=" + input;
+            },
+            onCancel: function () {
+                //点击取消
+            }
+        });
+    }
+</script>

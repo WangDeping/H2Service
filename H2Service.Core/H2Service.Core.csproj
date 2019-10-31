@@ -262,6 +262,15 @@
     <Compile Include="Authorization\User.cs" />
     <Compile Include="Authorization\Permissions\UserPermission.cs" />
     <Compile Include="Authorization\UserManager.cs" />
+    <Compile Include="Equipments\Equipment.cs" />
+    <Compile Include="Equipments\EquipmentLoanLog.cs" />
+    <Compile Include="Equipments\EquipmentModel.cs" />
+    <Compile Include="Equipments\EquipmentPatrolDetail.cs" />
+    <Compile Include="Equipments\EquipmentProperty.cs" />
+    <Compile Include="Equipments\EquipmentStatus.cs" />
+    <Compile Include="Equipments\EquipmentType.cs" />
+    <Compile Include="Equipments\EquipmentPatrolLog.cs" />
+    <Compile Include="Equipments\EquipmentUsageLog.cs" />
     <Compile Include="Events\CreateUserEventData.cs" />
     <Compile Include="Events\DeleteUserEventData.cs" />
     <Compile Include="Events\Handler\CreateUserEventHandler.cs" />
@@ -270,10 +279,12 @@
     <Compile Include="Events\Handler\MeritPayEventHandler.cs" />
     <Compile Include="Events\Handler\SalaryEventHandler.cs" />
     <Compile Include="Events\Handler\TestEventHandler.cs" />
+    <Compile Include="Events\Handler\WxSendEventHandler.cs" />
     <Compile Include="Events\HomePageValidateEventData.cs" />
     <Compile Include="Events\MeritPayCreateEventData.cs" />
     <Compile Include="Events\SalaryCreateEventData.cs" />
     <Compile Include="Events\TestEventData.cs" />
+    <Compile Include="Events\WxNotifyEventData.cs" />
     <Compile Include="Extensions\H2AbpSession.cs" />
     <Compile Include="Extensions\IAbpSessionExtension.cs" />
     <Compile Include="H2ServiceConsts.cs" />
@@ -284,6 +295,8 @@
     <Compile Include="Log\LoginLog.cs" />
     <Compile Include="Maintenances\MaintenanceOrder.cs" />
     <Compile Include="Maintenances\MaintenanceTrace.cs" />
+    <Compile Include="MedicalData\DataQuery\CurrentDataDomainService.cs" />
+    <Compile Include="Equipments\EquipmentKind.cs" />
     <Compile Include="MedicalData\HomePages\HomePage.cs" />
     <Compile Include="MedicalData\HomePages\HomePageDomainService.cs" />
     <Compile Include="MedicalData\HomePages\HomePageValidateMessage.cs" />
@@ -296,6 +309,9 @@
     <Compile Include="MedicalData\ICDMaps\SD_Nat_ICD10.cs" />
     <Compile Include="MedicalData\ICDMaps\SD_Nat_ICD9CM3.cs" />
     <Compile Include="MedicalData\IntersystemsCache.cs" />
+    <Compile Include="MedicalData\OPMedicalDiagnose\OPMedicalDiagnose.cs" />
+    <Compile Include="MedicalData\OPMedicalDiagnose\OPMedicalDiagnoseDomainService.cs" />
+    <Compile Include="MedicalData\Users\PatientSample.cs" />
     <Compile Include="MedicalData\Users\UserDomainService.cs" />
     <Compile Include="MedicalWastes\IMedicalWasteDomainService.cs" />
     <Compile Include="MedicalWastes\MedicalWaste.cs" />

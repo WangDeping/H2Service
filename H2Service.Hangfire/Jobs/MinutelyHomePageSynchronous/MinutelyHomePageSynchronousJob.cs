@@ -23,7 +23,7 @@ namespace H2Service.Hangfire.Jobs.MonthlyHomePageSynchronous
         public override void ExecuteJob(MinutelyHomePageSynchronousJobArgs aParams)
         {
             //开始时间从web.cofig存入到redis中,以后都从redis中获取
-            var dateFrom = DateTime.Parse(_cacheManager.GetCache("SynchronousHomePageDate").Get("HomePage", () =>
+            var dateFrom = DateTime.Parse(_cacheManager.GetCache("SynchronousDate").Get("HomePage", () =>
                 {
                     return WebConfigurationManager.AppSettings["HomePageSynchronousJobDateFrom"];
                 }));
@@ -35,7 +35,7 @@ namespace H2Service.Hangfire.Jobs.MonthlyHomePageSynchronous
                 var strDateFrom = dateFrom.ToString("yyyy-MM-dd");              
                 _homePageDomainService.SynchronousHomePage(strDateFrom, strDateFrom);
                 _logAppService.LogError(strDateFrom+"病案首页同步完成");
-                _cacheManager.GetCache("SynchronousHomePageDate").Set("HomePage", dateFrom.AddDays(1).ToString("yyyy-MM-dd"));                
+                _cacheManager.GetCache("SynchronousDate").Set("HomePage", dateFrom.AddDays(1).ToString("yyyy-MM-dd"));                
             }
         }
     }

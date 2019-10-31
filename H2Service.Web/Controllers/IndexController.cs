@@ -21,7 +21,7 @@ namespace H2Service.Web.Controllers
         // GET: Index
         public ActionResult Index()
         {
-            _smsManagerAppService.Test();
+         
             return View();
         }
     }

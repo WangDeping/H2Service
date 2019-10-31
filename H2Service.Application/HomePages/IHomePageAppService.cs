@@ -37,7 +37,30 @@ namespace H2Service.HomePages
         /// <param name="input"></param>
         /// <returns></returns>
         bool QCValidate(QCValidateInput input);
-
-
+        /// <summary>
+        /// 完善病历后通知住院总
+        /// </summary>
+        /// <param name="Id">通知Id</param>
+        void CorrectThenNotify(int Id);
+        /// <summary>
+        /// 住院总审核通过问题病历
+        /// </summary>
+        /// <param name="Id">消息Id</param>
+        void PassValidate(int Id);
+        /// <summary>
+        /// 住院总审核回退
+        /// </summary>
+        /// <param name="Id"></param>
+        void NoPassValidate(int Id);
+        /// <summary>
+        /// 删除消息
+        /// </summary>
+        /// <param name="Id">Id</param>
+        void DeleteMessage(int Id);
+        /// <summary>
+        /// 病案归档上架
+        /// </summary>
+        /// <param name="bah"></param>
+        void FileHomePage(string bah);
     }
 }

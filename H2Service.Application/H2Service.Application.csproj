@@ -299,6 +299,7 @@
     <Compile Include="Account\Dto\DepartmentTreeSelect2Output.cs" />
     <Compile Include="Account\Dto\DepartmentUserDto.cs" />
     <Compile Include="Account\Dto\DistrictDto.cs" />
+    <Compile Include="Account\Dto\FindUserInput.cs" />
     <Compile Include="Account\Dto\RoleUserDto.cs" />
     <Compile Include="Account\Dto\Select2UsersInDepartmetInput.cs" />
     <Compile Include="Account\Dto\UpdateUserInput.cs" />
@@ -327,7 +328,38 @@
     <Compile Include="Dto\PagedAndSortedInputDto.cs" />
     <Compile Include="Dto\PagedAndFilteredInputDto.cs" />
     <Compile Include="Dto\PagedInputDto.cs" />
+    <Compile Include="Dto\PagedResultWithSumDto.cs" />
     <Compile Include="Dto\PagedSortedAndFilteredInputDto.cs" />
+    <Compile Include="Equipments\Dto\CreateEquipmentInput.cs" />
+    <Compile Include="Equipments\Dto\CreatePatrolInput.cs" />
+    <Compile Include="Equipments\Dto\CreateUsageInput.cs" />
+    <Compile Include="Equipments\Dto\DoneLoanLogInput.cs" />
+    <Compile Include="Equipments\Dto\EndUsageInput.cs" />
+    <Compile Include="Equipments\Dto\EquipmentKindDto.cs" />
+    <Compile Include="Equipments\Dto\EquipmentLoanLogDto.cs" />
+    <Compile Include="Equipments\Dto\EquipmentModelDto.cs" />
+    <Compile Include="Equipments\Dto\EquipmentOutput.cs" />
+    <Compile Include="Equipments\Dto\EquipmentPatrolDetailDto.cs" />
+    <Compile Include="Equipments\Dto\EquipmentPatrolLogDto.cs" />
+    <Compile Include="Equipments\Dto\EquipmentPropertyDto.cs" />
+    <Compile Include="Equipments\Dto\EquipmentTypeDto.cs" />
+    <Compile Include="Equipments\Dto\EquipmentUsageLogDto.cs" />
+    <Compile Include="Equipments\Dto\GetEquipmentInput.cs" />
+    <Compile Include="Equipments\Dto\GetNeedPatrolEquipmentInput.cs" />
+    <Compile Include="Equipments\Dto\GetPagedLoanlLogsInput.cs" />
+    <Compile Include="Equipments\Dto\GetPatrolLogsInput.cs" />
+    <Compile Include="Equipments\Dto\GetUsagelLogsInput.cs" />
+    <Compile Include="Equipments\Dto\LoanEquipmentInput.cs" />
+    <Compile Include="Equipments\EquipmentAppService.cs" />
+    <Compile Include="Equipments\EquipmentKindTypeAppService.cs" />
+    <Compile Include="Equipments\EquipmentLoanAppService.cs" />
+    <Compile Include="Equipments\EquipmentPatrolAppService.cs" />
+    <Compile Include="Equipments\EquipmentUsageAppService.cs" />
+    <Compile Include="Equipments\IEquipmentAppService.cs" />
+    <Compile Include="Equipments\IEquipmentKindTypeAppService.cs" />
+    <Compile Include="Equipments\IEquipmentLoanAppService.cs" />
+    <Compile Include="Equipments\IEquipmentPatrolAppService.cs" />
+    <Compile Include="Equipments\IEquipmentUsageAppService.cs" />
     <Compile Include="External\Dto\ExternalUserDto.cs" />
     <Compile Include="External\Dto\GetExternalUsersInput.cs" />
     <Compile Include="External\Dto\GetExternalUserByCodeOutput.cs" />
@@ -345,10 +377,12 @@
     <Compile Include="Helpers\DownLoadHelper.cs" />
     <Compile Include="Helpers\QrCodeHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
+    <Compile Include="Helpers\UtilsHelper.cs" />
     <Compile Include="HomePages\Dto\HomePageValidateMessageDto.cs" />
     <Compile Include="HomePages\Dto\QCValidateInput.cs" />
     <Compile Include="HomePages\Dto\ValidateOutput.cs" />
     <Compile Include="HomePages\HomePageAppService.cs" />
+    <Compile Include="HomePages\Validate\HomePageDateValidate.cs" />
     <Compile Include="HomePages\Validate\HomePageDepValidate.cs" />
     <Compile Include="HomePages\Validate\HomePageICDValidate.cs" />
     <Compile Include="HomePages\IHomePageAppService.cs" />
@@ -383,12 +417,23 @@
     <Compile Include="MeritPays\Dto\MeritPayPeriodDto.cs" />
     <Compile Include="MeritPays\IMeritPayAppService.cs" />
     <Compile Include="MeritPays\MeritPayAppService.cs" />
+    <Compile Include="OPDiagnose\IOPDiagnoseAppService.cs" />
+    <Compile Include="OPDiagnose\OPDiagnoseAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QC\Dto\GetPagedFunctionalDepartmentDetailsInput.cs" />
     <Compile Include="QC\Dto\QCAppraisalPeriodDto.cs" />
     <Compile Include="QC\Dto\QCDetailDto.cs" />
     <Compile Include="QC\IQCAppService.cs" />
     <Compile Include="QC\QCAppService.cs" />
+    <Compile Include="Reports\OP\Dto\GetOutPatientsInPeriodInput.cs" />
+    <Compile Include="Reports\OP\Dto\GetOutPatientsInPeriodOutput.cs" />
+    <Compile Include="Reports\OP\Dto\GetOutPatientsQtyByDepInput.cs" />
+    <Compile Include="Reports\OP\Dto\GetOutPatientsQtyByDepOutput.cs" />
+    <Compile Include="Reports\OP\Dto\OPQtyMonthDto.cs" />
+    <Compile Include="Reports\OP\IOPReportAppService.cs" />
+    <Compile Include="Reports\OP\OPReportAppService.cs" />
+    <Compile Include="Reports\PatientsReportAppService.cs" />
+    <Compile Include="Reports\IPatientsReportAppService.cs" />
     <Compile Include="Salaries\Dto\CreateSalaryPeriodInput.cs" />
     <Compile Include="Salaries\Dto\PersonalSalaryInput.cs" />
     <Compile Include="Salaries\Dto\PersonalSalaryOutput.cs" />
@@ -429,6 +474,7 @@
     <Compile Include="Account\Dto\UserDto.cs" />
     <Compile Include="Account\IUserAppService.cs" />
     <Compile Include="Account\UserAppService.cs" />
+    <Compile Include="SMS\Dto\SMSSendInput.cs" />
     <Compile Include="SMS\ISMSManagerAppService.cs" />
     <Compile Include="SMS\SMSManagerAppService.cs" />
   </ItemGroup>
@@ -450,7 +496,10 @@
       <Name>H2Service.WxWork</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Equipments\Extensions\" />
+    <Folder Include="Reports\Dto\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
